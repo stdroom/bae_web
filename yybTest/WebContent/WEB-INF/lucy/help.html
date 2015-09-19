@@ -1,0 +1,244 @@
+<html>
+<head>
+<title>Lucy帮助</title>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk">
+<style type="text/css">
+<!--
+body{background-color:#CAC79D;margin:6px;font-size:10pt;font-family:Arial,Helvetica,sans-serif;letter-spacing:1px;text-align:center}
+#center{margin-right:auto;margin-left:auto;}
+#outer{background-color:#FFFFFF;border: 1px solid #7C7843;width:95%;}
+#bar{background-color:#8D884B;height:1px;}
+#body{padding:12px;}
+#about{position:absolute;top:102px;right:10px;width:20px;writing-mode:tb-rl;filter:flipH() flipV() alpha(opacity=50);}
+span{background-color:#dddddd;}
+h3{margin-bottom:0px;margin:12px,12px,6px,12px;}
+b{color:#00468C;}
+hr{border-top:1px solid #aaaaaa;border-bottom:0px solid #aaaaaa;height: 0px;}
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:hover {text-decoration: underline;}
+a:active {text-decoration: none;}
+-->
+</style>
+</head>
+<body>
+<div id="outer" align="left">
+<div id="head">
+<h3><i>Lucy帮助</i></h3>
+</div>
+<div id="bar"></div>
+<div id="body">
+<b>Lucy是什么?</b>
+<hr width="30%" align="left">
+&nbsp;&nbsp;&nbsp;&nbsp;
+某天,我想管理服务器上的JSP文件,但是却发现手头没有FTP软件。
+这真是一件另人头疼的事情，而如果服务器不在你旁边,或者服务器对你进行了各种限制,那将是更头痛的事情。
+此时我想到JAVA是一个强大的语言，应该可以制作一个管理文件的系统才对，我开始在网上搜索是否有一些开源的文件管理系统。
+但是另人遗憾的是，在网上搜索的这些系统要么错误多多，要么只是作者做来玩玩练习一下编程而已。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+后来我找到了www.vonloesch.de的jspbrowser,这真是一个强大的系统，这个系统对我影响很大。
+但是，在使用一段时间后，发现他还是有很多错误，而且存在很多问题，导致很难上手。
+所以我开始制作一个属于自己的,能被使用的，可扩展的，基于JSP的文件管理器。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+这里我在自己的原来作品PJ's FileManager基础上，参考了jspbrowser的一些优秀功能。加入了很多功能，提供更多的错误提示，使之更容易使用。同时改变了上传的模式，将一些不实用的功能分离出来。
+因为将他们分离到另外页面了，使得这些功能可以得到更大的发挥空间，也更容易被扩展。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+我的总体设计思路就是这样--单个页面已经可以使用常用功能，又可以制作不同扩展页面丰富它，一个可以被用于实际，可扩展，容易使用的JSP文件管理器。
+<br><br><br>
+<b>此帮助页面</b>
+<hr width="30%" align="left">
+&nbsp;&nbsp;&nbsp;&nbsp;
+我的总体设计思路是制作一个容易使用的JSP文件管理器。所以在这里提供一个比较详细的帮助页面，
+即使你从来没有接触过JSP的编程和服务器的使用也可以根据提示一步一步地学会使用他。
+在此帮助页面将尽可能记录更多关于Lucy的细节。希望能够对使用的人有所帮助。
+不过这个帮助页面不是一次过写成的，每次我想到一些东西都会加上去，所以排序可能有些混乱。
+<br><br><br>
+<b>我想这是JAVA的BUG</b>
+<hr width="30%" align="left">
+&nbsp;&nbsp;&nbsp;&nbsp;
+当用FILE类的createNewFile()创建一个文件，假设创建一个文件名为a的文件，没有后缀，然后又用mkdir()创建一个文件名为a的目录，此时报错，错误是java.io.IOException: 拒绝访问。
+反过来也一样先创建一个a目录，再创建一个a文件也同样报错java.io.IOException: 拒绝访问。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+也许是创建一个新的FILE对象时，JAVA并没有区分文件和文件夹。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<span>这导致了不能创建一个与文件夹同名的文件，例如你已经创建了一个名为"a"的文件夹，就不能创建一个"a"的文件（没有后缀）,反过来也一样。</span><br>
+<br><br><br>
+<b>如何开始使用</b>
+<hr width="30%" align="left">
+&nbsp;&nbsp;&nbsp;&nbsp;
+作为一个JSP文件使用起来很简单，首先你要具备一个JAVA运行的环境--jre,然后需要一个jsp的服务器软件--如tomcat，我想这些你都已经具备了。
+接下来把这个JSP文件拷贝到服务器软件的WEB目录，例如在webapps目录下建立一个目录abc,那么把JSP文件拷贝他它里面，你还可以修改这个JSP文件的名称，关于配置会在下面讲到。<br>
+&nbsp;&nbsp;&nbsp;&nbsp;这里假设你把index.jsp放在webappas\a\index.jsp。
+那么启动tomcat,在浏览器中输入http://localhost:8080/a/index.jsp 如果能见到界面就表示成功了。
+<br>
+<br><br><br>
+<b>配置</b>
+<hr width="30%" align="left">
+你可以对index.jsp进行一些简单配置，用记事本打开index.jsp在最上面就可以看到他们，
+在这个版本里面的配置有：<br>
+<span>index.jsp:</span><br>
+<ul>
+<li>LUCY=页面名称，如果不改文件名，就不要改了;</li>
+<li>EDITOR=文本编辑器的页面名称;</li>
+<li>VIEWER=预览页面的名称;</li>
+<li>UPLOAD_FILENAME=上传扩展组件Upload tools,的页面名称;</li>
+</ul>
+这是一些简单配置，默认值已经可以使用了，所以建议不更改他们。<br>
+也可以对其他页面进行配置:<br>
+<span>editor.jsp</span><br>
+<ul>
+<li>EDITOR = 页面名称;</li>
+<li>EDITFIELD_COLS = 文本框的行数;</li>
+<li>EDITFIELD_ROWS = 文本框的列数;</li>
+</li>
+</ul>
+<span>viewer.jsp</span><br>
+<ul>
+<li>VIEWER = 文件名;</li>
+<li>USE_PATHTOURL=true或false;</li><br>
+<span>路径与URL的自动转换,能够将服务器中的文件路径转化为url路径<br>
+如果不使用此功能,即设置USE_PATHTOURL=false,系统将用读取的方式访问此文件,而不是url<br></span><br>
+<li>AUTOSET_PATHTOURL=true或false;</li><br>
+<span>url地址可以由系统自动生成,也可手动配置,<br>
+如果AUTOSET_PATHTOURL=true,系统自动设置.AUTOSET_PATHTOURL=false,要手动输入HOME_URL和HOME_PATH两个参数<br></span><br>
+<li>HOME_URL =域名,如"http://localhost:8080";</li>
+<li>HOME_PATH =服务器路径;如:"E:\\Program Files\\Apache Software Foundation\\Tomcat 6.0\\webapps"</li>
+<br>
+<span>HOME_URL,HOME_PATH需要在USE_PATHTOURL=true的情况下才生效<br>
+无论任何情况都不要注释掉HOME_URL,和HOME_PATH,否则会返回未定义错误<br></span><br>
+<li>ISTOMCAT=true或false;,服务器是否是tomcat
+</ul>
+<br><br><br>
+<b>文件数量是如何计算的</b>
+<hr width="30%" align="left">
+假如C盘有a目录，他以下有两个文件1.txt,2.txt那么当你删除a目录的时候，将会提示3个文件已删除。
+因为a目录作为一个路径也当作一个文件。<br>
+即：<br>
+c:\a <br>
+c:\a\1.txt <br>
+c:\a\2.txt <br>
+<br><br><br>
+<b>不能移动/复制/删除某文件，其后的操作队列将继续</b>
+<hr width="30%" align="left">
+假如C盘有以下三个文件1.txt,2.txt,3.txt即：<br>
+c:\1.txt <br>
+c:\2.txt <br>
+c:\3.txt <br>
+当你一次删除这3个文件,当进行到2.txt无法删除的时候，操作会继续删除3.txt,并返回无法删除2.txt的提示<br>
+移动和复制亦同理。
+<br><br><br>
+<b>某些文件的重命名功能可能打不开</b>
+<hr width="30%" align="left">
+在使用中发现含有单引号的文件（如a'b.txt）重命名功能打不开，这主要是由于JAVASCRIPT的参数传递问题引起的<br>
+<br><br><br>
+<b>文件名过滤器</b>
+<hr width="30%" align="left">
+有些字母使用文件名过滤器会出现一些问题，例如s，输入字母s却不能搜索含有s的文件<br>
+已经修正,原因是图片之前有一个空格&amp;nbsp;所以任何一个文件名前都有这n,b,s,p字符,所以看起上来好象过滤器不起作用<br>
+<br><br>
+<b>安全管理器和服务器配置</b>
+<hr width="30%" align="left">
+JAVA的安全管理器可能限制了一些功能，如读写文件，删除文件之类，这会返回一个错误，你可以在程序提示中看到<br>
+服务器的配置可能限制了一些功能，如限制file类的访问目录的范围，即系统不能遍历所有目录<br>
+<br><br><br>
+<b>jspSmartUpload组件</b>
+<hr width="30%" align="left">
+jspSmartUpload组件被用于扩展工具Upload Tools中<br>
+jspsmartupload是由www.jspsmart.com网站开发的一个可免费使用的全功能的文件上传下载组件<br>
+在jspsmartupload中可以找到这样几句代码：<br>
+m_totalBytes = m_request.getContentLength();//获得POST方法发送的数据总长度<br>
+m_binArray = new byte[m_totalBytes];//创建一个与数据长度等长的数组<br>
+这带来的问题是如果上传的文件越大，这个数组就越大，这可能会占用很多的内存开销<br>
+<br><br><br>
+<b>用户验证</b>
+<hr width="30%" align="left">
+制作了一个简单的session用户验证页面,由1个文件组成login.jsp<br>
+如果需要用户验证就在index.jsp头部include login.jsp<br>
+如&lt;%@ include file = "login.jsp"%&gt;<br>
+如果index.jsp改了其他名字,就修改login.jsp里面的参数LUCY_FILENAME吧<br>
+而如果想更改用户名和密码,就修改里面那个数组吧.<br>
+private static final String[][] UsnAndPsd=
+{
+{"test","test"},
+{"onlypj","123456"}
+};
+前面的是用户名,后面的是密码,可以看到这里定义有两个用户.
+<br><br><br>
+<b>不同浏览器的支持</b>
+<hr width="30%" align="left">
+我只在IE6上测试了....<br>
+<br><br><br>
+<b>没有对HTML符号进行验证</b>
+<hr width="30%" align="left">
+假如建立一个文件&amp;lt;他可能被显示成&lt;,而且无法删除和重命名,但是这是偶然情况,所以我没有对这些古怪文件进行验证<br>
+<br><br><br>
+<b>扩展功能</b>
+<hr width="30%" align="left">
+一些扩展页面可以丰富lucy的功能:<br>
+<span>upload.jsp</span><br>
+采用目前流行的两种上传组件,jspsmartupload和common-fileupload制作的上传页面,可以按喜好选择使用其中之一,能同时上传最多5个文件<br>
+设置:<br>
+<ul>
+<li>UPLOAD_FILENAME = "uploadtools.jsp";</li>
+<br><br><br>
+<span>------jspsmartupload------</span><br>
+<li>JSM_USE_SINGLEMAXSIZEE = true;</li><br>
+<span>是否使用每个文件上传最大size限制 true=使用, false=不使用</span>
+<li>JSM_SINGLEMAXSIZE = 1048576;</li><br>
+<span>设置每个文件最大的size,单位是字节,1M=1024X1024=1048576</span><br><br><br>
+<span>------commons-fileupload------</span><br>
+<li>CFU_USE_TOTALMAXSIZE = true;</li><br>
+<span>是否使用总共文件上传最大size限制 true=使用, false=不使用</span>
+<li>CFU_TOTALMAXSIZE = 5*1024*1024;</li><br>
+<span>设置总共文件最大的size,单位是字节</span>
+</ul>
+<br><br><br>
+<b>更多功能</b>
+<hr width="30%" align="left">
+为了保持lucy的简易和性能,有许多已经可以实现的功能未被加到1.0这个版本中,它们有:<br>
+<ul>
+<li>分页功能</li><br>
+总有些服务器软件设定了访问的流量限制,如Zeus(一款PHP服务器管理软件)可以设置每个响应的最大流量限制,如20K,那么所有20K之后的内容都不能被正确显示<br>
+这个时候就需要分页功能了,如可以设定每个页面显示30条记录.
+<li>排序功能</li><br>
+为文件列表实现排序,可以按名称字母顺序排列,按大小排列,按最后修改时间排列等.
+<li>回收站功能</li><br>
+此功能可以将不需要的文件放入回收站来代替删除文件,文件放入回收站中会自动重命名,以防止文件同名
+<li>压缩文件管理</li><br>
+原版www.vonloesch.de的jspbrowser的优秀功能
+</ul>
+这些功能目前还不能在1.0这个版本中见到,但是也许在以后的版本中出现.
+<br><br><br>
+<b>Tomcat的奇怪现象</b>
+<hr width="30%" align="left">
+tomcat中用application.getRealPath(request.getRequestURI()),或request.getRealPath(request.getRequestURI()),都得不到当前文件的路径,<br>
+例如:<br>
+E:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\lucy\index.jsp那么得到的是,<br>
+E:\Program Files\Apache Software Foundation\Tomcat 6.0\webapps\lucy\<span>lucy\</span>index.jsp<br>
+注意多了一个lucy\,据说这是tomcat的BUG.
+<br><br><br>
+<b>Lucy的目录结构</b>
+<hr width="30%" align="left">
+Lucy的目录结构是没有二级目录,也就是所有文件都放在同一目录下,也许你会觉得这很奇怪<br>
+但是这是为了一些网络空间而设计的,很多网络空间是不能创建二级以上目录的<br>
+<br><br><br>
+<b>红色与绿色</b>
+<hr width="30%" align="left">
+目前系统默认的设置中,成功提示是绿色,失败提示是红色<br>
+有些人可能很难分别这两种颜色,又或者你不喜欢这些颜色,你可以修改css文件中的".error"和".success"<br>
+<br><br><br>
+<b>移动文件与复制文件之不同</b>
+<hr width="30%" align="left">
+假如你在lucy选择了3个文件夹移动到某处,这3个文件夹下面各有1个文件,那么移动文件的总数为3<br>
+而如果你选中这3个文件夹复制到某处,那么复制文件的总数是6<br>
+这是因为移动和复制的原理差别引起的,移动只使用renameTo()方法,而复制使用vector遍历到每一个最底层的文件<br>
+<br><br><br>
+<b>版本信息</b>
+<hr width="30%" align="left">
+<span>Lucy 1.0</span> - 2008.3<br>
+<br><br><br>
+</div><hr>
+<div align="center" style="margin:9px;"><span>PJ produce  2008.1.16/email:isafile@gmail.com</span></div>
+</div>
+<div id='about'>PJ produce 2008.1.16/email:isafile@gmail.com</div>
+</body></html>

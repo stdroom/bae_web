@@ -1,0 +1,11 @@
+BODY{font-size:12px; margin:0px;}
+TR{font-size:12px;}
+
+A:link {COLOR: #000000; FONT-FAMILY: "ËÎÌו,Verdana"; TEXT-DECORATION: none}
+A:visited {COLOR: #000000; TEXT-DECORATION: none}
+A:active {COLOR: #cc001e; TEXT-DECORATION: none}
+A:hover {COLOR: #dd0020; TEXT-DECORATION: underline}
+A.red {COLOR: #dd0020}
+A.red:visited {COLOR: #dd0020}
+A.red:hover {COLOR: #dd0020}
+A.red:active {COLOR: #cc001e}

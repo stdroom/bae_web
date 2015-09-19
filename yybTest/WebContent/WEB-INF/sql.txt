@@ -1,0 +1,65 @@
+insert into qb_exam_title 
+(fid,type,uid,username,ifshare,yz,
+difficult,star,question,config,answer)
+ values (32,1,1,'admin',1,1,0,0,
+'\r\nJava是从（ ）语言改进重新设计','Ada \r\n\r\nC++\r\n\r\nPasacal\r\n\r\nBASIC','b')
+,(32,1,1,'admin',1,1,0,0,
+'下列属于合法的Java标示','h$u\r\n\r\n@mats\r\n\r\n8U\r\n\r\n-3.345678','a')
+,(32,2,1,'admin',1,1,0,0,
+'下列标识符不合法的有（ ）','new\r\n\r\n$Usdollars\r\n\r\n1234\r\n\r\ncar.taxi','A,C,D')
+,(32,2,1,'admin',1,1,0,0,
+'下列说法错误的有（ ）','Java面向对象语言容许单独的过程与函数存在\r\n\r\nJava面向对象语言容许单独的方法存在\r\n\r\nJava语言中的方法属于类中的成员（member）\r\n\r\nJava语言中的方法必定隶属于某一类（对象），调用方法与过程或函数相同','A,B,C')
+,(32,1,1,'admin',1,1,0,0,
+'现有一个Java源文件，其中包含有一个名为Example的public类，为了成功编译该文件，需要满足以下哪些条件？','源文件必须导入java.lang包\r\n\r\n源文件必须声明一个main()方法\r\n\r\n源文件名必须为Example.java\r\n\r\n源文件必须具有package包语句','c')
+,(32,1,1,'admin',1,1,0,0,
+'为了使一个名为Example的类可以成功编译，运行，必须满足以下哪些条件？请选择正确答案：','Example类必须定义在Example.java文件中\r\n\r\nExample类必须声明为public类\r\n\r\nExample类必须定义一个正确的main()方法\r\n\r\nExample类必须导入java.lang包','c')
+,(32,2,1,'admin',1,1,0,0,
+'以下哪些是Java中合法的标识符？','_xpoints\r\n\r\nr2d2\r\n\r\nbBb$\r\n\r\nthisisCrazy','a,b,c,d')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些是合法变量名？','_int\r\n\r\n%large\r\n\r\n$fred\r\n\r\ninteger','a,c,d')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些是Java中的合法标识符？','my-id\r\n\r\nmy_id\r\n\r\n101ids\r\n\r\nid101','b,d')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些是合法的标识符？','%abcd\r\n\r\nSabcd\r\n\r\npackage\r\n\r\n_a_long_name','b,d')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪此是Java中合法的关键字？','boolean\r\n\r\ninteger\r\n\r\nprotect\r\n\r\nsuper','a,d')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些是Java语言中合法的关键字？','then\r\n\r\nsynchronized\r\n\r\nInteger\r\n\r\nthis','b,c,d')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些是Java语言中的关键字？','run\r\n\r\ndefault\r\n\r\nimplement\r\n\r\nimport','b,d')
+,(32,1,1,'admin',1,1,0,0,
+'请问该程序的运行结果是什么？\r\nclass Example{\r\n	public static void main(String args[]){\r\n		boolean flag=false;\r\n		if(flag=true){\r\n			System.out.println(“true”);\r\n		}\r\n		else{\r\n			System.out.println(“false”);\r\n		}\r\n	}\r\n} ','代码编译失败，if语句错误\r\n\r\n代码编译成功，但在运行期时if语句处抛出异常\r\n\r\n打印输出true\r\n\r\n打印输出false','c')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些代码片断正确？','public transient static final int _FRAMEX=850；\r\n\r\nthis(“a”,”b”);\r\n\r\nprivate transient static final int_FRAMEX=850;\r\n\r\nboolean b=0;','a,b,c')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些描述是正确的？','字符型char具有16位宽度\r\n\r\nUnicode编码字符具有16位宽度\r\n\r\nUnicode编码字符具有32位宽度\r\n\r\nUTF编码字符具有24位宽度','a,b')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下啊个描述正确？','int类型是一个32位的有符号整数值\r\n\r\nshort类型是一个16位的无符号整数值\r\n\r\nchar类型是一个16位的Unicode编码字符\r\n\r\nfloat类型是一个64位的浮点数值','a,c')
+,(32,1,1,'admin',1,1,0,0,
+'给出以下代码，请问该程序的运行结果是什么？\r\nclass Example{\r\n	public static void main(String args[]){\r\n	boolean b=true;\r\n	System.out.println(b);\r\n	}\r\n}','打印输出true\r\n\r\n打印输出1\r\n\r\n编译错误，因为System.out.println()方法的参数只能为整数\r\n\r\n无内容输出','a')
+,(32,1,1,'admin',1,1,0,0,
+'请问，以下哪些是基本数据类型？','byte\r\n\r\nString\r\n\r\ninteger\r\n\r\nFloat','a')
+,(32,1,1,'admin',1,1,0,0,
+'请问，以下哪些是十进制123的正确的十六进制表示？','0x173\r\n\r\n0x123\r\n\r\n0x7B\r\n\r\n173','c')
+,(32,1,1,'admin',1,1,0,0,
+'请问，以下哪些是十进制数123的正确的八进制表示？','0173\r\n\r\n123\r\n\r\n0x123\r\n\r\n0x173','a')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些语句用于实现将一个数值为17对应的八进制文字值赋值给一个整数变量？','private final int theNumber=0x17;\r\n\r\nprivate final int theNumber=017;\r\n\r\nprblic int theNumber=017;\r\n\r\npublic int theNumber=(octal)17;','a,b')
+,(32,2,1,'admin',1,1,0,0,
+'请问，以下哪些是十进制数5对应的16进制正确表示？','0x5\r\n\r\n0x05\r\n\r\n0X05\r\n\r\n0X5','a,b,c,d')
+,(32,1,1,'admin',1,1,0,0,
+'请问,以下哪些是双精度型数据文字值的正确形式?','1D\r\n\r\neE-5D\r\n\r\ne2d\r\n\r\n1ed','a')
+,(32,1,1,'admin',1,1,0,0,
+'给出以下代码,请问该程序的运行结果是什么?\r\nclass Example{\r\n	public static void main (String args[]){\r\n		char a=’\u1234’;\r\n	}\r\n}','代码编译成功.\r\n\r\n代码编译成功,但存在警告信息.\r\n\r\n代码编译失败.\r\n\r\n输出结果1234','a')
+,(32,1,1,'admin',1,1,0,0,
+'给出以下代码,请问该程序的运行结果是什么?\r\npublic class Example{\r\n	public static void main(String args[]){\r\n		System.out.println(“\\Look like a comment.”);\r\n	}\r\n}','\\Looks like a comment.\r\n\r\n\Looks like a comment.\r\n\r\n没有输出任何内容.\r\n\r\n编译错误.','b')
+,(32,1,1,'admin',1,1,0,0,
+'请问，以下哪些是Java应用程序主方法main()的正确形式？','public static void main();\r\n\r\npublic static void main(String args);\r\n\r\npublic static void main(String args[]);\r\n\r\npublic static void main(Graphics g);','c')
+,(32,1,1,'admin',1,1,0,0,
+'以下哪些是应用程序main()方法的正确形式？','public static int main(char args[]);\r\n\r\npublic static void main(String args[]);\r\n\r\npublic static void MAIN(String args[]);\r\n\r\npublic static void main(char args[]);','b')
+,(32,2,1,'admin',1,1,0,0,
+'以下哪些是Java应用程序的合法main()方法形式？','public static void main(String []args)\r\n\r\nstatic public void main(String args[])\r\n\r\npublic void main(String args[])\r\n\r\npublic static void main(String args[])','a,b,d')
+,(32,2,1,'admin',1,1,0,0,
+'以下哪些是main()方法的正确形式？','static void main(String []args){ }\r\n\r\npublic static void main(String []args){ }\r\n\r\npublic static void main(String args[]){ }\r\n\r\npublic static void main(String door[]){ }','a,b,c,d')
+,(32,1,1,'admin',1,1,0,0,
+'给出以下代码，请问该程序的运行结果是什么？\r\npublic class Example{\r\n	public static void main(String args[]){\r\n		String s;\r\n		System.out.println("s="+s);\r\n	}\r\n}','无内容输出\r\n\r\n代码编译失败\r\n\r\n打印输出null\r\n\r\n打印输出s=null','b');
