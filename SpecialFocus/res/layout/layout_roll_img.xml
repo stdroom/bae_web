@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ff00ff"
+    android:orientation="vertical" >
+     <RelativeLayout
+        android:id="@+id/rollRl"
+	    android:layout_width="fill_parent"
+	    android:background="#00ffff"
+	    android:layout_height="144dp">
+	    <com.sepcialfocus.android.ui.widget.GuideGallery
+	        android:id="@+id/index_gallery"
+	        android:layout_width="fill_parent"
+	        android:layout_height="match_parent"
+	        android:unselectedAlpha="1"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+			android:background="@color/app_bg_color"
+	        android:fadingEdge="none"
+			android:spacing="1dip" 
+			>
+	    </com.sepcialfocus.android.ui.widget.GuideGallery>
+	   
+		<LinearLayout android:orientation="horizontal"
+	        android:id="@+id/gallery_point_linear"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentBottom="true"
+	        android:layout_marginBottom="10dp"
+	        android:background="@color/transparent"
+	        android:gravity="center"
+	         >
+	    </LinearLayout>
+	</RelativeLayout>
+
+</LinearLayout>
