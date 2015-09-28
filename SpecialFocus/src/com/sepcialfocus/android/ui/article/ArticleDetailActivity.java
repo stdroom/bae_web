@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -120,6 +121,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
             mArticlePostmetaTv.setText(Html.fromHtml(mArticlePostmetaStr));
             mWebView.getSettings().setJavaScriptEnabled(false);  
             mWebView.getSettings().setLoadWithOverviewMode(true);
+            mWebView.getSettings().setTextSize(TextSize.LARGER);
             mWebView.setBackgroundColor(0);
             mWebView.loadData(mArticleContentStr, "text/html; charset=UTF-8", "utf-8");
         }

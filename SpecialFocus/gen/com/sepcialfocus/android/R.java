@@ -178,11 +178,11 @@ containing a value of this type.
         public static final int black=0x7f050001;
         public static final int blank=0x7f050003;
         public static final int blue=0x7f05000c;
-        public static final int circle=0x7f05004e;
+        public static final int circle=0x7f050052;
         public static final int common_divider_color=0x7f05001b;
         public static final int default_text=0x7f05002d;
         public static final int default_text_night=0x7f05002c;
-        public static final int dialog_bg=0x7f050052;
+        public static final int dialog_bg=0x7f050056;
         public static final int divideline_gray=0x7f050010;
         public static final int diving_gray=0x7f05000f;
         /**  drop down list footer font color 
@@ -197,16 +197,20 @@ containing a value of this type.
         public static final int has_read_text_color=0x7f05004c;
         public static final int micro_series_bg=0x7f050008;
         public static final int normal_background=0x7f05001d;
+        public static final int not_read_content_text_color=0x7f050050;
+        public static final int not_read_tags_text_color=0x7f05004e;
         public static final int not_read_text_color=0x7f05004b;
         public static final int orange=0x7f05000a;
         public static final int person_center_text=0x7f050007;
         public static final int pop_color=0x7f050011;
         public static final int radiobutton_checked=0x7f050015;
         public static final int radiobutton_normal=0x7f050016;
+        public static final int read_content_text_color=0x7f05004f;
+        public static final int readed_tags_text_color=0x7f05004d;
         public static final int record_title_1=0x7f05000d;
         public static final int record_title_2=0x7f05000e;
-        public static final int rect=0x7f05004f;
-        public static final int shadow=0x7f050051;
+        public static final int rect=0x7f050053;
+        public static final int shadow=0x7f050055;
         public static final int subscribe_activity_bg=0x7f050027;
         public static final int subscribe_activity_bg_night=0x7f050028;
         public static final int subscribe_bg=0x7f050025;
@@ -233,7 +237,7 @@ containing a value of this type.
         public static final int subscribe_item_selected_bg_night=0x7f050040;
         public static final int subscribe_item_selected_stroke=0x7f050037;
         public static final int subscribe_item_selected_stroke_night=0x7f050041;
-        public static final int subscribe_item_text_color=0x7f050053;
+        public static final int subscribe_item_text_color=0x7f050057;
         public static final int subscribe_item_text_color_normal=0x7f05002b;
         public static final int subscribe_item_text_color_normal_night=0x7f05002f;
         public static final int subscribe_item_text_color_pressed=0x7f05002e;
@@ -251,8 +255,8 @@ containing a value of this type.
          */
         public static final int text_color_white=0x7f05001e;
         public static final int transparent=0x7f050000;
-        public static final int triangle=0x7f05004d;
-        public static final int view_bg=0x7f050050;
+        public static final int triangle=0x7f050051;
+        public static final int view_bg=0x7f050054;
         public static final int white=0x7f050002;
         public static final int zt_text_bg=0x7f050012;
     }
@@ -291,7 +295,7 @@ containing a value of this type.
     public static final class drawable {
         public static final int aa_dialog_bg=0x7f020000;
         public static final int addcourse=0x7f020001;
-        public static final int blank=0x7f020028;
+        public static final int blank=0x7f020029;
         public static final int bottom_back_icon=0x7f020002;
         public static final int bottom_collection_icon=0x7f020003;
         public static final int bottom_collectioned_icon=0x7f020004;
@@ -308,28 +312,29 @@ containing a value of this type.
         public static final int feature_point_cur=0x7f02000f;
         public static final int head_bg=0x7f020010;
         public static final int icon=0x7f020011;
-        public static final int mine_card_desc=0x7f020012;
-        public static final int mine_deal_history=0x7f020013;
-        public static final int mine_favorite=0x7f020014;
-        public static final int mine_jump=0x7f020015;
-        public static final int mine_look_fee=0x7f020016;
-        public static final int mine_message=0x7f020017;
-        public static final int mine_reservation=0x7f020018;
-        public static final int mine_setting=0x7f020019;
-        public static final int mine_share=0x7f02001a;
-        public static final int pic_line=0x7f02001b;
-        public static final int pop_bottom=0x7f02001c;
-        public static final int pull_list_ielts=0x7f02001d;
-        public static final int pull_loading_0=0x7f02001e;
-        public static final int pull_loading_1=0x7f02001f;
-        public static final int pull_loading_2=0x7f020020;
-        public static final int pull_loading_3=0x7f020021;
-        public static final int pullrefresh_animation=0x7f020022;
-        public static final int right_jump=0x7f020023;
-        public static final int setting_nav_img=0x7f020024;
-        public static final int shadow=0x7f020025;
-        public static final int splash_bg=0x7f020026;
-        public static final int subscribe_item_bg=0x7f020027;
+        public static final int list_gray_line=0x7f020012;
+        public static final int mine_card_desc=0x7f020013;
+        public static final int mine_deal_history=0x7f020014;
+        public static final int mine_favorite=0x7f020015;
+        public static final int mine_jump=0x7f020016;
+        public static final int mine_look_fee=0x7f020017;
+        public static final int mine_message=0x7f020018;
+        public static final int mine_reservation=0x7f020019;
+        public static final int mine_setting=0x7f02001a;
+        public static final int mine_share=0x7f02001b;
+        public static final int pic_line=0x7f02001c;
+        public static final int pop_bottom=0x7f02001d;
+        public static final int pull_list_ielts=0x7f02001e;
+        public static final int pull_loading_0=0x7f02001f;
+        public static final int pull_loading_1=0x7f020020;
+        public static final int pull_loading_2=0x7f020021;
+        public static final int pull_loading_3=0x7f020022;
+        public static final int pullrefresh_animation=0x7f020023;
+        public static final int right_jump=0x7f020024;
+        public static final int setting_nav_img=0x7f020025;
+        public static final int shadow=0x7f020026;
+        public static final int splash_bg=0x7f020027;
+        public static final int subscribe_item_bg=0x7f020028;
     }
     public static final class id {
         public static final int article_content=0x7f0a000a;

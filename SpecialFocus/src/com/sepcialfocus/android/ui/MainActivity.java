@@ -49,6 +49,8 @@ import com.sepcialfocus.android.ui.article.MainFragment;
 import com.sepcialfocus.android.ui.settting.DragSortMenuActivity;
 import com.sepcialfocus.android.ui.settting.MineActivity;
 import com.sepcialfocus.android.utils.UpdateManager;
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * ����: MainActivity <br/>
@@ -87,6 +89,9 @@ public class MainActivity extends BaseFragmentActivity
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
+		
+		// 友盟发送策略
+		MobclickAgent.updateOnlineConfig(this);
 		SpotManager.getInstance(this).loadSpotAds();
 		// 插屏出现动画效果，0:ANIM_NONE为无动画，1:ANIM_SIMPLE为简单动画效果，2:ANIM_ADVANCE为高级动画效果
 		SpotManager.getInstance(this).setAnimationType(
