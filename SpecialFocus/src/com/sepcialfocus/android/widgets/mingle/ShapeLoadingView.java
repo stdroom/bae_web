@@ -83,7 +83,7 @@ public class ShapeLoadingView extends View {
 
                 if (mIsLoading) {
                     mAnimPercent += 0.1611113;
-                    int color= (int) mArgbEvaluator.evaluate(mAnimPercent,mTriangleColor,mCircleColor);
+                    int color= (Integer) mArgbEvaluator.evaluate(mAnimPercent,mTriangleColor,mCircleColor);
                     mPaint.setColor(color);
                     // triangle to circle
                     Path path = new Path();
@@ -129,7 +129,7 @@ public class ShapeLoadingView extends View {
                         mShape = Shape.SHAPE_RECT;
                         mIsLoading = false;
                     }
-                    int color= (int) mArgbEvaluator.evaluate(mAnimPercent,mCircleColor,mRectColor);
+                    int color= (Integer) mArgbEvaluator.evaluate(mAnimPercent,mCircleColor,mRectColor);
                     mPaint.setColor(color);
 
                     Path path = new Path();
@@ -196,7 +196,7 @@ public class ShapeLoadingView extends View {
                         mIsLoading = false;
                         mAnimPercent = 1;
                     }
-                    int color= (int) mArgbEvaluator.evaluate(mAnimPercent,mRectColor,mTriangleColor);
+                    int color= (Integer) mArgbEvaluator.evaluate(mAnimPercent,mRectColor,mTriangleColor);
                     mPaint.setColor(color);
                     Path path = new Path();
                     path.moveTo(relativeXFromView(0.5f * mAnimPercent), 0);

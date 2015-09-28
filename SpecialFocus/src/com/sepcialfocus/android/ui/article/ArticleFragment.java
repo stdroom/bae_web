@@ -223,13 +223,16 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
         
     }
 
+	public void onPause(){
+		super.onPause();
+		BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
+		PreferenceHelper.write(mContext, 
+				AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
+	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
-		PreferenceHelper.write(mContext, 
-    			AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
 	}
 
 	private void readNativeData(){

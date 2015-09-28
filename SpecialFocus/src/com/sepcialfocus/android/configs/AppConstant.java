@@ -24,6 +24,10 @@ public class AppConstant {
 	/** 下一页的存放地址 */
 	public static final String URL_NEXT_PAGE_FILE = "next_file";
 	public static final String MENU_FILE = "menu_file";
+	
+	/** webview 字体大小 */
+	public static final String TEXTSIZE = "text_size";
+	
 
 	public static final int WEBVIEW_WIDTH = 320;
 	public static final int JUMP_CODE = 0x02;

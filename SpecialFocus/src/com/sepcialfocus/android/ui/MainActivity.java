@@ -22,7 +22,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -59,7 +61,7 @@ import com.sepcialfocus.android.utils.UpdateManager;
  * @version  	 
  */
 public class MainActivity extends BaseFragmentActivity
-	implements OnPageChangeListener,View.OnClickListener{
+	implements OnPageChangeListener,View.OnClickListener,View.OnTouchListener,GestureDetector.OnGestureListener{
 	
 	private HorizontalScrollView mHorizontalScrollView ;
 	private LinearLayout mLinearLayout;
@@ -77,12 +79,18 @@ public class MainActivity extends BaseFragmentActivity
 	private ArticleFragmentPagerAdapter mFragmentPagerAdapter = null;
 	private ArrayList<Fragment> mFragmentList;
 	
-	private ImageView mDragSoftImg;
+	private RelativeLayout mDragSoftImg;
 	
 	private KJDB mKJDb;
 
 	private long exitTime = 0;
 	private ImageView mJumpMineImg;
+	
+	private GestureDetector detector = null;
+	
+	int mDragImgWidth = 0;
+	int mDragImgHeight = 0;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -100,6 +108,9 @@ public class MainActivity extends BaseFragmentActivity
 		initMenu();
 		initFragment();
 		UpdateManager.getUpdateManager().checkAppUpdate(this, false);
+		
+		detector = new GestureDetector(this, this);
+		setDector();
 	}
 	
 	
@@ -123,7 +134,7 @@ public class MainActivity extends BaseFragmentActivity
 				startActivity(intent);
 			}
 		});
-		mDragSoftImg = (ImageView)findViewById(R.id.drag_soft_img);
+		mDragSoftImg = (RelativeLayout)findViewById(R.id.drag_soft_img);
 		mDragSoftImg.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -135,6 +146,7 @@ public class MainActivity extends BaseFragmentActivity
 				startActivity(intent);
 			}
 		});
+		mDragSoftImg.setOnTouchListener(this);
 		mFragmentViewPager = (ViewPager)findViewById(R.id.fragment_viewpager);
 		mFragmentPagerAdapter = new ArticleFragmentPagerAdapter(
 				getSupportFragmentManager());
@@ -299,6 +311,96 @@ public class MainActivity extends BaseFragmentActivity
 	        return true;   
 	    }
 		return super.onKeyDown(keyCode, event);
+	}
+
+
+
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if(v.getId() == R.id.drag_soft_img){
+			detector.onTouchEvent(event);
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean onDown(MotionEvent e) {
+		mDragImgHeight = mDragSoftImg.getHeight();
+		mDragImgWidth = mDragSoftImg.getWidth();
+		return false;
+	}
+
+
+	@Override
+	public void onShowPress(MotionEvent e) {
+		
+	}
+
+
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+			float distanceY) {
+		RelativeLayout.LayoutParams params = (LayoutParams) mDragSoftImg.getLayoutParams();
+		params.setMargins((int)(mDragSoftImg.getLeft()+distanceX), (int)mDragSoftImg.getTop(), 
+				(int)(mDragSoftImg.getLeft()+distanceX+mDragImgWidth), (int)(mDragSoftImg.getTop()+mDragImgHeight));
+		mDragSoftImg.setLayoutParams(params);
+		mDragSoftImg.requestLayout();
+		return false;
+	}
+
+
+
+	@Override
+	public void onLongPress(MotionEvent e) {
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX,
+			float velocityY) {
+		if (event1.getRawX() > event2.getRawX()) {
+		    Toast.makeText(this, "swipe left",Toast.LENGTH_SHORT).show();
+		   } else {
+		   Toast.makeText(this, "swipe right",Toast.LENGTH_SHORT).show();
+		   }
+		return true;
+	}
+	
+	private void setDector(){
+		detector.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() { 
+           //短快的点击算一次单击 
+            @Override 
+            public boolean onSingleTapConfirmed(MotionEvent e) { 
+            	Toast.makeText(MainActivity.this, "单击",Toast.LENGTH_SHORT).show();
+                return false; 
+            } 
+            //双击时产生一次 
+            @Override 
+            public boolean onDoubleTap(MotionEvent e) { 
+            	Toast.makeText(MainActivity.this, "双击",Toast.LENGTH_SHORT).show();
+                return false; 
+            } 
+          //双击时产生两次 
+            @Override 
+            public boolean onDoubleTapEvent(MotionEvent e) { 
+                return false; 
+            } 
+        }); 
 	}
 	
 	
