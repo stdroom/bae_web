@@ -21,20 +21,26 @@ import org.jsoup.select.Elements;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.view.View;
+import android.webkit.WebSettings.LayoutAlgorithm;
+import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
 import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.mike.aframe.utils.MD5Utils;
+import com.mike.aframe.utils.PreferenceHelper;
 import com.mike.aframe.utils.Regexp;
 import com.sepcialfocus.android.BaseFragmentActivity;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.ArticleItemBean;
 import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.configs.URLs;
+import com.sepcialfocus.android.widgets.MyWebView;
 
 /**
  * 类名: ArticleDetailActivity <br/>
@@ -57,7 +63,8 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private String mArticlePostmetaStr = "";
 	ImageView mBackImg;
 	private LinearLayout mContentLL;
-	private WebView mWebView;
+	private MyWebView mWebView;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -79,8 +86,10 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		mArticleTitleTv = (TextView)findViewById(R.id.article_title);
 		mArticlePostmetaTv = (TextView)findViewById(R.id.article_postmeta);
 		mArticleContentTv = (TextView)findViewById(R.id.article_content);
-		mWebView = (WebView)findViewById(R.id.article_web);
+		mWebView = (MyWebView)findViewById(R.id.article_web);
 		mWebView.setBackgroundColor(0);
+		mWebView.getSettings().setTextSize(setTextSize(PreferenceHelper.readInt(ArticleDetailActivity.this, 
+    			AppConstant.TEXTSIZE, AppConstant.TEXTSIZE,3)));
 	}
 
 	class Loadhtml extends AsyncTask<String, String, String>
@@ -114,16 +123,21 @@ public class ArticleDetailActivity extends BaseFragmentActivity
         protected void onPostExecute(String result) {
             // TODO Auto-generated method stub
             super.onPostExecute(result);
-            setLoadingVisible(false);
-            mContentLL.setVisibility(View.VISIBLE);
 //            Log.d("doc", doc.toString().trim());
             mArticleContentTv.setText(result);
             mArticlePostmetaTv.setText(Html.fromHtml(mArticlePostmetaStr));
             mWebView.getSettings().setJavaScriptEnabled(false);  
             mWebView.getSettings().setLoadWithOverviewMode(true);
-            mWebView.getSettings().setTextSize(TextSize.LARGER);
+            mWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
             mWebView.setBackgroundColor(0);
             mWebView.loadData(mArticleContentStr, "text/html; charset=UTF-8", "utf-8");
+            new Handler().postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					mContentLL.setVisibility(View.VISIBLE);
+					setLoadingVisible(false);
+				}
+			}, 200);
         }
 
         @Override
@@ -189,6 +203,45 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		case R.id.bottom_back: 
 			finish();
 			break;
+		}
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		TextSize size = this.mWebView.getSettings().getTextSize();
+		PreferenceHelper.write(this, 
+    			AppConstant.TEXTSIZE, AppConstant.TEXTSIZE,getTextSize(size));
+	}
+	
+	private int getTextSize(TextSize size){
+		if(size == TextSize.LARGER){
+			return 4;
+		}else if(size == TextSize.LARGEST){
+			return 5;
+		}else if(size == TextSize.SMALLER){
+			return 2;
+		}else if(size == TextSize.SMALLEST){
+			return 1;
+		}else{
+			return 3;
+		}
+	}
+	
+	private TextSize setTextSize(int size){
+		switch(size){
+		case 1:
+			return TextSize.SMALLEST;
+		case 2:
+			return TextSize.SMALLER;
+		case 3:
+			return TextSize.NORMAL;
+		case 4:
+			return TextSize.LARGER;
+		case 5:
+			return TextSize.LARGEST;
+		default:
+				return TextSize.NORMAL;
 		}
 	}
 	
