@@ -67,7 +67,7 @@
 		</receiver>
         <!-- 有米ad end -->
         
-        <meta-data android:value="55fdeda267e58eaa770002bd" android:name="UMENG_APPKEY"></meta-data>
+        <meta-data android:value="55fdeda267e58eaa770002bd" android:name="UMENG_APPKEY"/>
 		<meta-data android:value="ammike" android:name="UMENG_CHANNEL"/>
     </application>
     

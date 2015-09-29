@@ -12,11 +12,12 @@
 
 package com.sepcialfocus.android;
 
-import com.mike.aframe.MKLog;
-
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.RelativeLayout;
+
+import com.mike.aframe.MKLog;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * ����: BaseFragmentActivity <br/>
@@ -75,6 +76,19 @@ public class BaseFragmentActivity extends FragmentActivity{
 		}
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+	}
+
+	
 
 }
 

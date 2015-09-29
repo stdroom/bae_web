@@ -18,7 +18,7 @@
         android:layout_marginLeft="5dp"
         android:textColor="@color/has_read_text_color"
         android:textSize="18sp"
-        android:text="抬头聊天了"
+        android:text=""
         android:maxLines="2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -35,7 +35,7 @@
 	        android:id="@+id/article_from1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#b4b4b4"
+	        android:textColor="#ff00ff"
 	        android:textSize="10sp"
 	        android:text="读者文摘"/>
 	    <TextView

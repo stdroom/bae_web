@@ -86,14 +86,22 @@ public class ArticleListAdapter extends BaseAdapter{
 		holder.mArticleContentTv.setText(bean.getSummary()+"");
 		holder.mArticleDateTv.setText(bean.getDate()+"");
 		if(bean.isHasReadFlag()){
+//			holder.mArticleTagOneTv.setTextColor(this.mContext.getResources().getColor(R.color.readed_tags_text_color));
+//			holder.mArticleTagTwoTv.setTextColor(this.mContext.getResources().getColor(R.color.readed_tags_text_color));
+//			holder.mArticleTagThrTv.setTextColor(this.mContext.getResources().getColor(R.color.readed_tags_text_color));
+			holder.mArticleContentTv.setTextColor(this.mContext.getResources().getColor(R.color.read_content_text_color));
 			holder.mArticleTitleTv.setTextColor(this.mContext.getResources().getColor(R.color.has_read_text_color));
 		}else{
 			holder.mArticleTitleTv.setTextColor(this.mContext.getResources().getColor(R.color.not_read_text_color));
+//			holder.mArticleTagOneTv.setTextColor(this.mContext.getResources().getColor(R.color.not_read_tags_text_color));
+//			holder.mArticleTagTwoTv.setTextColor(this.mContext.getResources().getColor(R.color.not_read_tags_text_color));
+//			holder.mArticleTagThrTv.setTextColor(this.mContext.getResources().getColor(R.color.not_read_tags_text_color));
+			holder.mArticleContentTv.setTextColor(this.mContext.getResources().getColor(R.color.not_read_content_text_color));
 		}
 		ArrayList<String> tags = bean.getTags();
-		holder.mArticleTagOneTv.setVisibility(View.GONE);
-		holder.mArticleTagTwoTv.setVisibility(View.GONE);
-		holder.mArticleTagThrTv.setVisibility(View.GONE);
+		holder.mArticleTagOneTv.setVisibility(View.INVISIBLE);
+		holder.mArticleTagTwoTv.setVisibility(View.INVISIBLE);
+		holder.mArticleTagThrTv.setVisibility(View.INVISIBLE);
 		holder.mArticleImg.setImageDrawable(this.mContext.getResources().getDrawable(R.drawable.default_img));
 		if(tags!=null && tags.size()>0){
 			int length = tags.size();

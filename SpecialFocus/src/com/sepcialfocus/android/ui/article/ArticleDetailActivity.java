@@ -27,6 +27,7 @@ import android.view.View;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
+import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
