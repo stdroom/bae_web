@@ -77,6 +77,8 @@ public class DragSortMenuActivity extends BaseFragmentActivity implements View.O
 	TextView mTitleTv;
 	ImageView mBackImg;
 	KJDB mDb;
+	
+	private boolean isFromMainActivity = false;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -84,9 +86,13 @@ public class DragSortMenuActivity extends BaseFragmentActivity implements View.O
 		mDb = KJDB.create(this);
 		if(getIntent().getExtras()!=null 
 				&& getIntent().getExtras().getSerializable("key")!=null){
+			isFromMainActivity = true;
 			userChannelList = (ArrayList<NavBean>)getIntent().getSerializableExtra("key");
+		}else{
+			isFromMainActivity = false;
+			userChannelList = getMenuList();
 		}
-		List<NavBean> list = mDb.findAllByWhere(NavBean.class, "isShow = 0");
+		List<NavBean> list = mDb.findAllByWhere(NavBean.class, "show = \'0\'");
 		if(list!=null && list.size()>0){
 			otherChannelList = (ArrayList<NavBean>)list;
 		}
@@ -155,7 +161,7 @@ public class DragSortMenuActivity extends BaseFragmentActivity implements View.O
                                     moveAnim(moveImageView, startLocation, endLocation, channel,
                                             userGridView);
                                     userAdapter.setRemove(position);
-                                    updateChannel(channel,0);
+                                    updateChannel(channel,"0");
                                 } catch (Exception localException) {
                                 }
                             }
@@ -175,7 +181,7 @@ public class DragSortMenuActivity extends BaseFragmentActivity implements View.O
                 	NavBean channels = new NavBean();
                 	if(channel!=null){
                 		channels.setCategory(channel.getCategory());
-                		channels.setIsShow(1);
+                		channels.setShow("1");
                 		channels.setMd5(channel.getMd5());
                 		channels.setMenu(channel.getMenu());
                 		channels.setMenuUrl(channel.getMenuUrl());
@@ -193,7 +199,7 @@ public class DragSortMenuActivity extends BaseFragmentActivity implements View.O
                                 moveAnim(moveImageView, startLocation, endLocation, channel,
                                         otherGridView);
                                 otherAdapter.setRemove(position);
-                                updateChannel(channel,1);
+                                updateChannel(channel,"1");
                             } catch (Exception localException) {
                             }
                         }
@@ -324,11 +330,11 @@ public class DragSortMenuActivity extends BaseFragmentActivity implements View.O
     	}
     }
 	
-    private void updateChannel(NavBean bean , int visible){
+    private void updateChannel(NavBean bean , String visible){
     	NavBean channel = new NavBean();
     	if(bean!=null){
     		channel.setCategory(bean.getCategory());
-    		channel.setIsShow(visible);
+    		channel.setShow(visible);
     		channel.setMd5(bean.getMd5());
     		channel.setMenu(bean.getMenu());
     		channel.setMenuUrl(bean.getMenuUrl());
@@ -348,13 +354,39 @@ public class DragSortMenuActivity extends BaseFragmentActivity implements View.O
     
     private void goBack(){
     	if(userChannelList!=null && userChannelList.size()<1){
-			Toast.makeText(DragSortMenuActivity.this, "大哥，喜欢阅读的人运气都不会太差! \n您加一个栏目吧", Toast.LENGTH_LONG).show();
-			return;
-		}
-		saveChannel();
-		Intent intent = new Intent(DragSortMenuActivity.this,MainActivity.class);
-		startActivity(intent);
-		finish();
+    		Toast.makeText(DragSortMenuActivity.this, "大哥，喜欢阅读的人运气都不会太差! \n您加一个栏目吧", Toast.LENGTH_LONG).show();
+    		return;
+    	}
+    	saveChannel();
+    	if(isFromMainActivity){
+    		Intent intent = new Intent(DragSortMenuActivity.this,MainActivity.class);
+    		startActivity(intent);
+    		finish();
+    	} else{
+    		finish();
+    	}
     }
+    
+    private ArrayList<NavBean> getMenuList(){
+		List<NavBean> list  = mDb.findAllByWhere(NavBean.class, "show = \'1\'");
+		if(list!=null && list.size()>0){
+			return (ArrayList<NavBean>) list;
+		}else{
+			list = new ArrayList<NavBean>();
+		}
+		String[] menuName = getResources().getStringArray(R.array.menu_str);
+		String[] menuUrl = getResources().getStringArray(R.array.menu_url);
+		for(int i = 0 ; i<menuName.length ; i++){
+			NavBean bean = new NavBean();
+			bean.setMd5(MD5Utils.md5(menuName[i]+menuUrl[i]));
+			bean.setMenu(menuName[i]);
+			bean.setMenuUrl(menuUrl[i]);
+			bean.setShow("1");
+			bean.setCategory(1);
+			list.add(bean);
+			mDb.save(bean);
+		}
+		return (ArrayList<NavBean>)list;
+	}
 }
 

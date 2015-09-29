@@ -237,7 +237,7 @@ public class MainFragment extends BaseFragment{
                  Elements nextelement = nextPage.getElementsByTag("a");
                  isPullRrefreshFlag = false;
                  
-                 Log.d("element", article.toString());
+                 MKLog.d("element", article.toString());
                  Elements elements = article.children();
                  for(Element linkss : elements)
                  {	 

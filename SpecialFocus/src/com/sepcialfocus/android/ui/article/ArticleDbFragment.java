@@ -148,7 +148,7 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
 	
 	private void initData(){
 		if(null==mArticleList || mArticleList.size()==0){
-			new Loadhtml("").execute("","","");
+			new Loadhtml().execute("","","");
 		}
 	}
 
@@ -156,17 +156,12 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
 	class Loadhtml extends AsyncTask<String, String, String>
     {
         Document doc;
-        String urls = "";
-        public Loadhtml(String urls){
-        	this.urls = urls;
+        public Loadhtml(){
         }
         @Override
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
             try {
-                if("".equals(urls)){
-                	return null;
-                }
                 if(isHistory){
                 	mArticleList.addAll(kjDb.findAll(HistroyItemBean.class));
                 }else{
@@ -226,19 +221,8 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
 
 	@Override
 	public void onRefresh() {
-		new Handler().post(new Runnable() {
-			@Override
-			public void run() {
-				Document doc;
-				try {
-					mSwipeLayout.setRefreshing(false);
-				} catch (Exception e) {
-					mSwipeLayout.setRefreshing(false);
-					e.printStackTrace();
-				}
-				
-			}
-		});
+		isRefresh = true;
+		new Loadhtml().execute("","","");
 	}
 	
 	private void initSwapLayout(){

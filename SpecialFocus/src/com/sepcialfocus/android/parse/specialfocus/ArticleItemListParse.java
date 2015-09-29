@@ -20,6 +20,7 @@ import org.jsoup.select.Elements;
 
 import android.util.Log;
 
+import com.mike.aframe.MKLog;
 import com.mike.aframe.database.KJDB;
 import com.mike.aframe.utils.MD5Utils;
 import com.sepcialfocus.android.bean.ArticleItemBean;
@@ -35,6 +36,10 @@ import com.sepcialfocus.android.ui.article.ArticleFragment;
  */
 public class ArticleItemListParse {
 	
+	public static ArrayList<ArticleItemBean> getArticleItemList(KJDB kjDb,Document content) throws Exception{
+		return getArticleItemList(kjDb,content,false);
+	}
+	
 	/**
 	 * 
 	 * getArticleItemList:(解析特别关注-》文章条目类). <br/>
@@ -47,9 +52,9 @@ public class ArticleItemListParse {
 	 * @throws Exception
 	 * @since 1.0
 	 */
-	public static ArrayList<ArticleItemBean> getArticleItemList(KJDB kjDb,Document content) throws Exception{
+	public static ArrayList<ArticleItemBean> getArticleItemList(KJDB kjDb,Document content,boolean isRefresh) throws Exception{
 		 Element article = content.getElementById("article");
-         Log.d("element", article.toString());
+         MKLog.d("element", article.toString());
          Elements elements = article.children();
          ArrayList<ArticleItemBean> tempList = new ArrayList<ArticleItemBean>();
          for(Element linkss : elements)
@@ -121,6 +126,8 @@ public class ArticleItemListParse {
         	 if(selectBean==null){
         		 tempList.add(bean);
         		 kjDb.save(bean);
+        	 }else if(isRefresh && selectBean!=null){
+        		 tempList.add(bean);
         	 }
          }
          return tempList;

@@ -51,7 +51,7 @@
 	<!-- 我的 -->
 	<string name="mine_history_str">阅读记录</string>
 	<string name="mine_favorite_str">我的收藏</string>
-	<string name="mine_reservation_str">我的预约</string>
+	<string name="mine_columns_str">添加栏目</string>
 	<string name="mine_feedback_str">疯狂吐槽</string>
 	<string name="mine_pushmsg_str">系统公告</string>
 	<string name="mine_share_str">分享</string>

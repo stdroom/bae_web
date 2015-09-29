@@ -20,6 +20,7 @@ import org.jsoup.select.Elements;
 
 import android.util.Log;
 
+import com.mike.aframe.MKLog;
 import com.sepcialfocus.android.bean.PagesInfo;
 import com.sepcialfocus.android.ui.article.ArticleFragment;
 
@@ -43,7 +44,7 @@ public class ArticleItemPagesParse {
         		 pages.setNextPageUrl(element.attr("href").trim());
         		 break;
         	 }
-        	 Log.d("element",element.toString());
+        	 MKLog.d("element",element.toString());
          }
         if(!pages.getHasNextPage()){
         	pages.setNextPageUrl("");

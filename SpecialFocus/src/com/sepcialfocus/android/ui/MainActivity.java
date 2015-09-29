@@ -241,7 +241,7 @@ public class MainActivity extends BaseFragmentActivity
 
 	@SuppressWarnings("unchecked")
 	private ArrayList<NavBean> getMenuList(){
-		List<NavBean> list  = mKJDb.findAllByWhere(NavBean.class, "isShow = 1");
+		List<NavBean> list  = mKJDb.findAllByWhere(NavBean.class, "show = \'1\'");
 		if(list!=null && list.size()>0){
 			return (ArrayList<NavBean>) list;
 		}else{
@@ -254,7 +254,7 @@ public class MainActivity extends BaseFragmentActivity
 			bean.setMd5(MD5Utils.md5(menuName[i]+menuUrl[i]));
 			bean.setMenu(menuName[i]);
 			bean.setMenuUrl(menuUrl[i]);
-			bean.setIsShow(1);
+			bean.setShow("1");
 			bean.setCategory(1);
 			list.add(bean);
 			mKJDb.save(bean);

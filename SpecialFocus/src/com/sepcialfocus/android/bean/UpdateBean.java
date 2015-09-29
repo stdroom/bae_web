@@ -25,6 +25,9 @@ public class UpdateBean {
 	private String downloadUrl;
 	private String updateLog;
 	
+	public UpdateBean(){
+	}
+	
 	public int getVersionCode() {
 		return versionCode;
 	}

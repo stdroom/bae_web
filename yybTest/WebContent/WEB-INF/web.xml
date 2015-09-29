@@ -53,7 +53,7 @@
     </init-param>
     <init-param>
         <param-name>downloadUrl</param-name>
-        <param-value>http://joyread.duapp.com/download?file=YybAndroid.apk</param-value>
+        <param-value>http://www.pgyer.com/enjoyread</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>  

@@ -31,7 +31,7 @@ public class WelcomeActivity extends BaseFragmentActivity{
 	protected void onCreate(Bundle arg0) {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
-		AdManager.getInstance(this).init(AppConstant.YOUMI_APPID, AppConstant.YOUMI_APPSECRET, true);
+		AdManager.getInstance(this).init(AppConstant.YOUMI_APPID, AppConstant.YOUMI_APPSECRET, false);
 		// 第二个参数传入目标activity，或者传入null，改为setIntent传入跳转的intent
 		splashView = new SplashView(this, null);
 		// 设置是否显示倒数
@@ -58,28 +58,28 @@ public class WelcomeActivity extends BaseFragmentActivity{
 					public void onShowSuccess() {
 						splashLayout.setVisibility(View.VISIBLE);
 						splashLayout.startAnimation(AnimationUtils.loadAnimation(WelcomeActivity.this, R.anim.pic_enter_anim_alpha));
-						Log.d("youmisdk", "展示成功");
+						MKLog.d("youmisdk", "展示成功");
 						MobclickAgent.onEvent(WelcomeActivity.this,"welcome_ad", 
 								new HashMap<String,String>().put("首页广告","展示成功"));
 					}
 
 					@Override
 					public void onShowFailed() {
-						Log.d("youmisdk", "展示失败");
+						MKLog.d("youmisdk", "展示失败");
 						MobclickAgent.onEvent(WelcomeActivity.this,"welcome_ad", 
 								new HashMap<String,String>().put("首页广告","展示失败"));
 					}
 
 					@Override
 					public void onSpotClosed() {
-						Log.d("youmisdk", "展示关闭");
+						MKLog.d("youmisdk", "展示关闭");
 					}
 
 					@Override
 					public void onSpotClick() {
 						MobclickAgent.onEvent(WelcomeActivity.this,"welcome_ad", 
 								new HashMap<String,String>().put("首页广告","点击"));
-						Log.i("YoumiAdDemo", "插屏点击");
+						MKLog.i("YoumiAdDemo", "插屏点击");
 					}
 				});
 

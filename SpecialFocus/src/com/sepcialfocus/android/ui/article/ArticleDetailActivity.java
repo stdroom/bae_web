@@ -38,6 +38,7 @@ import com.mike.aframe.utils.Regexp;
 import com.sepcialfocus.android.BaseFragmentActivity;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.ArticleItemBean;
+import com.sepcialfocus.android.bean.HistroyItemBean;
 import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.configs.URLs;
 import com.sepcialfocus.android.widgets.MyWebView;
@@ -69,10 +70,16 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_article_detail);
-		mArticleBean = (ArticleItemBean)getIntent().getSerializableExtra("key");
 		initView();
-		mArticleTitleTv.setText(mArticleBean.getTitle());
-		urls = URLs.HOST+mArticleBean.getUrl();
+		if(getIntent().getSerializableExtra("key") instanceof ArticleItemBean){
+			mArticleBean = (ArticleItemBean)getIntent().getSerializableExtra("key");
+			mArticleTitleTv.setText(mArticleBean.getTitle());
+			urls = URLs.HOST+mArticleBean.getUrl();
+		}else{
+			HistroyItemBean bean = (HistroyItemBean)getIntent().getSerializableExtra("key");
+			mArticleTitleTv.setText(bean.getTitle());
+			urls = URLs.HOST+bean.getUrl();
+		}
 		setLoadingVisible(true);
 		mContentLL.setVisibility(View.GONE);
 		new Loadhtml(urls).execute("","","");
