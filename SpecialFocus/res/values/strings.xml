@@ -58,6 +58,8 @@
 	<string name="mine_aboutus_str">关于我们</string>
 	<string name="mine_setting_str">设置</string>
 	
+	<string name="dev_tips">你好，我是阅读圈产品经理，欢迎您反馈使用产品的感受和建议，24小时之内回复。</string>
+	
 	 <!-- 下拉刷新  end -->
     <string name="drop_down_list_header_default_text">Click to refresh&#8230;</string>
     <string name="drop_down_list_header_pull_text">Drop Down to refresh&#8230;</string>
