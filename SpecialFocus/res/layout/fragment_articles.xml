@@ -17,6 +17,7 @@
 	            android:background="@color/app_bg_color"
 	            android:divider="@drawable/list_gray_line"
 	            android:dividerHeight="1px" 
+	            android:footerDividersEnabled="false"
 	            swipe:swipeFrontView="@+id/front"
 	            swipe:swipeBackView="@+id/back"
 	            swipe:swipeDrawableChecked="@drawable/choice_selected"

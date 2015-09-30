@@ -13,8 +13,14 @@
 package com.sepcialfocus.android.ui.settting;
 
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import android.view.View;
 
 import com.sepcialfocus.android.BaseFragmentActivity;
+import com.sepcialfocus.android.R;
+import com.sepcialfocus.android.ui.article.ArticleDbFragment;
 
 /**
  * 类名: HistoryActivity <br/>
@@ -24,11 +30,44 @@ import com.sepcialfocus.android.BaseFragmentActivity;
  * @author   leixun
  * @version  	 
  */
-public class HistoryActivity extends BaseFragmentActivity{
+public class HistoryActivity extends BaseFragmentActivity implements View.OnClickListener{
+	ArticleDbFragment fragment = null;
+	Boolean isHistory = true;
 
+	TextView mTitleTv;
+	ImageView mBackImg;
+	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		
+		setContentView(R.layout.activity_fragment_container);
+		mTitleTv = (TextView)findViewById(R.id.tv_title);
+		mBackImg = (ImageView)findViewById(R.id.img_title_back);
+		mBackImg.setOnClickListener(this);
+		isHistory = getIntent().getBooleanExtra("key", true);
+		
+		fragment = new ArticleDbFragment();
+		Bundle bundle = new Bundle();
+		if(isHistory){
+			mTitleTv.setText(getString(R.string.mine_history_str));
+			bundle.putBoolean("key", true);
+		} else{
+			mTitleTv.setText(getString(R.string.mine_favorite_str));
+			bundle.putBoolean("key", false);
+		}
+		fragment.setArguments(bundle);
+		getSupportFragmentManager().beginTransaction().add(R.id.container, fragment).commit();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch(v.getId()){
+		case R.id.img_title_back:
+			finish();
+			break;
+		}
+		
 	}
 
 	

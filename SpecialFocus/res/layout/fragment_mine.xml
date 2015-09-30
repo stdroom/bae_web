@@ -46,13 +46,13 @@
 			</RelativeLayout> 
 			<include layout="@layout/mine_line_margin_linear"/>
 			<RelativeLayout 
-			    android:id="@+id/mine_reservation_rl"
+			    android:id="@+id/mine_columns_rl"
 			    android:layout_width="match_parent"
 		    	android:layout_height="wrap_content"
 		    	android:background="@color/normal_background"
 		    	android:padding="@dimen/common_small_margin">
 			    <TextView style="@style/common_mid_black_textview"
-			        android:text="@string/mine_reservation_str"
+			        android:text="@string/mine_columns_str"
 			        android:gravity="center_vertical"
 			        android:drawableLeft="@drawable/mine_reservation"
 			        android:paddingLeft="@dimen/common_mini_margin"

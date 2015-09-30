@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.mike.aframe.database.KJDB;
 import com.mike.aframe.utils.DensityUtils;
@@ -30,6 +31,7 @@ import com.sepcialfocus.android.BaseApplication;
 import com.sepcialfocus.android.BaseFragment;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.ArticleItemBean;
+import com.sepcialfocus.android.bean.HistroyItemBean;
 import com.sepcialfocus.android.bean.NavBean;
 import com.sepcialfocus.android.bean.PagesInfo;
 import com.sepcialfocus.android.configs.AppConstant;
@@ -62,6 +64,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	boolean isPullRrefreshFlag;
 	// 下拉刷新
 	boolean isRefresh = false;
+	boolean isPullFlag = false;
 	
 	String nextUrl;
 	private KJDB kjDb = null;
@@ -112,6 +115,23 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 						tempBean.setSummary(bean.getSummary());
 						mArticleList.set(position, tempBean);
 						kjDb.update(tempBean, " md5 = \'"+bean.getMd5()+"\'");
+						if(kjDb.findById(bean.getMd5(), HistroyItemBean.class)==null){
+							HistroyItemBean historyBean = new HistroyItemBean();
+							historyBean.setCategory(bean.getCategory());
+							historyBean.setImgUrl(bean.getImgUrl());
+							historyBean.setTitle(bean.getTitle());
+							historyBean.setTags(bean.getTags());
+							historyBean.setTagUrl(bean.getTagUrl());
+							historyBean.setDate(bean.getDate());
+							historyBean.setHasFavor(bean.isHasFavor());
+							historyBean.setHasReadFlag(true);
+							historyBean.setMd5(bean.getMd5());
+							historyBean.setUrl(bean.getUrl());
+							historyBean.setSummary(bean.getSummary());
+							kjDb.save(historyBean);
+						}else{
+							Toast.makeText(mContext, "已经读过，不用继续保存",Toast.LENGTH_SHORT).show();
+						}
 						mArticleAdapter.notifyDataSetChanged();
 					}
 				});
@@ -124,9 +144,11 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			
 			@Override
 			public void onClick(View v) {
-				if(isPullRrefreshFlag && !isRefresh){
+				if(!isPullFlag && isPullRrefreshFlag && !isRefresh){
+					isPullFlag = true;
 					new Loadhtml(urls+nextUrl).execute("","","");
 				} else {
+					isPullFlag = false;
 					mArticle_listview.onBottomComplete();
 				}
 			}
@@ -180,7 +202,11 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
             	doc = Jsoup.connect(urls).timeout(5000).get();
                  Document content = Jsoup.parse(doc.toString());
                  if(isRefresh){
-                	 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content));
+                	 if(mArticleList.size() == 0){
+                		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content,isRefresh));
+                	 }else{
+                		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content));
+                	 }
                  }else{
                 	 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
                 	 isPullRrefreshFlag = info.getHasNextPage();
@@ -191,6 +217,8 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
             } catch (Exception e) {
                 mArticle_listview.onBottomComplete();
                 mSwipeLayout.setRefreshing(false);
+                isRefresh = false;
+            	isPullFlag = false;
                 e.printStackTrace();
             }
             return null;
@@ -206,6 +234,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
             mArticleAdapter.notifyDataSetChanged();
             mArticle_listview.onBottomComplete();
         	isRefresh = false;
+        	isPullFlag = false;
             mSwipeLayout.setRefreshing(false);
         }
 

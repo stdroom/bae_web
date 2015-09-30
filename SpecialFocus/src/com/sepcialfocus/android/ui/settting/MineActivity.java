@@ -36,6 +36,7 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 	TextView mTitleTv;
 	
 	RelativeLayout mHistoryRl;
+	RelativeLayout mAddColumnRl;
 	RelativeLayout mFavorRl;
 	RelativeLayout mFeedbackRl;
 	RelativeLayout mSystemMsgRl;
@@ -43,6 +44,7 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 	RelativeLayout mAboutUsRl;
 	RelativeLayout mSettingRl;
 	
+	Intent intent ;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -60,6 +62,7 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 		mTitleTv.setText("我的");
 		
 		mHistoryRl = (RelativeLayout)findViewById(R.id.mine_history_rl);
+		mAddColumnRl = (RelativeLayout)findViewById(R.id.mine_columns_rl);
 		mFavorRl = (RelativeLayout)findViewById(R.id.mine_favorite_rl);
 		mFeedbackRl = (RelativeLayout)findViewById(R.id.mine_feedback_rl);
 		mSystemMsgRl = (RelativeLayout)findViewById(R.id.mine_msg_rl);
@@ -68,6 +71,7 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 		mSettingRl = (RelativeLayout)findViewById(R.id.mine_setting_rl);
 		
 		mHistoryRl.setOnClickListener(this);
+		mAddColumnRl.setOnClickListener(this);
 		mFavorRl.setOnClickListener(this);
 		mFeedbackRl.setOnClickListener(this);
 		mSystemMsgRl.setOnClickListener(this);
@@ -86,6 +90,19 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 			break;
 		case R.id.mine_history_rl:
 			startActivity(new Intent(MineActivity.this,HistoryActivity.class));
+			break;
+		case R.id.mine_columns_rl:
+			intent = new Intent(MineActivity.this,DragSortMenuActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.mine_favorite_rl:
+			intent = new Intent(MineActivity.this,HistoryActivity.class);
+			intent.putExtra("key", false);
+			startActivity(intent);
+			break;
+		case R.id.mine_feedback_rl:
+			intent = new Intent(MineActivity.this,FeedbackActivity.class);
+			startActivity(intent);
 			break;
 		}
 		

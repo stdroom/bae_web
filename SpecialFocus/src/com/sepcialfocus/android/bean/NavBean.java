@@ -38,7 +38,10 @@ public class NavBean implements Serializable{
 	 * */
 	int category = 1;
 	
-	int isShow = 1;
+	String show = "1";
+	
+	public NavBean(){
+	}
 	
 	public String getMd5() {
 		return md5;
@@ -64,11 +67,11 @@ public class NavBean implements Serializable{
 	public void setCategory(int category) {
 		this.category = category;
 	}
-	public int getIsShow() {
-		return isShow;
+	public String getShow() {
+		return show;
 	}
-	public void setIsShow(int isShow) {
-		this.isShow = isShow;
+	public void setShow(String show) {
+		this.show = show;
 	}
 	public int getOrderId() {
 		return orderId;

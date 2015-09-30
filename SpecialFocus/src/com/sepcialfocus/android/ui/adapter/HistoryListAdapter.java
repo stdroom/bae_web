@@ -79,7 +79,7 @@ public class HistoryListAdapter extends BaseAdapter{
 			convertView.setTag(holder);
 		}
 		holder = (ViewHolder)convertView.getTag();
-		ArticleItemBean bean  = mList.get(position);
+		HistroyItemBean bean  = mList.get(position);
 		holder.mArticleTitleTv.setText(bean.getTitle()+"");
 		holder.mArticleContentTv.setText(bean.getSummary()+"");
 		holder.mArticleDateTv.setText(bean.getDate()+"");

@@ -29,22 +29,24 @@ public class ArticleItemBean implements Serializable{
 	
 	@Id
 	private String md5 = "";
-	String title = "";
-	String date = "";
-	String imgUrl = "";
-	String url = "";
-	String tagUrl = "";
-	ArrayList<String> tags = null;
-	String summary = "";
+	protected String title = "";
+	protected String date = "";
+	protected String imgUrl = "";
+	protected String url = "";
+	protected String tagUrl = "";
+	protected ArrayList<String> tags = null;
+	protected String summary = "";
 	
 	/** 该条目类型  
 	 * 1：正常文章
 	 * */
-	int category = 1;
+	protected int category = 1;
 	
-	boolean hasReadFlag = false;
-	boolean hasFavor = true;
+	protected boolean hasReadFlag = false;
+	protected boolean hasFavor = true;
 	
+	public ArticleItemBean(){
+	}
 	
 	public boolean isHasFavor() {
 		return hasFavor;

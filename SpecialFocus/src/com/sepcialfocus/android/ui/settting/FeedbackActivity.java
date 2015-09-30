@@ -99,7 +99,7 @@ public class FeedbackActivity extends BaseFragmentActivity implements View.OnCli
 		back_left.setOnClickListener(this);
 		mTitleTv.setText(getResources().getString(R.string.mine_feedback_str));
 		mSwipeLayout = (SwipeRefreshLayout)findViewById(R.id.swipe_container);
-		mListView = (SwipeListView) findViewById(R.id.swipe_container);
+		mListView = (SwipeListView) findViewById(R.id.article_listview);
 		sendBtn = (Button) findViewById(R.id.fb_send_btn);
 		inputEdit = (EditText) findViewById(R.id.fb_send_content);
 		sendBtn.setOnClickListener(new OnClickListener() {

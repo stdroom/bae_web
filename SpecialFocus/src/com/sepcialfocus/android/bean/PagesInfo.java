@@ -22,6 +22,10 @@ package com.sepcialfocus.android.bean;
 public class PagesInfo {
 	String nextPageUrl = "";
 	Boolean hasNextPage = false;
+	
+	
+	public PagesInfo(){
+	}
 	public String getNextPageUrl() {
 		return nextPageUrl;
 	}

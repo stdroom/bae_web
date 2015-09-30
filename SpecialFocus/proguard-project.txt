@@ -23,3 +23,23 @@
 -keep class net.youmi.android.** {
     *;
 }
+
+-dontwarn com.umeng.**
+-keep class com.umeng.** {
+    *;
+}
+-dontwarn com.alibaba.fastjson.**
+-keep class com.alibaba.fastjson.** {
+    *;
+}
+-dontwarn com.tencent.weibo.**
+-keep class com.tencent.weibo.** {
+    *;
+}
+-dontwarn android.support.**
+-keep class android.support.** {
+    *;
+}
+-keep class com.mike.aframe.** {
+    *;
+}

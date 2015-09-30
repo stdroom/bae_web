@@ -20,6 +20,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mike.aframe.MKLog;
 import com.mike.aframe.utils.DensityUtils;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.ui.adapter.DragAdapter;
@@ -338,7 +339,7 @@ public class DragGrid extends GridView {
                 float x_vlaue = ((float) mHorizontalSpacing / (float) itemWidth) + 1.0f;
                 // y_vlaue移动的距离百分比（相对于自己宽度的百分比）
                 float y_vlaue = ((float) mVerticalSpacing / (float) itemHeight) + 1.0f;
-                Log.d("x_vlaue", "x_vlaue = " + x_vlaue);
+                MKLog.d("x_vlaue", "x_vlaue = " + x_vlaue);
                 for (int i = 0; i < movecount_abs; i++) {
                     to_x = x_vlaue;
                     to_y = y_vlaue;

@@ -29,6 +29,9 @@ public class RollImageBean implements Serializable{
 	private String imgLinkUrl = "";
 	
 	
+	public RollImageBean(){
+	}
+	
 	public String getId() {
 		return id;
 	}
