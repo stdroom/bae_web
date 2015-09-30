@@ -65,19 +65,19 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 		mAddColumnRl = (RelativeLayout)findViewById(R.id.mine_columns_rl);
 		mFavorRl = (RelativeLayout)findViewById(R.id.mine_favorite_rl);
 		mFeedbackRl = (RelativeLayout)findViewById(R.id.mine_feedback_rl);
-		mSystemMsgRl = (RelativeLayout)findViewById(R.id.mine_msg_rl);
-		mShareRl = (RelativeLayout)findViewById(R.id.mine_share_rl);
-		mAboutUsRl = (RelativeLayout)findViewById(R.id.mine_about_us_rl);
-		mSettingRl = (RelativeLayout)findViewById(R.id.mine_setting_rl);
+//		mSystemMsgRl = (RelativeLayout)findViewById(R.id.mine_msg_rl);
+//		mShareRl = (RelativeLayout)findViewById(R.id.mine_share_rl);
+//		mAboutUsRl = (RelativeLayout)findViewById(R.id.mine_about_us_rl);
+//		mSettingRl = (RelativeLayout)findViewById(R.id.mine_setting_rl);
 		
 		mHistoryRl.setOnClickListener(this);
 		mAddColumnRl.setOnClickListener(this);
 		mFavorRl.setOnClickListener(this);
 		mFeedbackRl.setOnClickListener(this);
-		mSystemMsgRl.setOnClickListener(this);
-		mShareRl.setOnClickListener(this);
-		mAboutUsRl.setOnClickListener(this);
-		mSettingRl.setOnClickListener(this);
+//		mSystemMsgRl.setOnClickListener(this);
+//		mShareRl.setOnClickListener(this);
+//		mAboutUsRl.setOnClickListener(this);
+//		mSettingRl.setOnClickListener(this);
 	}
 
 

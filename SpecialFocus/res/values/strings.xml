@@ -20,7 +20,7 @@
         <item>经典语句</item>
     </string-array>
     <string-array name="menu_url">
-        <item></item>
+        <item>m/</item>
         <item>news/1/</item>
         <item>news/2/</item>
         <item>news/3/</item>

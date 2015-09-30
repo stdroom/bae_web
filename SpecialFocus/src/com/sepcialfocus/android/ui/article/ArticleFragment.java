@@ -38,8 +38,6 @@ import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemListParse;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemPagesParse;
 import com.sepcialfocus.android.ui.adapter.ArticleListAdapter;
-import com.sepcialfocus.android.ui.widget.PullToRefreshView;
-import com.sepcialfocus.android.ui.widget.PullToRefreshView.OnFooterRefreshListener;
 import com.sepcialfocus.android.utils.SettingsManager;
 import com.sepcialfocus.android.widgets.swiptlistview.SwipeListView;
 
@@ -230,7 +228,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
             super.onPostExecute(result);
 //            Log.d("doc", doc.toString().trim());
             setLoadingVisible(false);
-//            mSwipeLayout.setVisibility(View.VISIBLE);
+            mSwipeLayout.setVisibility(View.VISIBLE);
             mArticleAdapter.notifyDataSetChanged();
             mArticle_listview.onBottomComplete();
         	isRefresh = false;
@@ -245,7 +243,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
             if(mArticleList!=null 
             		&& mArticleList.size()==0){
             	setLoadingVisible(true);
-//            	mSwipeLayout.setVisibility(View.GONE);
+            	mSwipeLayout.setVisibility(View.GONE);
             }
             
         }

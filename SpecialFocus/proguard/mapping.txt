@@ -13187,28 +13187,31 @@ com.sepcialfocus.android.ui.article.ArticleFragment$Loadhtml -> com.sepcialfocus
     void onPostExecute(java.lang.Object) -> onPostExecute
     java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.sepcialfocus.android.ui.article.MainFragment -> com.sepcialfocus.android.ui.article.l:
-    java.util.ArrayList images -> j
+    java.util.ArrayList images -> k
     int gallerypisition -> b
     java.util.Timer autoGallery -> c
-    com.sepcialfocus.android.ui.widget.GuideGallery mGallery -> k
+    com.sepcialfocus.android.ui.widget.GuideGallery mGallery -> l
     android.widget.LinearLayout pointLinear -> d
-    int position -> l
-    java.lang.Thread timeThread -> m
+    int position -> m
+    java.lang.Thread timeThread -> n
     boolean timeFlag -> e
-    boolean isExit -> n
+    boolean isExit -> o
     com.sepcialfocus.android.ui.article.MainFragment$ImageTimerTask timeTaks -> f
     com.sepcialfocus.android.ui.widget.ImageAdapter imageAdapter -> g
-    java.util.ArrayList mArticleList -> o
-    com.sepcialfocus.android.ui.widget.PullToRefreshView mArticle_pullview -> p
-    android.widget.ListView mArticle_listview -> q
-    com.sepcialfocus.android.ui.adapter.ArticleListAdapter mArticleAdapter -> r
-    android.view.View mView -> s
-    android.view.View mHeadView -> t
-    android.app.Activity mActivity -> u
-    java.lang.String urls -> v
+    java.util.ArrayList mArticleList -> p
+    android.support.v4.widget.SwipeRefreshLayout mSwipeLayout -> q
+    com.sepcialfocus.android.widgets.swiptlistview.SwipeListView mArticle_listview -> r
+    com.sepcialfocus.android.ui.adapter.ArticleListAdapter mArticleAdapter -> s
+    android.view.View mView -> t
+    android.view.View mHeadView -> u
+    android.app.Activity mActivity -> v
+    java.lang.String urls -> w
     boolean isPullRrefreshFlag -> h
-    com.mike.aframe.database.KJDB kjDb -> w
-    android.os.Handler autoGalleryHandler -> i
+    java.lang.String nextUrl -> i
+    com.mike.aframe.database.KJDB kjDb -> x
+    boolean isRefresh -> y
+    boolean isPullFlag -> z
+    android.os.Handler autoGalleryHandler -> j
     void onCreate(android.os.Bundle) -> onCreate
     void initView() -> a
     android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
@@ -13220,14 +13223,24 @@ com.sepcialfocus.android.ui.article.MainFragment -> com.sepcialfocus.android.ui.
     void initGalery() -> b
     void startGalery() -> c
     void onDestroy() -> onDestroy
+    void initSwapLayout() -> e
+    void onRefresh() -> onRefresh
+    void parseRoolImg(org.jsoup.nodes.Document) -> a
     com.sepcialfocus.android.ui.widget.GuideGallery access$0(com.sepcialfocus.android.ui.article.MainFragment) -> a
-    com.mike.aframe.database.KJDB access$1(com.sepcialfocus.android.ui.article.MainFragment) -> b
-    java.util.ArrayList access$2(com.sepcialfocus.android.ui.article.MainFragment) -> c
-    void access$3(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> a
-    com.sepcialfocus.android.ui.widget.PullToRefreshView access$4(com.sepcialfocus.android.ui.article.MainFragment) -> d
-    com.sepcialfocus.android.ui.adapter.ArticleListAdapter access$5(com.sepcialfocus.android.ui.article.MainFragment) -> e
-    android.app.Activity access$6(com.sepcialfocus.android.ui.article.MainFragment) -> f
-    boolean access$7(com.sepcialfocus.android.ui.article.MainFragment) -> g
+    boolean access$1(com.sepcialfocus.android.ui.article.MainFragment) -> b
+    void access$2(com.sepcialfocus.android.ui.article.MainFragment,org.jsoup.nodes.Document) -> a
+    boolean access$3(com.sepcialfocus.android.ui.article.MainFragment) -> c
+    java.util.ArrayList access$4(com.sepcialfocus.android.ui.article.MainFragment) -> d
+    com.mike.aframe.database.KJDB access$5(com.sepcialfocus.android.ui.article.MainFragment) -> e
+    com.sepcialfocus.android.widgets.swiptlistview.SwipeListView access$6(com.sepcialfocus.android.ui.article.MainFragment) -> f
+    android.support.v4.widget.SwipeRefreshLayout access$7(com.sepcialfocus.android.ui.article.MainFragment) -> g
+    void access$8(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> a
+    void access$9(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> b
+    void access$10(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> c
+    com.sepcialfocus.android.ui.adapter.ArticleListAdapter access$11(com.sepcialfocus.android.ui.article.MainFragment) -> h
+    android.app.Activity access$12(com.sepcialfocus.android.ui.article.MainFragment) -> i
+    java.lang.String access$13(com.sepcialfocus.android.ui.article.MainFragment) -> j
+    boolean access$14(com.sepcialfocus.android.ui.article.MainFragment) -> k
 com.sepcialfocus.android.ui.article.MainFragment$1 -> com.sepcialfocus.android.ui.article.m:
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> a
     void handleMessage(android.os.Message) -> handleMessage
@@ -13236,15 +13249,18 @@ com.sepcialfocus.android.ui.article.MainFragment$2 -> com.sepcialfocus.android.u
     void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
 com.sepcialfocus.android.ui.article.MainFragment$3 -> com.sepcialfocus.android.ui.article.o:
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> a
-    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    void onClick(android.view.View) -> onClick
 com.sepcialfocus.android.ui.article.MainFragment$4 -> com.sepcialfocus.android.ui.article.p:
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> a
+    void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+com.sepcialfocus.android.ui.article.MainFragment$5 -> com.sepcialfocus.android.ui.article.q:
+    com.sepcialfocus.android.ui.article.MainFragment this$0 -> a
     void run() -> run
-com.sepcialfocus.android.ui.article.MainFragment$ImageTimerTask -> com.sepcialfocus.android.ui.article.q:
+com.sepcialfocus.android.ui.article.MainFragment$ImageTimerTask -> com.sepcialfocus.android.ui.article.r:
     boolean timeCondition -> a
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> b
     void run() -> run
-com.sepcialfocus.android.ui.article.MainFragment$Loadhtml -> com.sepcialfocus.android.ui.article.r:
+com.sepcialfocus.android.ui.article.MainFragment$Loadhtml -> com.sepcialfocus.android.ui.article.s:
     org.jsoup.nodes.Document doc -> a
     java.lang.String urls -> b
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> c
@@ -13306,6 +13322,62 @@ com.sepcialfocus.android.ui.settting.DragSortMenuActivity$3 -> com.sepcialfocus.
     void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
     void onAnimationEnd(android.view.animation.Animation) -> onAnimationEnd
+com.sepcialfocus.android.ui.settting.FeedbackActivity -> com.sepcialfocus.android.ui.settting.FeedbackActivity:
+    android.support.v4.widget.SwipeRefreshLayout mSwipeLayout -> b
+    com.sepcialfocus.android.widgets.swiptlistview.SwipeListView mListView -> c
+    com.umeng.fb.FeedbackAgent mAgent -> d
+    com.umeng.fb.model.Conversation mComversation -> e
+    android.content.Context mContext -> f
+    com.sepcialfocus.android.ui.settting.FeedbackActivity$ReplyAdapter adapter -> g
+    android.widget.Button sendBtn -> h
+    android.widget.EditText inputEdit -> i
+    int VIEW_TYPE_COUNT -> j
+    int VIEW_TYPE_USER -> k
+    int VIEW_TYPE_DEV -> l
+    android.widget.TextView mTitleTv -> m
+    android.widget.ImageView back_left -> n
+    com.umeng.fb.model.Reply mReply -> o
+    java.util.List mList -> p
+    android.os.Handler mHandler -> q
+    void onCreate(android.os.Bundle) -> onCreate
+    void initView() -> a
+    void sync() -> b
+    void onClick(android.view.View) -> onClick
+    void resetList() -> c
+    void initSwapLayout() -> d
+    void onRefresh() -> onRefresh
+    com.sepcialfocus.android.ui.settting.FeedbackActivity$ReplyAdapter access$0(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> a
+    java.util.List access$1(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> b
+    android.content.Context access$2(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> c
+    android.widget.EditText access$3(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> d
+    com.umeng.fb.model.Conversation access$4(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> e
+    android.os.Handler access$5(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> f
+    void access$6(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> g
+    android.support.v4.widget.SwipeRefreshLayout access$7(com.sepcialfocus.android.ui.settting.FeedbackActivity) -> h
+com.sepcialfocus.android.ui.settting.FeedbackActivity$1 -> com.sepcialfocus.android.ui.settting.d:
+    com.sepcialfocus.android.ui.settting.FeedbackActivity this$0 -> a
+    void handleMessage(android.os.Message) -> handleMessage
+com.sepcialfocus.android.ui.settting.FeedbackActivity$2 -> com.sepcialfocus.android.ui.settting.e:
+    com.sepcialfocus.android.ui.settting.FeedbackActivity this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.sepcialfocus.android.ui.settting.FeedbackActivity$3 -> com.sepcialfocus.android.ui.settting.f:
+    com.sepcialfocus.android.ui.settting.FeedbackActivity this$0 -> a
+    void onSendUserReply(java.util.List) -> onSendUserReply
+    void onReceiveDevReply(java.util.List) -> onReceiveDevReply
+com.sepcialfocus.android.ui.settting.FeedbackActivity$ReplyAdapter -> com.sepcialfocus.android.ui.settting.g:
+    com.sepcialfocus.android.ui.settting.FeedbackActivity this$0 -> a
+    int getCount() -> getCount
+    java.lang.Object getItem(int) -> getItem
+    long getItemId(int) -> getItemId
+    int getViewTypeCount() -> getViewTypeCount
+    int getItemViewType(int) -> getItemViewType
+    android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
+com.sepcialfocus.android.ui.settting.FeedbackActivity$ReplyAdapter$ViewHolder -> com.sepcialfocus.android.ui.settting.h:
+    android.widget.TextView replyContent -> a
+    android.widget.ProgressBar replyProgressBar -> b
+    android.widget.ImageView replyStateFailed -> c
+    android.widget.TextView replyData -> d
+    com.sepcialfocus.android.ui.settting.FeedbackActivity$ReplyAdapter this$1 -> e
 com.sepcialfocus.android.ui.settting.HistoryActivity -> com.sepcialfocus.android.ui.settting.HistoryActivity:
     com.sepcialfocus.android.ui.article.ArticleDbFragment fragment -> b
     java.lang.Boolean isHistory -> c
@@ -13320,11 +13392,7 @@ com.sepcialfocus.android.ui.settting.MineActivity -> com.sepcialfocus.android.ui
     android.widget.RelativeLayout mAddColumnRl -> e
     android.widget.RelativeLayout mFavorRl -> f
     android.widget.RelativeLayout mFeedbackRl -> g
-    android.widget.RelativeLayout mSystemMsgRl -> h
-    android.widget.RelativeLayout mShareRl -> i
-    android.widget.RelativeLayout mAboutUsRl -> j
-    android.widget.RelativeLayout mSettingRl -> k
-    android.content.Intent intent -> l
+    android.content.Intent intent -> h
     void onCreate(android.os.Bundle) -> onCreate
     void initView() -> a
     void onClick(android.view.View) -> onClick
@@ -13410,56 +13478,6 @@ com.sepcialfocus.android.ui.widget.ImageAdapter -> com.sepcialfocus.android.ui.w
     android.view.View getView(int,android.view.View,android.view.ViewGroup) -> getView
 com.sepcialfocus.android.ui.widget.ImageAdapter$ViewHolder -> com.sepcialfocus.android.ui.widget.f:
     android.widget.ImageView imageView -> a
-com.sepcialfocus.android.ui.widget.PullToRefreshView -> com.sepcialfocus.android.ui.widget.PullToRefreshView:
-    int mLastMotionY -> a
-    boolean mLock -> b
-    android.view.View mHeaderView -> c
-    android.view.View mFooterView -> d
-    android.widget.AdapterView mAdapterView -> e
-    android.widget.ScrollView mScrollView -> f
-    int mHeaderViewHeight -> g
-    int mFooterViewHeight -> h
-    android.widget.ImageView mHeaderImageView -> i
-    android.widget.ImageView mFooterImageView -> j
-    android.widget.TextView mFooterTextView -> k
-    android.widget.TextView mHeaderUpdateTextView -> l
-    android.widget.ImageView mHeaderProgressImg -> m
-    android.widget.ImageView mFooterProgressImg -> n
-    android.view.LayoutInflater mInflater -> o
-    int mHeaderState -> p
-    int mFooterState -> q
-    int mPullState -> r
-    com.sepcialfocus.android.ui.widget.PullToRefreshView$OnFooterRefreshListener mOnFooterRefreshListener -> s
-    com.sepcialfocus.android.ui.widget.PullToRefreshView$OnHeaderRefreshListener mOnHeaderRefreshListener -> t
-    int mLastMotionX -> u
-    java.lang.String mLastUpdateTime -> v
-    java.lang.String mLastLoadingTime -> w
-    void init() -> b
-    void addHeaderView() -> c
-    void addFooterView() -> d
-    void onFinishInflate() -> onFinishInflate
-    void initContentAdapterView() -> e
-    void measureView(android.view.View) -> a
-    boolean onInterceptTouchEvent(android.view.MotionEvent) -> onInterceptTouchEvent
-    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
-    boolean isRefreshViewScroll(int) -> a
-    void headerPrepareToRefresh(int) -> b
-    void footerPrepareToRefresh(int) -> c
-    int changingHeaderViewTopMargin(int) -> d
-    void headerRefreshing() -> f
-    void footerRefreshing() -> g
-    void setFooterInvisible() -> h
-    void setHeaderTopMargin(int) -> setHeaderTopMargin
-    void onFooterRefreshComplete() -> a
-    void setLastUpdated(java.lang.CharSequence) -> setLastUpdated
-    int getHeaderTopMargin() -> getHeaderTopMargin
-    void setOnHeaderRefreshListener(com.sepcialfocus.android.ui.widget.PullToRefreshView$OnHeaderRefreshListener) -> setOnHeaderRefreshListener
-    void setOnFooterRefreshListener(com.sepcialfocus.android.ui.widget.PullToRefreshView$OnFooterRefreshListener) -> setOnFooterRefreshListener
-    java.lang.String getTime() -> getTime
-com.sepcialfocus.android.ui.widget.PullToRefreshView$OnFooterRefreshListener -> com.sepcialfocus.android.ui.widget.g:
-    void onFooterRefresh(com.sepcialfocus.android.ui.widget.PullToRefreshView) -> a
-com.sepcialfocus.android.ui.widget.PullToRefreshView$OnHeaderRefreshListener -> com.sepcialfocus.android.ui.widget.h:
-    void onHeaderRefresh(com.sepcialfocus.android.ui.widget.PullToRefreshView) -> a
 com.sepcialfocus.android.utils.SettingsManager -> com.sepcialfocus.android.b.a:
     int swipeMode -> a
     boolean swipeOpenOnLongPress -> b

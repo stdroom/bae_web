@@ -707,7 +707,7 @@ com.sepcialfocus.android.R$layout
 com.sepcialfocus.android.R$string
 com.sepcialfocus.android.R$style
 com.sepcialfocus.android.R$styleable:
-    505:505:public R$styleable()
+    606:606:public R$styleable()
 com.sepcialfocus.android.configs.AppConfig
 com.sepcialfocus.android.configs.AppConstant
 com.sepcialfocus.android.configs.URLs
@@ -746,24 +746,16 @@ com.sepcialfocus.android.ui.article.ArticleDbFragment:
 com.sepcialfocus.android.ui.article.ArticleDbFragment$Loadhtml:
     org.jsoup.nodes.Document doc
 com.sepcialfocus.android.ui.article.ArticleFragment:
-    170:179:public void notifyData(com.sepcialfocus.android.bean.NavBean)
-com.sepcialfocus.android.ui.article.MainFragment:
-    java.lang.String nextUrl
+    168:177:public void notifyData(com.sepcialfocus.android.bean.NavBean)
 com.sepcialfocus.android.ui.settting.DragSortMenuActivity:
     com.sepcialfocus.android.ui.widget.DragGridView mDragGridView
+com.sepcialfocus.android.ui.settting.MineActivity:
+    android.widget.RelativeLayout mSystemMsgRl
+    android.widget.RelativeLayout mShareRl
+    android.widget.RelativeLayout mAboutUsRl
+    android.widget.RelativeLayout mSettingRl
 com.sepcialfocus.android.ui.widget.DragGridView:
     private static final int speed
-com.sepcialfocus.android.ui.widget.PullToRefreshView:
-    private static final int PULL_TO_REFRESH
-    private static final int RELEASE_TO_REFRESH
-    private static final int REFRESHING
-    private static final int PULL_UP_STATE
-    private static final int PULL_DOWN_STATE
-    518:527:public void onHeaderRefreshComplete()
-    534:536:public void onHeaderRefreshComplete(java.lang.CharSequence)
-    579:580:private void lock()
-    586:587:private void unlock()
-    630:632:public void setRefreshing()
 com.sepcialfocus.android.utils.SettingsManager:
     42:42:public static com.sepcialfocus.android.utils.SettingsManager getSettingsManager()
     46:47:public static void setSettingsManager(com.sepcialfocus.android.utils.SettingsManager)

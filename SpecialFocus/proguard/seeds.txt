@@ -12949,6 +12949,9 @@ com.sepcialfocus.android.BaseFragmentActivity: BaseFragmentActivity()
 com.sepcialfocus.android.R$anim: int pic_enter_anim_alpha
 com.sepcialfocus.android.R$array: int menu_str
 com.sepcialfocus.android.R$array: int menu_url
+com.sepcialfocus.android.R$array: int umeng_fb_contact_key_array
+com.sepcialfocus.android.R$array: int umeng_fb_contact_type_array
+com.sepcialfocus.android.R$array: int umeng_fb_tabs_title
 com.sepcialfocus.android.R$attr: int loadingText
 com.sepcialfocus.android.R$attr: int loadingTextAppearance
 com.sepcialfocus.android.R$attr: int rightPadding
@@ -13052,6 +13055,14 @@ com.sepcialfocus.android.R$color: int text_color_light_black
 com.sepcialfocus.android.R$color: int text_color_white
 com.sepcialfocus.android.R$color: int transparent
 com.sepcialfocus.android.R$color: int triangle
+com.sepcialfocus.android.R$color: int umeng_fb_audo_dialog_bg
+com.sepcialfocus.android.R$color: int umeng_fb_background
+com.sepcialfocus.android.R$color: int umeng_fb_gray
+com.sepcialfocus.android.R$color: int umeng_fb_lightblue
+com.sepcialfocus.android.R$color: int umeng_fb_line
+com.sepcialfocus.android.R$color: int umeng_fb_secondary_text_light
+com.sepcialfocus.android.R$color: int umeng_fb_tab_bg_pressed
+com.sepcialfocus.android.R$color: int umeng_fb_white
 com.sepcialfocus.android.R$color: int view_bg
 com.sepcialfocus.android.R$color: int white
 com.sepcialfocus.android.R$color: int zt_text_bg
@@ -13080,6 +13091,13 @@ com.sepcialfocus.android.R$dimen: int font_size_34px
 com.sepcialfocus.android.R$dimen: int font_size_38px
 com.sepcialfocus.android.R$dimen: int font_size_40px
 com.sepcialfocus.android.R$dimen: int font_size_45px
+com.sepcialfocus.android.R$dimen: int umeng_fb_item_content_size
+com.sepcialfocus.android.R$dimen: int umeng_fb_item_height
+com.sepcialfocus.android.R$dimen: int umeng_fb_item_line_height
+com.sepcialfocus.android.R$dimen: int umeng_fb_item_time_size
+com.sepcialfocus.android.R$dimen: int umeng_fb_normal_size
+com.sepcialfocus.android.R$dimen: int umeng_fb_record_btn_text_size
+com.sepcialfocus.android.R$dimen: int umeng_fb_spinner_padding_left
 com.sepcialfocus.android.R$drawable: int aa_dialog_bg
 com.sepcialfocus.android.R$drawable: int addcourse
 com.sepcialfocus.android.R$drawable: int blank
@@ -13095,6 +13113,15 @@ com.sepcialfocus.android.R$drawable: int choice_selected
 com.sepcialfocus.android.R$drawable: int choice_unselected
 com.sepcialfocus.android.R$drawable: int default_img
 com.sepcialfocus.android.R$drawable: int default_imgs
+com.sepcialfocus.android.R$drawable: int fb_default_dev_portrait
+com.sepcialfocus.android.R$drawable: int fb_default_user_portrait
+com.sepcialfocus.android.R$drawable: int fb_dev_reply_bg
+com.sepcialfocus.android.R$drawable: int fb_input_bg
+com.sepcialfocus.android.R$drawable: int fb_msg_tip
+com.sepcialfocus.android.R$drawable: int fb_send_btn_bg
+com.sepcialfocus.android.R$drawable: int fb_send_btn_pressed
+com.sepcialfocus.android.R$drawable: int fb_send_btn_unpressed
+com.sepcialfocus.android.R$drawable: int fb_user_reply_bg
 com.sepcialfocus.android.R$drawable: int feature_point
 com.sepcialfocus.android.R$drawable: int feature_point_cur
 com.sepcialfocus.android.R$drawable: int head_bg
@@ -13111,17 +13138,12 @@ com.sepcialfocus.android.R$drawable: int mine_setting
 com.sepcialfocus.android.R$drawable: int mine_share
 com.sepcialfocus.android.R$drawable: int pic_line
 com.sepcialfocus.android.R$drawable: int pop_bottom
-com.sepcialfocus.android.R$drawable: int pull_list_ielts
-com.sepcialfocus.android.R$drawable: int pull_loading_0
-com.sepcialfocus.android.R$drawable: int pull_loading_1
-com.sepcialfocus.android.R$drawable: int pull_loading_2
-com.sepcialfocus.android.R$drawable: int pull_loading_3
-com.sepcialfocus.android.R$drawable: int pullrefresh_animation
 com.sepcialfocus.android.R$drawable: int right_jump
 com.sepcialfocus.android.R$drawable: int setting_nav_img
 com.sepcialfocus.android.R$drawable: int shadow
 com.sepcialfocus.android.R$drawable: int splash_bg
 com.sepcialfocus.android.R$drawable: int subscribe_item_bg
+com.sepcialfocus.android.R$id: int app_header
 com.sepcialfocus.android.R$id: int article_content
 com.sepcialfocus.android.R$id: int article_date
 com.sepcialfocus.android.R$id: int article_from1
@@ -13137,6 +13159,7 @@ com.sepcialfocus.android.R$id: int article_web
 com.sepcialfocus.android.R$id: int back
 com.sepcialfocus.android.R$id: int both
 com.sepcialfocus.android.R$id: int bottom_back
+com.sepcialfocus.android.R$id: int bottom_favor
 com.sepcialfocus.android.R$id: int bottom_share
 com.sepcialfocus.android.R$id: int choice
 com.sepcialfocus.android.R$id: int container
@@ -13150,6 +13173,14 @@ com.sepcialfocus.android.R$id: int drag_soft_img
 com.sepcialfocus.android.R$id: int drag_tv
 com.sepcialfocus.android.R$id: int drop_down_list_footer_button
 com.sepcialfocus.android.R$id: int drop_down_list_footer_progress_bar
+com.sepcialfocus.android.R$id: int fb_input_layout
+com.sepcialfocus.android.R$id: int fb_reply_content
+com.sepcialfocus.android.R$id: int fb_reply_date
+com.sepcialfocus.android.R$id: int fb_reply_layout
+com.sepcialfocus.android.R$id: int fb_reply_progressBar
+com.sepcialfocus.android.R$id: int fb_reply_state_failed
+com.sepcialfocus.android.R$id: int fb_send_btn
+com.sepcialfocus.android.R$id: int fb_send_content
 com.sepcialfocus.android.R$id: int fragment_viewpager
 com.sepcialfocus.android.R$id: int front
 com.sepcialfocus.android.R$id: int gallery_image
@@ -13170,14 +13201,10 @@ com.sepcialfocus.android.R$id: int layout_loading_bar
 com.sepcialfocus.android.R$id: int left
 com.sepcialfocus.android.R$id: int loadView
 com.sepcialfocus.android.R$id: int menu
-com.sepcialfocus.android.R$id: int mine_about_us_rl
 com.sepcialfocus.android.R$id: int mine_columns_rl
 com.sepcialfocus.android.R$id: int mine_favorite_rl
 com.sepcialfocus.android.R$id: int mine_feedback_rl
 com.sepcialfocus.android.R$id: int mine_history_rl
-com.sepcialfocus.android.R$id: int mine_msg_rl
-com.sepcialfocus.android.R$id: int mine_setting_rl
-com.sepcialfocus.android.R$id: int mine_share_rl
 com.sepcialfocus.android.R$id: int more_category_text
 com.sepcialfocus.android.R$id: int my_category_text
 com.sepcialfocus.android.R$id: int my_category_tip_text
@@ -13206,13 +13233,17 @@ com.sepcialfocus.android.R$id: int text_item
 com.sepcialfocus.android.R$id: int tvProcess
 com.sepcialfocus.android.R$id: int tv_title
 com.sepcialfocus.android.R$id: int userGridView
+com.sepcialfocus.android.R$id: int user_portrait
 com.sepcialfocus.android.R$layout: int activity_article_detail
 com.sepcialfocus.android.R$layout: int activity_dragmenusoft
+com.sepcialfocus.android.R$layout: int activity_feedback
 com.sepcialfocus.android.R$layout: int activity_fragment_container
 com.sepcialfocus.android.R$layout: int activity_main
 com.sepcialfocus.android.R$layout: int app_header
 com.sepcialfocus.android.R$layout: int channel_item
 com.sepcialfocus.android.R$layout: int common_line_margintop_linear
+com.sepcialfocus.android.R$layout: int custom_fb_dev_reply
+com.sepcialfocus.android.R$layout: int custom_fb_user_reply
 com.sepcialfocus.android.R$layout: int detail_layout_bottom
 com.sepcialfocus.android.R$layout: int drop_down_list_footer
 com.sepcialfocus.android.R$layout: int fragment_article
@@ -13233,8 +13264,23 @@ com.sepcialfocus.android.R$layout: int refresh_footer
 com.sepcialfocus.android.R$layout: int refresh_header
 com.sepcialfocus.android.R$layout: int splash_activity
 com.sepcialfocus.android.R$layout: int update
+com.sepcialfocus.android.R$string: int UMAppUpdate
+com.sepcialfocus.android.R$string: int UMBreak_Network
+com.sepcialfocus.android.R$string: int UMDialog_InstallAPK
+com.sepcialfocus.android.R$string: int UMGprsCondition
+com.sepcialfocus.android.R$string: int UMIgnore
+com.sepcialfocus.android.R$string: int UMNewVersion
+com.sepcialfocus.android.R$string: int UMNotNow
+com.sepcialfocus.android.R$string: int UMTargetSize
+com.sepcialfocus.android.R$string: int UMToast_IsUpdating
+com.sepcialfocus.android.R$string: int UMUpdateCheck
+com.sepcialfocus.android.R$string: int UMUpdateContent
+com.sepcialfocus.android.R$string: int UMUpdateNow
+com.sepcialfocus.android.R$string: int UMUpdateSize
+com.sepcialfocus.android.R$string: int UMUpdateTitle
 com.sepcialfocus.android.R$string: int app_name
 com.sepcialfocus.android.R$string: int common_back_str
+com.sepcialfocus.android.R$string: int dev_tips
 com.sepcialfocus.android.R$string: int drop_down_list_footer_default_text
 com.sepcialfocus.android.R$string: int drop_down_list_footer_loading_text
 com.sepcialfocus.android.R$string: int drop_down_list_footer_no_more_text
@@ -13252,6 +13298,59 @@ com.sepcialfocus.android.R$string: int mine_history_str
 com.sepcialfocus.android.R$string: int mine_pushmsg_str
 com.sepcialfocus.android.R$string: int mine_setting_str
 com.sepcialfocus.android.R$string: int mine_share_str
+com.sepcialfocus.android.R$string: int umeng_common_action_cancel
+com.sepcialfocus.android.R$string: int umeng_common_action_continue
+com.sepcialfocus.android.R$string: int umeng_common_action_info_exist
+com.sepcialfocus.android.R$string: int umeng_common_action_pause
+com.sepcialfocus.android.R$string: int umeng_common_download_failed
+com.sepcialfocus.android.R$string: int umeng_common_download_finish
+com.sepcialfocus.android.R$string: int umeng_common_download_notification_prefix
+com.sepcialfocus.android.R$string: int umeng_common_icon
+com.sepcialfocus.android.R$string: int umeng_common_info_interrupt
+com.sepcialfocus.android.R$string: int umeng_common_network_break_alert
+com.sepcialfocus.android.R$string: int umeng_common_patch_finish
+com.sepcialfocus.android.R$string: int umeng_common_pause_notification_prefix
+com.sepcialfocus.android.R$string: int umeng_common_silent_download_finish
+com.sepcialfocus.android.R$string: int umeng_common_start_download_notification
+com.sepcialfocus.android.R$string: int umeng_common_start_patch_notification
+com.sepcialfocus.android.R$string: int umeng_fb_back
+com.sepcialfocus.android.R$string: int umeng_fb_change_contact_title
+com.sepcialfocus.android.R$string: int umeng_fb_contact_email
+com.sepcialfocus.android.R$string: int umeng_fb_contact_info
+com.sepcialfocus.android.R$string: int umeng_fb_contact_info_hint
+com.sepcialfocus.android.R$string: int umeng_fb_contact_key_email
+com.sepcialfocus.android.R$string: int umeng_fb_contact_key_other
+com.sepcialfocus.android.R$string: int umeng_fb_contact_key_phone
+com.sepcialfocus.android.R$string: int umeng_fb_contact_key_qq
+com.sepcialfocus.android.R$string: int umeng_fb_contact_other
+com.sepcialfocus.android.R$string: int umeng_fb_contact_phone
+com.sepcialfocus.android.R$string: int umeng_fb_contact_qq
+com.sepcialfocus.android.R$string: int umeng_fb_contact_save
+com.sepcialfocus.android.R$string: int umeng_fb_count_down
+com.sepcialfocus.android.R$string: int umeng_fb_feedback
+com.sepcialfocus.android.R$string: int umeng_fb_no_record_permission
+com.sepcialfocus.android.R$string: int umeng_fb_notification_content_formatter_multiple_msg
+com.sepcialfocus.android.R$string: int umeng_fb_notification_content_formatter_single_msg
+com.sepcialfocus.android.R$string: int umeng_fb_notification_ticker_text
+com.sepcialfocus.android.R$string: int umeng_fb_please_select_picture
+com.sepcialfocus.android.R$string: int umeng_fb_press_speech
+com.sepcialfocus.android.R$string: int umeng_fb_questions_anwser
+com.sepcialfocus.android.R$string: int umeng_fb_questions_question
+com.sepcialfocus.android.R$string: int umeng_fb_record_fail
+com.sepcialfocus.android.R$string: int umeng_fb_record_time_short
+com.sepcialfocus.android.R$string: int umeng_fb_release_cancel
+com.sepcialfocus.android.R$string: int umeng_fb_release_send
+com.sepcialfocus.android.R$string: int umeng_fb_reply_content_default
+com.sepcialfocus.android.R$string: int umeng_fb_send
+com.sepcialfocus.android.R$string: int umeng_fb_send_fail
+com.sepcialfocus.android.R$string: int umeng_fb_sending
+com.sepcialfocus.android.R$string: int umeng_fb_slide_up_cancel
+com.sepcialfocus.android.R$string: int umeng_fb_time_minutes_ago
+com.sepcialfocus.android.R$string: int umeng_fb_time_pre_year_format
+com.sepcialfocus.android.R$string: int umeng_fb_time_right_now
+com.sepcialfocus.android.R$string: int umeng_fb_time_this_year_format
+com.sepcialfocus.android.R$string: int umeng_fb_title
+com.sepcialfocus.android.R$string: int umeng_fb_write_contact_title
 com.sepcialfocus.android.R$string: int version_cannot_str
 com.sepcialfocus.android.R$string: int version_checking_str
 com.sepcialfocus.android.R$string: int version_dialog_cancle_str
@@ -13429,6 +13528,9 @@ com.sepcialfocus.android.ui.article.ArticleDetailActivity: void onClick(android.
 com.sepcialfocus.android.ui.settting.DragSortMenuActivity
 com.sepcialfocus.android.ui.settting.DragSortMenuActivity: DragSortMenuActivity()
 com.sepcialfocus.android.ui.settting.DragSortMenuActivity: void onClick(android.view.View)
+com.sepcialfocus.android.ui.settting.FeedbackActivity
+com.sepcialfocus.android.ui.settting.FeedbackActivity: FeedbackActivity()
+com.sepcialfocus.android.ui.settting.FeedbackActivity: void onClick(android.view.View)
 com.sepcialfocus.android.ui.settting.HistoryActivity
 com.sepcialfocus.android.ui.settting.HistoryActivity: HistoryActivity()
 com.sepcialfocus.android.ui.settting.HistoryActivity: void onClick(android.view.View)
@@ -13446,15 +13548,6 @@ com.sepcialfocus.android.ui.widget.GuideGallery: GuideGallery(android.content.Co
 com.sepcialfocus.android.ui.widget.GuideGallery: GuideGallery(android.content.Context,android.util.AttributeSet)
 com.sepcialfocus.android.ui.widget.GuideGallery: GuideGallery(android.content.Context,android.util.AttributeSet,int)
 com.sepcialfocus.android.ui.widget.GuideGallery: void setImageActivity(com.sepcialfocus.android.ui.article.MainFragment)
-com.sepcialfocus.android.ui.widget.PullToRefreshView
-com.sepcialfocus.android.ui.widget.PullToRefreshView: PullToRefreshView(android.content.Context,android.util.AttributeSet)
-com.sepcialfocus.android.ui.widget.PullToRefreshView: PullToRefreshView(android.content.Context)
-com.sepcialfocus.android.ui.widget.PullToRefreshView: void setHeaderTopMargin(int)
-com.sepcialfocus.android.ui.widget.PullToRefreshView: void setLastUpdated(java.lang.CharSequence)
-com.sepcialfocus.android.ui.widget.PullToRefreshView: int getHeaderTopMargin()
-com.sepcialfocus.android.ui.widget.PullToRefreshView: void setOnHeaderRefreshListener(com.sepcialfocus.android.ui.widget.PullToRefreshView$OnHeaderRefreshListener)
-com.sepcialfocus.android.ui.widget.PullToRefreshView: void setOnFooterRefreshListener(com.sepcialfocus.android.ui.widget.PullToRefreshView$OnFooterRefreshListener)
-com.sepcialfocus.android.ui.widget.PullToRefreshView: java.lang.String getTime()
 com.sepcialfocus.android.widgets.DragGrid
 com.sepcialfocus.android.widgets.DragGrid: DragGrid(android.content.Context)
 com.sepcialfocus.android.widgets.DragGrid: DragGrid(android.content.Context,android.util.AttributeSet,int)

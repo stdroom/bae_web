@@ -23,21 +23,19 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -45,17 +43,22 @@ import com.mike.aframe.MKLog;
 import com.mike.aframe.database.KJDB;
 import com.mike.aframe.utils.DensityUtils;
 import com.mike.aframe.utils.MD5Utils;
+import com.mike.aframe.utils.PreferenceHelper;
 import com.sepcialfocus.android.BaseApplication;
 import com.sepcialfocus.android.BaseFragment;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.ArticleItemBean;
+import com.sepcialfocus.android.bean.PagesInfo;
 import com.sepcialfocus.android.bean.RollImageBean;
+import com.sepcialfocus.android.configs.AppConstant;
+import com.sepcialfocus.android.parse.specialfocus.ArticleItemListParse;
+import com.sepcialfocus.android.parse.specialfocus.ArticleItemPagesParse;
 import com.sepcialfocus.android.ui.adapter.ArticleListAdapter;
-import com.sepcialfocus.android.ui.adapter.MainPagerAdapter;
 import com.sepcialfocus.android.ui.article.ArticleFragment.Loadhtml;
 import com.sepcialfocus.android.ui.widget.GuideGallery;
 import com.sepcialfocus.android.ui.widget.ImageAdapter;
-import com.sepcialfocus.android.ui.widget.PullToRefreshView;
+import com.sepcialfocus.android.utils.SettingsManager;
+import com.sepcialfocus.android.widgets.swiptlistview.SwipeListView;
 
 /**
  * 类名: MainFragment <br/>
@@ -65,7 +68,7 @@ import com.sepcialfocus.android.ui.widget.PullToRefreshView;
  * @author leixun
  * @version 
  */
-public class MainFragment extends BaseFragment{
+public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
 	
 	private ArrayList<RollImageBean> images;
 	int gallerypisition = 0;
@@ -80,8 +83,8 @@ public class MainFragment extends BaseFragment{
 	public ImageAdapter imageAdapter;
 
 	private ArrayList<ArticleItemBean> mArticleList;
-	private PullToRefreshView mArticle_pullview;
-	private ListView mArticle_listview;
+	private SwipeRefreshLayout mSwipeLayout;
+	private SwipeListView mArticle_listview;
 	private ArticleListAdapter mArticleAdapter;
 	private View mView;
 	private View mHeadView;
@@ -92,6 +95,9 @@ public class MainFragment extends BaseFragment{
 	String nextUrl;
 	private KJDB kjDb = null;
 	
+	
+	private boolean isRefresh = false;
+	private boolean isPullFlag = false;
 	public MainFragment(){
 	}
 
@@ -109,6 +115,11 @@ public class MainFragment extends BaseFragment{
         try{
         	mArticleList = (ArrayList<ArticleItemBean>)
         			BaseApplication.globalContext.readObject(MD5Utils.md5(urls));
+        	nextUrl = PreferenceHelper.readString(getActivity(), 
+        			AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls));
+        	if(nextUrl!=null && !"".equals(nextUrl)){
+        		isPullRrefreshFlag = true;
+        	}
         	images = (ArrayList<RollImageBean>)BaseApplication.globalContext.readObject("rollImgs");
         	if(mArticleList==null){
         		mArticleList = new ArrayList<ArticleItemBean>();
@@ -124,7 +135,10 @@ public class MainFragment extends BaseFragment{
 		mGallery = (GuideGallery)mHeadView.findViewById(R.id.index_gallery);
 		pointLinear = (LinearLayout)mHeadView.findViewById(R.id.gallery_point_linear);
 		mLoadingLayout = (RelativeLayout)mView.findViewById(R.id.layout_loading_bar);
-		mArticle_listview = (ListView)mView.findViewById(R.id.article_listview);
+		mArticle_listview = (SwipeListView)mView.findViewById(R.id.article_listview);
+		mSwipeLayout = (SwipeRefreshLayout)mView.findViewById(R.id.swipe_container);
+		mArticle_listview = (SwipeListView)mView.findViewById(R.id.article_listview);
+		initSwapLayout();
 		if(mArticle_listview.getHeaderViewsCount()<1){
 			mArticle_listview.addHeaderView(mHeadView);
 		}
@@ -139,7 +153,19 @@ public class MainFragment extends BaseFragment{
 				}
 			}
 		});
-		mArticle_pullview = (PullToRefreshView)mView.findViewById(R.id.article_pullview);
+		mArticle_listview.setOnBottomListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(!isPullFlag && isPullRrefreshFlag && !isRefresh){
+					isPullFlag = true;
+					new Loadhtml(urls+nextUrl).execute("","","");
+				} else {
+					isPullFlag = false;
+					mArticle_listview.onBottomComplete();
+				}
+			}
+		});
 	}
 	
 
@@ -157,7 +183,8 @@ public class MainFragment extends BaseFragment{
 	
 	private void initData(){
 		if(null==mArticleList || mArticleList.size()==0){
-			new Loadhtml(urls).execute("","","");
+			isRefresh = true;
+			new Loadhtml(urls+"/index_1.html").execute("","","");
 		}
 		if(images!=null){
 			getRollImages(images);
@@ -173,6 +200,10 @@ public class MainFragment extends BaseFragment{
 		if(timeTaks!=null){
 			timeTaks.timeCondition = false;
 		}
+		BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
+		BaseApplication.globalContext.saveObject(images, "rollImgs");
+		PreferenceHelper.write(getActivity(), 
+				AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
 	}
 
 	@Override
@@ -209,110 +240,40 @@ public class MainFragment extends BaseFragment{
                 }
             	doc = Jsoup.connect(urls).timeout(5000).get();
                  Document content = Jsoup.parse(doc.toString());
-                 Element rollImg = content.getElementById("pic");
-                 Element article = content.getElementById("article");
-                 
-                 Elements rollImgChild= rollImg.children();
-                 ArrayList<RollImageBean> rollList = new ArrayList<RollImageBean>();
-                 for(Element bean : rollImgChild){
-                	 Elements ele = bean.getElementsByTag("a");
-                	 for(Element bean_ele:ele){
-                		 if(bean_ele.hasAttr("href") && bean_ele.hasAttr("title")){
-                			 RollImageBean item = new RollImageBean();
-                			 item.setImgLinkUrl(bean_ele.attr("href"));
-                			 item.setTitle(bean_ele.attr("title"));
-                			 Elements imgs = bean_ele.children();
-                			 if(imgs!=null && imgs.size()>0){
-                				 Element img = imgs.get(0);
-                				 if(img!=null && img.hasAttr("src")){
-                					 item.setImgUrl(img.attr("src"));
-                					 rollList.add(item);
-                				 }
-                			 }
-                		 }
+                 if(!isPullFlag){
+            		 parseRoolImg(content);
+            	 }
+                 if(isRefresh){
+                	 if(mArticleList.size() == 0){
+                		 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
+                    	 isPullRrefreshFlag = info.getHasNextPage();
+                    	 nextUrl = info.getNextPageUrl();
+                		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content,isRefresh));
+                	 }else{
+                		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content));
+                	 }
+                 }else{
+                	 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
+                	 isPullRrefreshFlag = info.getHasNextPage();
+                	 nextUrl = info.getNextPageUrl();
+                	 if(mArticleList.size() == 0){
+                		 mArticleList.addAll(ArticleItemListParse.getArticleItemList(kjDb, content,true));
+                	 }else{
+                		 mArticleList.addAll(ArticleItemListParse.getArticleItemList(kjDb, content));
                 	 }
                  }
-                 getRollImages(rollList);
-                 Element nextPage = content.getElementById("pages");
-                 Elements nextelement = nextPage.getElementsByTag("a");
-                 isPullRrefreshFlag = false;
-                 
-                 MKLog.d("element", article.toString());
-                 Elements elements = article.children();
-                 for(Element linkss : elements)
-                 {	 
-                	 if(!linkss.hasAttr("class") || !"post".equals(linkss.attr("class"))){
-                		 continue;
-                	 }
-                	 String title = "";
-                 	 String imgUrl = "";
-                 	 String summary = "";
-                 	 String link = "";
-                	 Elements titleImg = linkss.getElementsByTag("img");
-                	 for(Element bean : titleImg){
-                		 if(bean.hasAttr("alt")){	// 标题
-                			 title = bean.attr("alt");
-                		 }
-                		 if(bean.hasAttr("src")){	// 图像地址
-                			 imgUrl = bean.attr("src");
-                		 }
-                	 }
-                	 
-                	 Elements contentUrl = linkss.getElementsByClass("summary");
-                	 for(Element bean:contentUrl){
-                		 if(bean.hasAttr("class")){	// 内容摘要
-                			 summary = bean.text();
-                		 }
-                		 Elements contentBean = bean.getElementsByTag("a");
-                		 for(Element bean2:contentBean){
-                			 if(bean2.hasAttr("href")){	// 跳转链接
-                				 link = bean2.attr("href");
-                			 }
-                		 }
-                	 }
-                	 String time = "";
-                	 ArrayList<String> tags = new ArrayList<String>();
-                	 String tagUrl = "";
-                	 Elements timeTag = linkss.getElementsByClass("postmeta");
-                	 for(Element links: timeTag){
-                		 Elements spans = links.getElementsByTag("span");
-                		 for(Element bean:spans){
-                			 if(bean.hasAttr("class")){
-                				 if("left_author_span".equals(bean.attr("class"))){
-                					 time = bean.text();
-                					 continue;
-                				 }
-                				 if("left_tag_span".equals(bean.attr("class"))){
-                					 Elements childen = bean.children();
-                					 for(Element child:childen){
-                						 if(child.hasAttr("href")){
-                							 tagUrl = child.attr("href");
-                							 tags.add(child.text());
-                						 }
-                					 }
-                				 }
-                			 }
-                		 }
-                		 
-                		 
-                	 }
-                	 ArticleItemBean bean = new ArticleItemBean();
-                	 bean.setTitle(title);
-                	 bean.setDate(time);
-                	 bean.setImgUrl(imgUrl);
-                	 bean.setSummary(summary);
-                	 bean.setUrl(link);
-                	 bean.setTags(tags);
-                	 bean.setMd5(MD5Utils.md5(link));
-                	 ArticleItemBean selectBean = kjDb.findById(bean.getMd5(), ArticleItemBean.class);
-                	 if(selectBean==null){
-                		 mArticleList.add(bean);
-                	 }
-                 }
-                
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+            	mArticle_listview.onBottomComplete();
+                mSwipeLayout.setRefreshing(false);
+                isRefresh = false;
+            	isPullFlag = false;
                 e.printStackTrace();
+            } catch(Exception e){
+            	mArticle_listview.onBottomComplete();
+                mSwipeLayout.setRefreshing(false);
+                isRefresh = false;
+            	isPullFlag = false;
+            	e.printStackTrace();
             }
             return null;
         }
@@ -323,9 +284,12 @@ public class MainFragment extends BaseFragment{
             super.onPostExecute(result);
 //            Log.d("doc", doc.toString().trim());
             setLoadingVisible(false);
-            mArticle_pullview.setVisibility(View.VISIBLE);
+            mSwipeLayout.setVisibility(View.VISIBLE);
             mArticleAdapter.notifyDataSetChanged();
-            mArticle_pullview.onFooterRefreshComplete();
+            mArticle_listview.onBottomComplete();
+        	isRefresh = false;
+        	isPullFlag = false;
+            mSwipeLayout.setRefreshing(false);
         }
 
         @Override
@@ -335,7 +299,7 @@ public class MainFragment extends BaseFragment{
             if(mArticleList!=null 
             		&& mArticleList.size()==0){
             	setLoadingVisible(true);
-            	mArticle_pullview.setVisibility(View.GONE);
+            	mSwipeLayout.setVisibility(View.GONE);
             }
         }
         
@@ -457,14 +421,56 @@ public class MainFragment extends BaseFragment{
         timeThread.start();
 	}
 
-
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
-		BaseApplication.globalContext.saveObject(images, "rollImgs");
 	}
 	
+	private void initSwapLayout(){
+		mSwipeLayout.setColorSchemeResources(R.color.orange, R.color.green, R.color.blue);
+		mSwipeLayout.setOnRefreshListener(this);
+		
+		 SettingsManager settings = SettingsManager.getInstance();
+		 mArticle_listview.setSwipeMode(SwipeListView.SWIPE_MODE_NONE);
+		 mArticle_listview.setSwipeActionLeft(settings.getSwipeActionLeft());
+		 mArticle_listview.setSwipeActionRight(settings.getSwipeActionRight());
+		 mArticle_listview.setOffsetLeft(DensityUtils.dip2px(getActivity(),
+	                settings.getSwipeOffsetLeft()));
+		 mArticle_listview.setOffsetRight(DensityUtils.dip2px(getActivity(),
+	                settings.getSwipeOffsetRight()));
+		 mArticle_listview.setAnimationTime(settings.getSwipeAnimationTime());
+		 mArticle_listview.setSwipeOpenOnLongPress(settings.isSwipeOpenOnLongPress());
+	}
+
+	@Override
+	public void onRefresh() {
+		isRefresh = true;
+		new Loadhtml(urls+"/index_1.html").execute("","","");
+	}
 	
+	private void parseRoolImg(Document content){
+		 Element rollImg = content.getElementById("pic");
+         Elements rollImgChild= rollImg.children();
+         ArrayList<RollImageBean> rollList = new ArrayList<RollImageBean>();
+         for(Element bean : rollImgChild){
+        	 Elements ele = bean.getElementsByTag("a");
+        	 for(Element bean_ele:ele){
+        		 if(bean_ele.hasAttr("href") && bean_ele.hasAttr("title")){
+        			 RollImageBean item = new RollImageBean();
+        			 item.setImgLinkUrl(bean_ele.attr("href"));
+        			 item.setTitle(bean_ele.attr("title"));
+        			 Elements imgs = bean_ele.children();
+        			 if(imgs!=null && imgs.size()>0){
+        				 Element img = imgs.get(0);
+        				 if(img!=null && img.hasAttr("src")){
+        					 item.setImgUrl(img.attr("src"));
+        					 rollList.add(item);
+        				 }
+        			 }
+        		 }
+        	 }
+         }
+         getRollImages(rollList);
+	}
 }
 

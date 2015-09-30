@@ -356,11 +356,11 @@ public class MainActivity extends BaseFragmentActivity
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
-		RelativeLayout.LayoutParams params = (LayoutParams) mDragSoftImg.getLayoutParams();
-		params.setMargins((int)(mDragSoftImg.getLeft()+distanceX), (int)mDragSoftImg.getTop(), 
-				(int)(mDragSoftImg.getLeft()+distanceX+mDragImgWidth), (int)(mDragSoftImg.getTop()+mDragImgHeight));
-		mDragSoftImg.setLayoutParams(params);
-		mDragSoftImg.requestLayout();
+//		RelativeLayout.LayoutParams params = (LayoutParams) mDragSoftImg.getLayoutParams();
+//		params.setMargins((int)(mDragSoftImg.getLeft()+distanceX), (int)mDragSoftImg.getTop(), 
+//				(int)(mDragSoftImg.getLeft()+distanceX+mDragImgWidth), (int)(mDragSoftImg.getTop()+mDragImgHeight));
+//		mDragSoftImg.setLayoutParams(params);
+//		mDragSoftImg.requestLayout();
 		return false;
 	}
 
@@ -378,11 +378,11 @@ public class MainActivity extends BaseFragmentActivity
 	@Override
 	public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX,
 			float velocityY) {
-		if (event1.getRawX() > event2.getRawX()) {
-		    Toast.makeText(this, "swipe left",Toast.LENGTH_SHORT).show();
-		   } else {
-		   Toast.makeText(this, "swipe right",Toast.LENGTH_SHORT).show();
-		   }
+//		if (event1.getRawX() > event2.getRawX()) {
+//		    Toast.makeText(this, "swipe left",Toast.LENGTH_SHORT).show();
+//		   } else {
+//		   Toast.makeText(this, "swipe right",Toast.LENGTH_SHORT).show();
+//		   }
 		return true;
 	}
 	
@@ -391,13 +391,13 @@ public class MainActivity extends BaseFragmentActivity
            //短快的点击算一次单击 
             @Override 
             public boolean onSingleTapConfirmed(MotionEvent e) { 
-            	Toast.makeText(MainActivity.this, "单击",Toast.LENGTH_SHORT).show();
+//            	Toast.makeText(MainActivity.this, "单击",Toast.LENGTH_SHORT).show();
                 return false; 
             } 
             //双击时产生一次 
             @Override 
             public boolean onDoubleTap(MotionEvent e) { 
-            	Toast.makeText(MainActivity.this, "双击",Toast.LENGTH_SHORT).show();
+//            	Toast.makeText(MainActivity.this, "双击",Toast.LENGTH_SHORT).show();
                 return false; 
             } 
           //双击时产生两次 

@@ -19,6 +19,16 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:paddingRight="8dp"
+        android:visibility="gone"
+        android:src="@drawable/bottom_share_icon"/>
+    
+    <ImageView 
+        android:id="@+id/bottom_favor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:visibility="gone"
         android:src="@drawable/bottom_share_icon"/>
 
 </RelativeLayout>
