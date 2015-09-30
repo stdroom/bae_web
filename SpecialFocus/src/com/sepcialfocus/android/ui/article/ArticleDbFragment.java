@@ -165,7 +165,7 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
                 if(isHistory){
                 	mArticleList.addAll(kjDb.findAll(HistroyItemBean.class));
                 }else{
-                	mArticleList.addAll(kjDb.findAllByWhere(HistroyItemBean.class, ""));
+                	mArticleList.addAll(kjDb.findAllByWhere(HistroyItemBean.class, " hasFavor = 1"));
                 }
                 
             } catch (Exception e) {

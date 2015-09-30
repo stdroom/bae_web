@@ -42,7 +42,7 @@ public class HistroyItemBean implements Serializable{
 	protected int category = 1;
 	
 	protected boolean hasReadFlag = false;
-	protected boolean hasFavor = true;
+	protected boolean hasFavor = false;
 	
 	public HistroyItemBean(){
 	}

@@ -22,6 +22,7 @@ import org.jsoup.select.Elements;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.text.Html;
 import android.view.View;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -31,7 +32,10 @@ import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.mike.aframe.MKLog;
+import com.mike.aframe.database.KJDB;
 import com.mike.aframe.utils.MD5Utils;
 import com.mike.aframe.utils.PreferenceHelper;
 import com.mike.aframe.utils.Regexp;
@@ -66,19 +70,31 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private LinearLayout mContentLL;
 	private MyWebView mWebView;
 	
+	private ImageView mShareImg;
+	private ImageView mFavorImg;
+	private String md5="";
+	private Boolean favorFlag = false;
+	private KJDB kjDb = null;
+	
+	HistroyItemBean mHistoryBean;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_article_detail);
 		initView();
+		kjDb = KJDB.create(this);
 		if(getIntent().getSerializableExtra("key") instanceof ArticleItemBean){
 			mArticleBean = (ArticleItemBean)getIntent().getSerializableExtra("key");
 			mArticleTitleTv.setText(mArticleBean.getTitle());
 			urls = URLs.HOST+mArticleBean.getUrl();
+			md5 = mArticleBean.getMd5();
 		}else{
 			HistroyItemBean bean = (HistroyItemBean)getIntent().getSerializableExtra("key");
+			mArticleBean = new ArticleItemBean();
+			mArticleBean.setCategory(bean.getCategory());
 			mArticleTitleTv.setText(bean.getTitle());
 			urls = URLs.HOST+bean.getUrl();
+			md5 = mArticleBean.getMd5();
 		}
 		setLoadingVisible(true);
 		mContentLL.setVisibility(View.GONE);
@@ -89,6 +105,11 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		super.initView();
 		mBackImg = (ImageView)findViewById(R.id.bottom_back);
 		mBackImg.setOnClickListener(this);
+		mShareImg = (ImageView)findViewById(R.id.bottom_share);
+		mShareImg.setOnClickListener(this);
+		mFavorImg = (ImageView)findViewById(R.id.bottom_favor);
+		mFavorImg.setOnClickListener(this);
+		mFavorImg.setEnabled(false);
 		mContentLL = (LinearLayout)findViewById(R.id.content_ll);
 		mArticleTitleTv = (TextView)findViewById(R.id.article_title);
 		mArticlePostmetaTv = (TextView)findViewById(R.id.article_postmeta);
@@ -118,9 +139,15 @@ public class ArticleDetailActivity extends BaseFragmentActivity
                  Document content = Jsoup.parse(doc.toString());
                  mArticleContentStr = parseArticleContent(content);
                  mArticlePostmetaStr = parsePostMeta(content);
+                 mHistoryBean = kjDb.findById(md5, HistroyItemBean.class);
+                 
+                 if(mHistoryBean!=null){
+                	 favorFlag = mHistoryBean.isHasFavor();
+                 }else{
+                	 MKLog.d(ArticleDetailActivity.class.getSimpleName(), "严重逻辑错误");
+                 }
                  return mArticleContentStr;
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             return null;
@@ -131,6 +158,14 @@ public class ArticleDetailActivity extends BaseFragmentActivity
             // TODO Auto-generated method stub
             super.onPostExecute(result);
 //            Log.d("doc", doc.toString().trim());
+            if(mFavorImg!=null){
+            	if(favorFlag){
+            		mFavorImg.setImageResource(R.drawable.bottom_collectioned_icon);
+            	}else{
+            		mFavorImg.setImageResource(R.drawable.bottom_collection_icon);
+            	}
+            	mFavorImg.setEnabled(true);
+            }
             mArticleContentTv.setText(result);
             mArticlePostmetaTv.setText(Html.fromHtml(mArticlePostmetaStr));
             mWebView.getSettings().setJavaScriptEnabled(false);  
@@ -210,8 +245,36 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		case R.id.bottom_back: 
 			finish();
 			break;
+		case R.id.bottom_favor:
+			if(mHistoryBean!=null){
+				if(mHistoryBean.isHasFavor()){
+					mHistoryBean.setHasFavor(false);
+					mFavorImg.setImageResource(R.drawable.bottom_collection_icon);
+				}else{
+					mFavorImg.setImageResource(R.drawable.bottom_collectioned_icon);
+					mHistoryBean.setHasFavor(true);
+				}
+				new Handler().post(new Runnable(){
+					@Override
+					public void run() {
+						kjDb.update(mHistoryBean, " md5 = \'"+md5+"\'");
+					}
+				});
+			}
+			break;
+		case R.id.bottom_share:
+			
+			break;
 		}
 	}
+	
+	private Handler mHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			
+		}
+		
+	};
 
 	@Override
 	protected void onPause() {

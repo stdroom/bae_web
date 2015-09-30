@@ -84,9 +84,9 @@ public class HistoryListAdapter extends BaseAdapter{
 		holder.mArticleContentTv.setText(bean.getSummary()+"");
 		holder.mArticleDateTv.setText(bean.getDate()+"");
 		ArrayList<String> tags = bean.getTags();
-		holder.mArticleTagOneTv.setVisibility(View.GONE);
-		holder.mArticleTagTwoTv.setVisibility(View.GONE);
-		holder.mArticleTagThrTv.setVisibility(View.GONE);
+		holder.mArticleTagOneTv.setVisibility(View.INVISIBLE);
+		holder.mArticleTagTwoTv.setVisibility(View.INVISIBLE);
+		holder.mArticleTagThrTv.setVisibility(View.INVISIBLE);
 		holder.mArticleImg.setImageDrawable(this.mContext.getResources().getDrawable(R.drawable.default_img));
 		if(tags!=null && tags.size()>0){
 			int length = tags.size();
