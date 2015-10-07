@@ -21,6 +21,7 @@ import com.mike.aframe.bitmap.utils.BitmapCreate;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.ArticleItemBean;
+import com.sepcialfocus.android.configs.AppConfig;
 import com.sepcialfocus.android.configs.URLs;
 
 import android.content.Context;
@@ -121,9 +122,13 @@ public class ArticleListAdapter extends BaseAdapter{
 				break;
 			}
 		}
-		if(!"".equals(bean.getImgUrl()+"") && !(bean.getImgUrl()+"").contains("defaultpic.gif")){
-			kjBitMap.display(holder.mArticleImg,URLs.HOST+bean.getImgUrl(),
-					holder.mArticleImg.getWidth(),holder.mArticleImg.getHeight());
+		if(AppConfig.imgFlag){
+			if(!"".equals(bean.getImgUrl()+"") && !(bean.getImgUrl()+"").contains("defaultpic.gif")){
+				kjBitMap.display(holder.mArticleImg,URLs.HOST+bean.getImgUrl(),
+						holder.mArticleImg.getWidth(),holder.mArticleImg.getHeight());
+			}
+		}else{
+			holder.mArticleImg.setImageDrawable(this.mContext.getResources().getDrawable(R.drawable.default_img));
 		}
 		return convertView;
 	}

@@ -38,10 +38,12 @@ import android.widget.Toast;
 
 import com.mike.aframe.database.KJDB;
 import com.mike.aframe.utils.MD5Utils;
+import com.mike.aframe.utils.PreferenceHelper;
 import com.sepcialfocus.android.BaseApplication;
 import com.sepcialfocus.android.BaseFragmentActivity;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.NavBean;
+import com.sepcialfocus.android.configs.AppConfig;
 import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.configs.URLs;
 import com.sepcialfocus.android.ui.adapter.ArticleFragmentPagerAdapter;
@@ -53,6 +55,7 @@ import com.sepcialfocus.android.ui.settting.MineActivity;
 import com.sepcialfocus.android.utils.UpdateManager;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 
 /**
  * ����: MainActivity <br/>
@@ -97,7 +100,6 @@ public class MainActivity extends BaseFragmentActivity
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
-		
 		// 友盟发送策略
 		MobclickAgent.updateOnlineConfig(this);
 		SpotManager.getInstance(this).loadSpotAds();
@@ -113,13 +115,30 @@ public class MainActivity extends BaseFragmentActivity
 		initMenu();
 		initFragment();
 		UpdateManager.getUpdateManager().checkAppUpdate(this, false);
-		
+		// 获取在线参数
+		OnlineConfigAgent.getInstance().updateOnlineConfig(this);
 		detector = new GestureDetector(this, this);
 		setDector();
 	}
 	
 	
 	
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		AppConfig.imgFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_IMG, AppConstant.FLAG_IMG, false);
+		AppConfig.windowFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_WINDOW, AppConstant.FLAG_WINDOW, false);
+		if(AppConfig.windowFlag){
+			mDragSoftImg.setVisibility(View.VISIBLE);
+		}else{
+			mDragSoftImg.setVisibility(View.GONE);
+		}
+	}
+
+
+
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);

@@ -51,14 +51,18 @@ import com.sepcialfocus.android.bean.ArticleItemBean;
 import com.sepcialfocus.android.bean.PagesInfo;
 import com.sepcialfocus.android.bean.RollImageBean;
 import com.sepcialfocus.android.configs.AppConstant;
+import com.sepcialfocus.android.configs.URLs;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemListParse;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemPagesParse;
 import com.sepcialfocus.android.ui.adapter.ArticleListAdapter;
 import com.sepcialfocus.android.ui.article.ArticleFragment.Loadhtml;
-import com.sepcialfocus.android.ui.widget.GuideGallery;
-import com.sepcialfocus.android.ui.widget.ImageAdapter;
 import com.sepcialfocus.android.utils.SettingsManager;
 import com.sepcialfocus.android.widgets.swiptlistview.SwipeListView;
+import com.sepcialfocus.android.widgets.viewimage.Animations.DescriptionAnimation;
+import com.sepcialfocus.android.widgets.viewimage.Animations.SliderLayout;
+import com.sepcialfocus.android.widgets.viewimage.SliderTypes.BaseSliderView;
+import com.sepcialfocus.android.widgets.viewimage.SliderTypes.TextSliderView;
+import com.sepcialfocus.android.widgets.viewimage.SliderTypes.BaseSliderView.OnSliderClickListener;
 
 /**
  * 类名: MainFragment <br/>
@@ -68,19 +72,18 @@ import com.sepcialfocus.android.widgets.swiptlistview.SwipeListView;
  * @author leixun
  * @version 
  */
-public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener{
+public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener
+			,OnSliderClickListener{
 	
+	protected SliderLayout mSlider;
 	private ArrayList<RollImageBean> images;
 	int gallerypisition = 0;
 	Timer autoGallery = new Timer();
-	private GuideGallery mGallery;
 	LinearLayout pointLinear;
 	private int position = 0;
 	private Thread timeThread = null;
 	public boolean timeFlag = true;
 	private boolean isExit = false;
-	public ImageTimerTask timeTaks = null;
-	public ImageAdapter imageAdapter;
 
 	private ArrayList<ArticleItemBean> mArticleList;
 	private SwipeRefreshLayout mSwipeLayout;
@@ -95,7 +98,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 	String nextUrl;
 	private KJDB kjDb = null;
 	
-	
+	ArrayList<RollImageBean> rollList;
 	private boolean isRefresh = false;
 	private boolean isPullFlag = false;
 	public MainFragment(){
@@ -132,8 +135,10 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 	
 	@Override
 	protected void initView() {
-		mGallery = (GuideGallery)mHeadView.findViewById(R.id.index_gallery);
-		pointLinear = (LinearLayout)mHeadView.findViewById(R.id.gallery_point_linear);
+		mSlider = (SliderLayout)mHeadView.findViewById(R.id.slider);
+		mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Right_Bottom);
+		mSlider.setPresetTransformer(SliderLayout.Transformer.Default);
+		mSlider.setCustomAnimation(new DescriptionAnimation());
 		mLoadingLayout = (RelativeLayout)mView.findViewById(R.id.layout_loading_bar);
 		mArticle_listview = (SwipeListView)mView.findViewById(R.id.article_listview);
 		mSwipeLayout = (SwipeRefreshLayout)mView.findViewById(R.id.swipe_container);
@@ -173,7 +178,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 	public View onCreateView(LayoutInflater inflater,
 			 ViewGroup container,  Bundle savedInstanceState) {
 		mView = LayoutInflater.from(mActivity).inflate(R.layout.fragment_main, null);
-		mHeadView = LayoutInflater.from(mActivity).inflate(R.layout.layout_roll_img,null);
+		mHeadView = LayoutInflater.from(getActivity()).inflate(R.layout.head_item, null);
 		initView();
 		mArticleAdapter = new ArticleListAdapter(mActivity, mArticleList);
 		mArticle_listview.setAdapter(mArticleAdapter);
@@ -197,9 +202,6 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 	public void onPause() {
 		
 		super.onPause();
-		if(timeTaks!=null){
-			timeTaks.timeCondition = false;
-		}
 		BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
 		BaseApplication.globalContext.saveObject(images, "rollImgs");
 		PreferenceHelper.write(getActivity(), 
@@ -215,9 +217,14 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 	public void getRollImages(ArrayList<RollImageBean> json){
 		images = json;
 		if (images!=null && images.size() > 0){
-			Message msg = new Message();
-			 msg.what = 2;//消息标识
-             autoGalleryHandler.sendMessage(msg);
+			int size = images.size();
+			for(int i = 0 ; i < size ; i++){
+				TextSliderView textSliderView = new TextSliderView(getActivity());
+				textSliderView.setOnSliderClickListener(this);
+				textSliderView.description(images.get(i).getTitle()).image(URLs.HOST+images.get(i).getImgUrl());
+				textSliderView.getBundle().putSerializable("key", images.get(i));
+				mSlider.addSlider(textSliderView);
+			}
 		} else {
 			MKLog.d("MainFragment", "get RollImageBean is null !!!");
 		}
@@ -287,6 +294,12 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             mSwipeLayout.setVisibility(View.VISIBLE);
             mArticleAdapter.notifyDataSetChanged();
             mArticle_listview.onBottomComplete();
+            if(!isPullFlag){
+            	if(mSlider!=null){
+            		mSlider.removeAllSliders();
+            	}
+            	getRollImages(rollList);
+            }
         	isRefresh = false;
         	isPullFlag = false;
             mSwipeLayout.setRefreshing(false);
@@ -305,122 +318,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         
     }
 	
-	final Handler autoGalleryHandler = new Handler() {
-        public void handleMessage(Message message) {
-            super.handleMessage(message);
-	            switch (message.what) {
-	                case 1:
-	                	mGallery.setSelection(message.getData().getInt("pos"));
-	                    break;
-	                case 2:
-	                	initGalery();
-	                	startGalery();
-	                	break;
-	            }
-            }
-    }; 
-
-	public class ImageTimerTask extends TimerTask{
-    	public volatile boolean timeCondition = true;
-       // int gallerypisition = 0;
-        public void run() {
-            synchronized (this) {
-                while(!timeCondition) {
-                    try {
-                    	Thread.sleep(100);
-                        wait();
-                    } catch (InterruptedException e) {
-                        Thread.interrupted();
-                    }
-                }
-            }
-            try {
-            	gallerypisition = mGallery.getSelectedItemPosition()+1;
-                Message msg = new Message();
-                Bundle date = new Bundle();// 存放数据
-                date.putInt("pos", gallerypisition);
-                msg.setData(date);
-                msg.what = 1;//消息标识
-                autoGalleryHandler.sendMessage(msg);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 	
-	public void changePointView(int cur){
-    	
-    	for (int i = 0 ; i < pointLinear.getChildCount() ; i++){
-    		View view = pointLinear.getChildAt(i);
-    		if( i == cur){
-    			view.setBackgroundResource(R.drawable.feature_point_cur);
-    		} else{
-    			view.setBackgroundResource(R.drawable.feature_point);
-    		}
-    	}
-    	position = cur;
-    }
-
-	
-	public void initGalery(){
-        mGallery.setImageActivity(this);
-
-        imageAdapter = new ImageAdapter(images,mActivity,this,
-        		DensityUtils.getScreenH(mActivity),mGallery.getHeight());  
-        mGallery.setAdapter(imageAdapter);  
-        pointLinear.removeAllViewsInLayout();
-        for (int i = 0; i < images.size(); i++) {
-        	ImageView pointView = new ImageView(mActivity);
-        	if(i==0){
-        		pointView.setBackgroundResource(R.drawable.feature_point_cur);
-        	}else
-        		pointView.setBackgroundResource(R.drawable.feature_point);
-        	pointLinear.addView(pointView);
-		}
-        mGallery.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				System.out.println(arg2+"arg2");
-				/*switch (arg2) {
-				case 0:
-					 uri = Uri.parse("http://www.36939.net/");
-					intent = new Intent(Intent.ACTION_VIEW, uri);
-					startActivity(intent);
-					
-					break;
-				}*/
-				
-			}
-		});
-	}
-	
-	public void startGalery(){
-		
-		timeTaks = new ImageTimerTask();
-    	autoGallery.scheduleAtFixedRate(timeTaks, 2000, 2000);
-    	timeThread = new Thread() {
-            public void run() {
-                while(!isExit) {
-                    try {
-                        Thread.sleep(1500);
-                    } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                    synchronized (timeTaks) {
-                    	if(!timeFlag){
-                    		timeTaks.timeCondition = true;
-                    		timeTaks.notifyAll();
-                        }
-                    }
-                    timeFlag = true;
-                }
-            };
-        };
-        timeThread.start();
-	}
-
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
@@ -445,13 +343,13 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 	@Override
 	public void onRefresh() {
 		isRefresh = true;
-		new Loadhtml(urls+"/index_1.html").execute("","","");
+		new Loadhtml(URLs.HOST).execute("","","");
 	}
 	
 	private void parseRoolImg(Document content){
 		 Element rollImg = content.getElementById("pic");
          Elements rollImgChild= rollImg.children();
-         ArrayList<RollImageBean> rollList = new ArrayList<RollImageBean>();
+          rollList = new ArrayList<RollImageBean>();
          for(Element bean : rollImgChild){
         	 Elements ele = bean.getElementsByTag("a");
         	 for(Element bean_ele:ele){
@@ -470,7 +368,19 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         		 }
         	 }
          }
-         getRollImages(rollList);
+	}
+
+	@Override
+	public void onSliderClick(BaseSliderView slider) {
+		Intent intent = new Intent(mActivity,ArticleDetailActivity.class);
+		RollImageBean bean = (RollImageBean)slider.getBundle().getSerializable("key");
+		ArticleItemBean item = new ArticleItemBean();
+		item.setUrl(bean.getImgLinkUrl());
+		item.setCategory(1);
+		item.setMd5(MD5Utils.md5(bean.getImgLinkUrl()));
+		item.setTitle(bean.getTitle());
+		intent.putExtra("key", item);
+		startActivity(intent);
 	}
 }
 

@@ -128,8 +128,6 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
 			ViewGroup container,  Bundle savedInstanceState) {
 		mView = LayoutInflater.from(mContext).inflate(R.layout.fragment_articles, null);
 		initView();
-		mArticleAdapter = new HistoryListAdapter(mContext, mArticleList);
-		mArticle_listview.setAdapter(mArticleAdapter);
 		initData();
 		return mView;
 	}
@@ -180,8 +178,9 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
             super.onPostExecute(result);
 //            Log.d("doc", doc.toString().trim());
             setLoadingVisible(false);
-//            mSwipeLayout.setVisibility(View.VISIBLE);
-            mArticleAdapter.notifyDataSetChanged();
+            mSwipeLayout.setVisibility(View.VISIBLE);
+            mArticleAdapter = new HistoryListAdapter(mContext, mArticleList);
+    		mArticle_listview.setAdapter(mArticleAdapter);
             mArticle_listview.onBottomComplete();
         }
 
@@ -192,7 +191,7 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
             if(mArticleList!=null 
             		&& mArticleList.size()==0){
             	setLoadingVisible(true);
-//            	mSwipeLayout.setVisibility(View.GONE);
+            	mSwipeLayout.setVisibility(View.GONE);
             }
             if(isRefresh){
             	isRefresh = false;

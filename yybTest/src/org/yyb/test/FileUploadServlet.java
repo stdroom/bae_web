@@ -79,8 +79,13 @@ public class FileUploadServlet extends HttpServlet{
                 }
                 String versionCode = (String)param_hm.get("versionCode");
                 String versionLog = (String)param_hm.get("versionLog");
+                String dowloadUrl = (String)param_hm.get("downloadUrl");
                 UpdateBean bean  = new UpdateBean();
-                bean.setDownloadUrl("http://joyread.duapp.com/download?file=YybAndroid.apk");
+                if(dowloadUrl!=null && !"".equals(dowloadUrl)){
+                	bean.setDownloadUrl(dowloadUrl);
+                }else{
+                	bean.setDownloadUrl("http://www.pgyer.com/enjoyread");
+                }
                 bean.setUpdateLog(versionLog);
                 bean.setVersionCode(versionCode);
                 bean.setVersionName("android");

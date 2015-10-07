@@ -12,6 +12,8 @@
              <br />
              <input type="text" name="versionLog" value="修改日志" />
              <br />
+             <input type="text" name="downloadUrl" value="下载地址"/>
+             <br />
              <input type="file" name="myfile" />
              <br />
              <input type="submit" />

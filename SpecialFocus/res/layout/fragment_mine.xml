@@ -117,8 +117,6 @@
 			        android:src="@drawable/right_jump"/>
 			</RelativeLayout> 
 			<!-- 
-			<include layout="@layout/mine_line_margin_linear"/>
-			
 			<RelativeLayout 
 			    android:id="@+id/mine_msg_rl"
 			    android:layout_width="match_parent"
@@ -141,6 +139,7 @@
 			        android:focusable="false"
 			        android:background="@drawable/right_jump"/>
 			</RelativeLayout> 
+			 -->
 			<include layout="@layout/mine_line_margin_linear"/>
 			<RelativeLayout 
 			    android:id="@+id/mine_share_rl"
@@ -166,6 +165,7 @@
 			</RelativeLayout> 
 			<include layout="@layout/mine_line_linear"/>
 			<include layout="@layout/common_line_margintop_linear"/>
+			<!-- 
 			<RelativeLayout 
 			    android:id="@+id/mine_about_us_rl"
 			    android:layout_width="match_parent"
@@ -174,6 +174,30 @@
 		    	android:padding="@dimen/common_small_margin">
 			    <TextView style="@style/common_mid_black_textview"
 			        android:text="@string/mine_aboutus_str"
+			        android:drawableLeft="@drawable/mine_card_desc"
+			        android:paddingLeft="@dimen/common_mini_margin"
+			        android:gravity="center_vertical"
+			        android:drawablePadding="@dimen/common_menu_drawable_padding"
+			        android:layout_centerVertical="true"
+			        android:layout_alignParentLeft="true"/>
+			    <ImageView 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_centerVertical="true"
+			        android:layout_alignParentRight="true"
+			        android:focusable="false"
+			        android:background="@drawable/right_jump"/>
+			</RelativeLayout> 
+			<include layout="@layout/mine_line_margin_linear"/>
+			 -->
+			<RelativeLayout 
+			    android:id="@+id/mine_review_ad_rl"
+			    android:layout_width="match_parent"
+		    	android:layout_height="wrap_content"
+		    	android:background="@color/normal_background"
+		    	android:padding="@dimen/common_small_margin">
+			    <TextView style="@style/common_mid_black_textview"
+			        android:text="@string/mine_review_ad_str"
 			        android:drawableLeft="@drawable/mine_card_desc"
 			        android:paddingLeft="@dimen/common_mini_margin"
 			        android:gravity="center_vertical"
@@ -210,7 +234,7 @@
 			        android:layout_alignParentRight="true"
 			        android:focusable="false"
 			        android:background="@drawable/right_jump"/>
-			</RelativeLayout>  -->
+			</RelativeLayout> 
 			<include layout="@layout/mine_line_linear"/>
 			
 	    </LinearLayout>

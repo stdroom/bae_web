@@ -78,7 +78,7 @@ public class SlidingMenu extends HorizontalScrollView
 			int attr = a.getIndex(i);
 			switch (attr)
 			{
-			case R.styleable.SlidingMenu_rightPadding:
+			case R.styleable.LeftSlidingMenu_rightPadding:
 				// 默认50
 				mMenuRightPadding = a.getDimensionPixelSize(attr,
 						(int) TypedValue.applyDimension(

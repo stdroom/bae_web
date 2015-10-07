@@ -23,6 +23,10 @@ import com.sepcialfocus.android.BaseApplication;
  * @version  	 
  */
 public class AppConfig {
+	
+	public static boolean imgFlag = true;
+	
+	public static boolean windowFlag = true;
 
 	/** sdcard根目录 */
 	public static final String sdcardRootPath = android.os.Environment
@@ -37,12 +41,20 @@ public class AppConfig {
 	public static final String jsonPath = "/json/";
 	/** 图片文件地址 */
 	public static final String imgPath = "/image/";
+	public static final String htmlPath = "/html/";
 	
 	public static String getDownloadImgPath(){
 		if(ExistSDCard()){
 			return AppConfig.sdcardRootPath + AppConfig.officialRoot + AppConfig.imgPath;
 		}else{
 			return AppConfig.dataRootPath + AppConfig.officialRoot + AppConfig.imgPath;
+		}
+	}
+	public static String getUploadHtmlPath(){
+		if(ExistSDCard()){
+			return AppConfig.sdcardRootPath + AppConfig.officialRoot + AppConfig.htmlPath;
+		}else{
+			return AppConfig.dataRootPath + AppConfig.officialRoot + AppConfig.htmlPath;
 		}
 	}
 	

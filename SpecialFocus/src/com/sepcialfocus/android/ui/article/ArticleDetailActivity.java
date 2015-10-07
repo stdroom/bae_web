@@ -12,7 +12,11 @@
 
 package com.sepcialfocus.android.ui.article;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,7 +28,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebSettings.TextSize;
 import android.webkit.WebView;
@@ -33,7 +39,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.PopupWindow.OnDismissListener;
 
+import com.alibaba.fastjson.JSON;
 import com.mike.aframe.MKLog;
 import com.mike.aframe.database.KJDB;
 import com.mike.aframe.utils.MD5Utils;
@@ -43,9 +51,15 @@ import com.sepcialfocus.android.BaseFragmentActivity;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.ArticleItemBean;
 import com.sepcialfocus.android.bean.HistroyItemBean;
+import com.sepcialfocus.android.configs.AppConfig;
 import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.configs.URLs;
+import com.sepcialfocus.android.share.CustomShareBoard;
 import com.sepcialfocus.android.widgets.MyWebView;
+import com.upyun.UploadTask;
+import com.upyun.bean.ReturnBean;
+import com.upyun.block.api.listener.CompleteListener;
+import com.upyun.block.api.listener.ProgressListener;
 
 /**
  * 类名: ArticleDetailActivity <br/>
@@ -77,6 +91,12 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private KJDB kjDb = null;
 	
 	HistroyItemBean mHistoryBean;
+	
+	CustomShareBoard mCustomShareBoard = null;
+	
+	private View view;
+	ReturnBean mReturnBean = null;
+	File mFile = null;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -92,9 +112,10 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			HistroyItemBean bean = (HistroyItemBean)getIntent().getSerializableExtra("key");
 			mArticleBean = new ArticleItemBean();
 			mArticleBean.setCategory(bean.getCategory());
+			mArticleBean.setSummary(bean.getSummary());
 			mArticleTitleTv.setText(bean.getTitle());
 			urls = URLs.HOST+bean.getUrl();
-			md5 = mArticleBean.getMd5();
+			md5 = bean.getMd5();
 		}
 		setLoadingVisible(true);
 		mContentLL.setVisibility(View.GONE);
@@ -263,7 +284,13 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			}
 			break;
 		case R.id.bottom_share:
-			
+			view = arg0;
+			String path = makeHtml(mArticleBean);
+			if(!"".equals(path)){
+				uploadHtml(path);
+			}else{
+				Toast.makeText(this, "创建文件失败", Toast.LENGTH_SHORT).show();
+			}
 			break;
 		}
 	}
@@ -271,7 +298,15 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private Handler mHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
-			
+			switch(msg.what){
+			case 0x01:
+				if(view!=null && mReturnBean!=null && mArticleBean!=null){
+					openSharewindow(view,mArticleBean.getSummary(),
+							mArticleBean.getTitle(),
+							AppConstant.UPYUN+mReturnBean.getPath(),AppConstant.SHARE_ICON);
+				}
+				break;
+			}
 		}
 		
 	};
@@ -313,6 +348,78 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		default:
 				return TextSize.NORMAL;
 		}
+	}
+	
+	/**
+	 * TODO 自定义分享界面.<br/>
+	 * 
+	 * @author wenpeng 2015-6-15下午6:21:58
+	 * @param view
+	 * @since 1.0
+	 */
+	private void openSharewindow(View view,String content,String title,
+			String targetUrl,String iconUrl) {
+		mCustomShareBoard = new CustomShareBoard(this);
+		mCustomShareBoard.setShareContent(content,title,targetUrl,iconUrl);
+		mCustomShareBoard.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				setBackground(1.0f);
+			}
+		});
+		setBackground(0.3f);
+		mCustomShareBoard.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+	}
+
+	private void setBackground(float bgAlpha) {
+		WindowManager.LayoutParams lp = getWindow().getAttributes();
+		lp.alpha = bgAlpha; // 0.0-1.0
+		getWindow().setAttributes(lp);
+	}
+	
+	private String makeHtml(ArticleItemBean bean){
+		FileWriter fw = null;
+		try {
+			InputStream in = getResources().openRawResource(R.raw.footer);
+			Document document = Jsoup.parse(in, "utf-8", URLs.HOST); 
+			document.getElementById("title").append("<h1>"+mArticleBean.getTitle()+"<\\/h1>");
+			document.getElementById("span").append(mArticlePostmetaStr);
+			document.getElementById("article").append(mArticleContentStr);
+			File file = new File(AppConfig.getUploadHtmlPath());
+			if(!file.exists()){
+				file.mkdirs();
+			}
+			fw = new FileWriter(AppConfig.getUploadHtmlPath()+bean.getMd5()+".html");
+			fw.write(document.toString());
+			return AppConfig.getUploadHtmlPath()+bean.getMd5()+".html";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "";
+		}finally{
+			try {
+				if(fw!=null){
+					fw.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void uploadHtml(String path){
+		new UploadTask(new File(path), "/test/html/share/"+mArticleBean.getMd5()+".html", new ProgressListener() {
+			@Override
+			public void transferred(long transferedBytes, long totalBytes) {
+			}
+		}, new CompleteListener() {
+			@Override
+			public void result(boolean isComplete, String result, String error) {
+				mReturnBean = (ReturnBean)JSON.parseObject(result, ReturnBean.class);
+				if(mReturnBean.getCode()==200){
+					mHandler.sendEmptyMessage(0x01);
+				}
+			}
+		}).execute();
 	}
 	
 }
