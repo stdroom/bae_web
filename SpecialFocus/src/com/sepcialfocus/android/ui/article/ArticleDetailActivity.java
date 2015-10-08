@@ -44,6 +44,7 @@ import android.widget.PopupWindow.OnDismissListener;
 import com.alibaba.fastjson.JSON;
 import com.mike.aframe.MKLog;
 import com.mike.aframe.database.KJDB;
+import com.mike.aframe.utils.DensityUtils;
 import com.mike.aframe.utils.MD5Utils;
 import com.mike.aframe.utils.PreferenceHelper;
 import com.mike.aframe.utils.Regexp;
@@ -188,7 +189,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
             	mFavorImg.setEnabled(true);
             }
             mArticleContentTv.setText(result);
-            mArticlePostmetaTv.setText(Html.fromHtml(mArticlePostmetaStr));
+//            mArticlePostmetaTv.setText(Html.fromHtml(mArticlePostmetaStr));
             mWebView.getSettings().setJavaScriptEnabled(false);  
             mWebView.getSettings().setLoadWithOverviewMode(true);
             mWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
@@ -252,9 +253,11 @@ public class ArticleDetailActivity extends BaseFragmentActivity
         
         Element article = content.getElementById("text");
         if(article!=null){
+        	article.append("<div style=\"height:"+DensityUtils.dip2px(this, 15)+"px\"></div>");
 	        return article.toString();
         }else{
         	Elements contents = content.getElementsByClass("content");
+        	contents.append("<div style=\"height:"+DensityUtils.dip2px(this, 15)+"px\"></div>");
         	return contents.toString();
         }
 	}
@@ -289,7 +292,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			if(!"".equals(path)){
 				uploadHtml(path);
 			}else{
-				Toast.makeText(this, "创建文件失败", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(this, "创建文件失败", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
@@ -301,12 +304,12 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			switch(msg.what){
 			case 0x01:
 				if(view!=null && mReturnBean!=null && mArticleBean!=null){
-					Toast.makeText(ArticleDetailActivity.this, "200", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ArticleDetailActivity.this, "200", Toast.LENGTH_SHORT).show();
 					openSharewindow(view,mArticleBean.getSummary(),
 							mArticleBean.getTitle(),
 							AppConstant.UPYUN+mReturnBean.getPath(),AppConstant.SHARE_ICON);
 				}else{
-					Toast.makeText(ArticleDetailActivity.this, "400", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(ArticleDetailActivity.this, "400", Toast.LENGTH_SHORT).show();
 				}
 				break;
 			}
@@ -426,7 +429,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 				if(mReturnBean.getCode()==200){
 					mHandler.sendEmptyMessage(0x01);
 				}else{
-					Toast.makeText(ArticleDetailActivity.this, result+"\nreturnbean:"+mReturnBean.getCode()+"\nerror:"+error, Toast.LENGTH_LONG).show();
+//					Toast.makeText(ArticleDetailActivity.this, result+"\nreturnbean:"+mReturnBean.getCode()+"\nerror:"+error, Toast.LENGTH_LONG).show();
 				}
 			}
 		}).execute();

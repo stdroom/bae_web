@@ -128,7 +128,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 							historyBean.setSummary(bean.getSummary());
 							kjDb.save(historyBean);
 						}else{
-							Toast.makeText(mContext, "已经读过，不用继续保存",Toast.LENGTH_SHORT).show();
+//							Toast.makeText(mContext, "已经读过，不用继续保存",Toast.LENGTH_SHORT).show();
 						}
 						mArticleAdapter.notifyDataSetChanged();
 					}

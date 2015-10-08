@@ -297,7 +297,7 @@ public class MainActivity extends BaseFragmentActivity
 			RelativeLayout layout = new RelativeLayout(this);
 			TextView view = new TextView(this);
 			view.setText(mUrlsList.get(i).getMenu());
-			RelativeLayout.LayoutParams params =  new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			RelativeLayout.LayoutParams params =  new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 			params.addRule(RelativeLayout.CENTER_IN_PARENT);
 			layout.addView(view, params);
 			mLinearLayout.addView(layout, (int)(mScreenWidth/5 + 0.5f), 50);

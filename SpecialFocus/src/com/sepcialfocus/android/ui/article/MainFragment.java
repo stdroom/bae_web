@@ -37,6 +37,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.mike.aframe.MKLog;
@@ -48,6 +49,7 @@ import com.sepcialfocus.android.BaseApplication;
 import com.sepcialfocus.android.BaseFragment;
 import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.bean.ArticleItemBean;
+import com.sepcialfocus.android.bean.HistroyItemBean;
 import com.sepcialfocus.android.bean.PagesInfo;
 import com.sepcialfocus.android.bean.RollImageBean;
 import com.sepcialfocus.android.configs.AppConstant;
@@ -150,8 +152,46 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 		mArticle_listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+					final int position, long id) {
 				if(mArticleList!=null && mArticleList.size() >= position){
+					new Handler().post(new Runnable() {
+						@Override
+						public void run() {
+							ArticleItemBean bean = mArticleList.get(position-1);
+							ArticleItemBean tempBean = new ArticleItemBean();
+							tempBean.setCategory(bean.getCategory());
+							tempBean.setImgUrl(bean.getImgUrl());
+							tempBean.setTitle(bean.getTitle());
+							tempBean.setTags(bean.getTags());
+							tempBean.setTagUrl(bean.getTagUrl());
+							tempBean.setDate(bean.getDate());
+							tempBean.setHasFavor(bean.isHasFavor());
+							tempBean.setHasReadFlag(true);
+							tempBean.setMd5(bean.getMd5());
+							tempBean.setUrl(bean.getUrl());
+							tempBean.setSummary(bean.getSummary());
+							mArticleList.set(position-1, tempBean);
+							kjDb.update(tempBean, " md5 = \'"+bean.getMd5()+"\'");
+							if(kjDb.findById(bean.getMd5(), HistroyItemBean.class)==null){
+								HistroyItemBean historyBean = new HistroyItemBean();
+								historyBean.setCategory(bean.getCategory());
+								historyBean.setImgUrl(bean.getImgUrl());
+								historyBean.setTitle(bean.getTitle());
+								historyBean.setTags(bean.getTags());
+								historyBean.setTagUrl(bean.getTagUrl());
+								historyBean.setDate(bean.getDate());
+								historyBean.setHasFavor(bean.isHasFavor());
+								historyBean.setHasReadFlag(true);
+								historyBean.setMd5(bean.getMd5());
+								historyBean.setUrl(bean.getUrl());
+								historyBean.setSummary(bean.getSummary());
+								kjDb.save(historyBean);
+							}else{
+								//Toast.makeText(mContext, "已经读过，不用继续保存",Toast.LENGTH_SHORT).show();
+							}
+							mArticleAdapter.notifyDataSetChanged();
+						}
+					});
 					Intent intent = new Intent(mActivity,ArticleDetailActivity.class);
 					intent.putExtra("key", mArticleList.get(position-1));
 					startActivity(intent);
@@ -252,9 +292,14 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             	 }
                  if(isRefresh){
                 	 if(mArticleList.size() == 0){
-                		 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
-                    	 isPullRrefreshFlag = info.getHasNextPage();
-                    	 nextUrl = info.getNextPageUrl();
+                		 if(URLs.HOST.equals(urls)){
+                    		 isPullRrefreshFlag = true;
+                    		 nextUrl = "index_1.html";
+                    	 }else{
+                    		 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
+                    		 isPullRrefreshFlag = info.getHasNextPage();
+                    		 nextUrl = info.getNextPageUrl();
+                    	 }
                 		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content,isRefresh));
                 	 }else{
                 		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content));
