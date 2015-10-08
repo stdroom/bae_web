@@ -81,7 +81,13 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
                 this.urls = args.getString("key");
             }
         }
-        readNativeData();
+        new Handler().post(new Runnable() {
+			
+			@Override
+			public void run() {
+				readNativeData();
+			}
+		});
         
 	}
 	

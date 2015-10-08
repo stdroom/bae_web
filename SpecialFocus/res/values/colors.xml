@@ -109,5 +109,5 @@
     <color name="not_read_tags_text_color">#ff00ff</color>
     <color name="read_content_text_color">#888888</color>
     <color name="not_read_content_text_color">#666666</color>
-    
+    <color name="title_color">#656a7b</color>
 </resources>
