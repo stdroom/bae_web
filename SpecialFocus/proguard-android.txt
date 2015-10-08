@@ -3,12 +3,14 @@
 
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
+-optimizationpasses 5  
 -verbose
 
 
 # Optimization is turned off by default. Dex does not like code run
 # through the ProGuard optimize and preverify steps (and performs some
 # of these optimizations on its own).
+-dontshrink
 -dontoptimize
 -dontpreverify
 # Note that if you want to enable optimization, you cannot just
@@ -20,6 +22,9 @@
 -keepattributes Signature
 
 -keepattributes *Annotation*
+
+-verbose  
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*  
 -keep public class com.google.vending.licensing.ILicensingService
 -keep public class com.android.vending.licensing.ILicensingService
 
@@ -27,6 +32,7 @@
 -keepclasseswithmembernames class * {
     native <methods>;
 }
+
 
 # keep setters in Views so that animations can still work.
 # see http://proguard.sourceforge.net/manual/examples.html#beans
@@ -39,6 +45,23 @@
 -keepclassmembers class * extends android.app.Activity {
    public void *(android.view.View);
 }
+
+-keepclassmembers class * implements android.os.Parcelable {  
+    static android.os.Parcelable$Creator CREATOR;  
+} 
+
+-keep public class * implements java.io.Serializable {  
+    public *;  
+}  
+  
+-keepclassmembers class * implements java.io.Serializable {  
+    static final long serialVersionUID;  
+    private static final java.io.ObjectStreamField[] serialPersistentFields;  
+    private void writeObject(java.io.ObjectOutputStream);  
+    private void readObject(java.io.ObjectInputStream);  
+    java.lang.Object writeReplace();  
+    java.lang.Object readResolve();  
+}  
 
 # For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
 -keepclassmembers enum * {
@@ -84,6 +107,10 @@
 -keep class com.mike.aframe.** {
     *;
 }
+-dontwarn com.squareup.**
+-keep class com.squareup.** {
+    *;
+}
 -dontwarn com.sepcialfocus.android.bean.**
 -keep class com.sepcialfocus.android.bean.** {
     *;
@@ -93,8 +120,19 @@
     *;
 }
 
--dontshrink
--dontoptimize
+-dontwarn upyun.bean.**
+-keep class upyun.bean.** {
+    *;
+}
+-dontwarn upyun.block.**
+-keep class upyun.block.** {
+    *;
+}
+-dontwarn com.loopj.android.http.**
+-keep class com.loopj.android.http.** {
+    *;
+}
+
 -dontwarn com.google.android.maps.**
 -dontwarn android.webkit.WebView
 -dontwarn com.umeng.**
@@ -102,31 +140,17 @@
 -dontwarn com.facebook.**
 
 
--keep enum com.facebook.**
 -keepattributes Exceptions,InnerClasses,Signature
 -keepattributes SourceFile,LineNumberTable
 
--keep public interface com.facebook.**
 -keep public interface com.tencent.**
--keep public interface com.umeng.socialize.**
--keep public interface com.umeng.socialize.sensor.**
--keep public interface com.umeng.scrshot.**
+-keep public interface com.umeng.**
 
 -keep public class com.umeng.socialize.* {*;}
 -keep public class javax.**
 -keep public class android.webkit.**
 
--keep class com.facebook.**
--keep class com.umeng.scrshot.**
--keep public class com.tencent.** {*;}
--keep class com.umeng.socialize.sensor.**
-
--keep class com.tencent.mm.sdk.modelmsg.WXMediaMessage {*;}
-
--keep class com.tencent.mm.sdk.modelmsg.** implements com.tencent.mm.sdk.modelmsg.WXMediaMessage$IMediaObject {*;}
-
--keep class im.yixin.sdk.api.YXMessage {*;}
--keep class im.yixin.sdk.api.** implements im.yixin.sdk.api.YXMessage$YXMessageData{*;}
+-keep class com.tencent.** {*;}
 
 -keep public class [your_pkg].R$*{
     public static final int *;

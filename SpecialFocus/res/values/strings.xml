@@ -67,7 +67,7 @@
 	<string name="setting_check_version_str">检测新版本</string>
 	<string name="setting_load_recommon_str">下载推荐</string>
 	
-	<string name="dev_tips">你好，我是阅读圈产品经理，欢迎您反馈使用产品的感受和建议，24小时之内回复。</string>
+	<string name="dev_tips">你好，我是悦读圈产品经理，欢迎您反馈使用产品的感受和建议，24小时之内回复。</string>
 	
 	 <!-- 下拉刷新  end -->
     <string name="drop_down_list_header_default_text">Click to refresh&#8230;</string>

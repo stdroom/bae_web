@@ -301,9 +301,12 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			switch(msg.what){
 			case 0x01:
 				if(view!=null && mReturnBean!=null && mArticleBean!=null){
+					Toast.makeText(ArticleDetailActivity.this, "200", Toast.LENGTH_SHORT).show();
 					openSharewindow(view,mArticleBean.getSummary(),
 							mArticleBean.getTitle(),
 							AppConstant.UPYUN+mReturnBean.getPath(),AppConstant.SHARE_ICON);
+				}else{
+					Toast.makeText(ArticleDetailActivity.this, "400", Toast.LENGTH_SHORT).show();
 				}
 				break;
 			}
@@ -389,9 +392,14 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			if(!file.exists()){
 				file.mkdirs();
 			}
-			fw = new FileWriter(AppConfig.getUploadHtmlPath()+bean.getMd5()+".html");
-			fw.write(document.toString());
-			return AppConfig.getUploadHtmlPath()+bean.getMd5()+".html";
+			File files = new File(AppConfig.getUploadHtmlPath()+bean.getMd5()+".html");
+			if(files.exists()){
+				return AppConfig.getUploadHtmlPath()+bean.getMd5()+".html";
+			}else{
+				fw = new FileWriter(AppConfig.getUploadHtmlPath()+bean.getMd5()+".html");
+				fw.write(document.toString());
+				return AppConfig.getUploadHtmlPath()+bean.getMd5()+".html";
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 			return "";
@@ -417,6 +425,8 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 				mReturnBean = (ReturnBean)JSON.parseObject(result, ReturnBean.class);
 				if(mReturnBean.getCode()==200){
 					mHandler.sendEmptyMessage(0x01);
+				}else{
+					Toast.makeText(ArticleDetailActivity.this, result+"\nreturnbean:"+mReturnBean.getCode()+"\nerror:"+error, Toast.LENGTH_LONG).show();
 				}
 			}
 		}).execute();

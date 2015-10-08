@@ -189,7 +189,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 	private void initData(){
 		if(null==mArticleList || mArticleList.size()==0){
 			isRefresh = true;
-			new Loadhtml(urls+"/index_1.html").execute("","","");
+			new Loadhtml(URLs.HOST).execute("","","");
 		}
 		if(images!=null){
 			getRollImages(images);
@@ -260,9 +260,14 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content));
                 	 }
                  }else{
-                	 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
-                	 isPullRrefreshFlag = info.getHasNextPage();
-                	 nextUrl = info.getNextPageUrl();
+                	 if(URLs.HOST.equals(urls)){
+                		 isPullRrefreshFlag = true;
+                		 nextUrl = "index_1.html";
+                	 }else{
+                		 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
+                		 isPullRrefreshFlag = info.getHasNextPage();
+                		 nextUrl = info.getNextPageUrl();
+                	 }
                 	 if(mArticleList.size() == 0){
                 		 mArticleList.addAll(ArticleItemListParse.getArticleItemList(kjDb, content,true));
                 	 }else{

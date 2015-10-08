@@ -54,19 +54,23 @@ public class ReviewAdActivity extends BaseFragmentActivity implements View.OnCli
 		mBackImg = (ImageView)findViewById(R.id.img_title_back);
 		mBackImg.setOnClickListener(this);
 		mTitleTv = (TextView)findViewById(R.id.tv_title);
-		mTitleTv.setText(getResources().getString(R.string.mine_review_ad_str));
+		if(getIntent().getStringExtra("title")!=null){
+			mTitleTv.setText(getIntent().getStringExtra("title"));
+		}else{
+			mTitleTv.setText(getResources().getString(R.string.mine_review_ad_str));
+		}
 		
 		AdManager.getInstance(this).init(AppConstant.YOUMI_APPID, AppConstant.YOUMI_APPSECRET, false);
 		// 第二个参数传入目标activity，或者传入null，改为setIntent传入跳转的intent
 		splashView = new SplashView(this, null);
 		// 设置是否显示倒数
-		splashView.setShowReciprocal(true);
+		splashView.setShowReciprocal(false);
 		// 隐藏关闭按钮
 		splashView.hideCloseBtn(true);
 
-		Intent intent = new Intent(this, MineActivity.class);
-		splashView.setIntent(intent);
-		splashView.setIsJumpTargetWhenFail(true);
+//		Intent intent = new Intent(this, MineActivity.class);
+//		splashView.setIntent(intent);
+		splashView.setIsJumpTargetWhenFail(false);
 
 		splash = splashView.getSplashView();
 		splashLayout = ((RelativeLayout) findViewById(R.id.splashview));

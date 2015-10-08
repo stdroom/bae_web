@@ -109,6 +109,9 @@ public class SettingActivity extends BaseFragmentActivity implements View.OnClic
 			UpdateManager.getUpdateManager().checkAppUpdate(this, true);
 			break;
 		case R.id.setting_load_recomm_rl:
+			intent = new Intent(SettingActivity.this,ReviewAdActivity.class);
+			intent.putExtra("title", getResources().getString(R.string.setting_load_recommon_str));
+			startActivity(intent);
 			break;
 		}
 	}

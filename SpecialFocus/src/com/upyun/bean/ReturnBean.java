@@ -9,6 +9,9 @@
 */
 
 package com.upyun.bean;
+
+import java.io.Serializable;
+
 /**
  * 类名: ReturnBean <br/>
  * 功能: 又盘云返回参数. <br/>
@@ -17,7 +20,7 @@ package com.upyun.bean;
  * @author   mike
  * @version  	 
  */
-public class ReturnBean {
+public class ReturnBean implements Serializable{
 	String path = "";
 	long last_modified = 0l;
 	String mimetype = "";
@@ -25,6 +28,9 @@ public class ReturnBean {
 	String file_size = "";
 	String signature = "";
 	String bucket_name = "";
+	
+	public ReturnBean(){
+	}
 	
 	public String getPath() {
 		return path;

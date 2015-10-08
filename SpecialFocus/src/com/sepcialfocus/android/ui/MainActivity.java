@@ -127,8 +127,8 @@ public class MainActivity extends BaseFragmentActivity
 	@Override
 	protected void onResume() {
 		super.onResume();
-		AppConfig.imgFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_IMG, AppConstant.FLAG_IMG, false);
-		AppConfig.windowFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_WINDOW, AppConstant.FLAG_WINDOW, false);
+		AppConfig.imgFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_IMG, AppConstant.FLAG_IMG, true);
+		AppConfig.windowFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_WINDOW, AppConstant.FLAG_WINDOW, true);
 		if(AppConfig.windowFlag){
 			mDragSoftImg.setVisibility(View.VISIBLE);
 		}else{
