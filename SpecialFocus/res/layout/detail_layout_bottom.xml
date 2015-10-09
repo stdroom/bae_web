@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="16dp"
         android:src="@drawable/bottom_share_icon"/>
     
     <ImageView 
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/bottom_share"
         android:layout_centerVertical="true"
-        android:layout_marginRight="12dp"
+        android:layout_marginRight="16dp"
         android:src="@drawable/bottom_collection_icon"/>
 
 </RelativeLayout>

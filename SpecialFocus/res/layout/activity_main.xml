@@ -38,13 +38,6 @@
 			        android:orientation="horizontal"
 			        android:gravity="center_vertical"
 			        ></LinearLayout>
-			    <ImageView
-					android:id="@+id/img1"
-					android:layout_width="100dp"
-					android:layout_height="2dp"
-					android:background="@color/text_color_green"
-					android:layout_alignParentBottom="true"
-					/>
 			    </RelativeLayout>
 		</HorizontalScrollView>
     </RelativeLayout>

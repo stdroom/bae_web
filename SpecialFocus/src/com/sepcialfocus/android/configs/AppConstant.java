@@ -61,26 +61,26 @@ public class AppConstant {
     /**
      * 人人网appid
      */
-    public static final String Renren_APP_ID = "476871";
+    public static final String Renren_APP_ID = "481449";
     
     /**
      * 人人网key
      */
-    public static final String Renren_APP_KEY = "dd5e931447de4941bb7c9e3aca3e64c6";
+    public static final String Renren_APP_KEY = "c8cd26ef88d246f8afd8e6cf3dc7056a";
     
     /**
      * 人人网secret
      */
-    public static final String Renren_APP_SECRET = "eaf6df88a7c04e718299ce1afd3d1c22";
+    public static final String Renren_APP_SECRET = "97b04877255f44c4be202b9f45d15931";
     
     /**
      * 微信登录ID
      */
-    public static final String WEIXIN_APP_ID = "wxd84d50394efbb6e6";
+    public static final String WEIXIN_APP_ID = "wxb300c4ed29347222";
     /**
      * 微信登录KEY
      */
-    public static final String WEIXIN_APP_SECRET = "ce4cb131e16b8e9b2a2515d8da424871";
+    public static final String WEIXIN_APP_SECRET = "e34fb6efaa490060754459b6f369503e";
     
     /**
      * 微信api 辅助类

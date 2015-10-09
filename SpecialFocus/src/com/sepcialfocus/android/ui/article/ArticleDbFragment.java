@@ -160,6 +160,7 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
             try {
+            	mArticleList.clear();
                 if(isHistory){
                 	mArticleList.addAll(kjDb.findAll(HistroyItemBean.class));
                 }else{

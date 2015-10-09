@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -70,12 +71,8 @@ public class MainActivity extends BaseFragmentActivity
 	
 	private HorizontalScrollView mHorizontalScrollView ;
 	private LinearLayout mLinearLayout;
-	private ImageView mImageView;
 	private int mScreenWidth;
-	private int item_width;
 	
-	private int endPosition;
-	private int beginPosition;
 	private int currentFragmentIndex;
 	private boolean isEnd;
 	
@@ -205,18 +202,17 @@ public class MainActivity extends BaseFragmentActivity
 			isEnd = false;
 		} else if (state == ViewPager.SCROLL_STATE_SETTLING) {
 			isEnd = true;
-			beginPosition = currentFragmentIndex * item_width;
 			if (mFragmentViewPager.getCurrentItem() == currentFragmentIndex) {
 				// 未跳入下一个页面
-				mImageView.clearAnimation();
-				Animation animation = null;
-				// 恢复位置
-				animation = new TranslateAnimation(endPosition, currentFragmentIndex * item_width, 0, 0);
-				animation.setFillAfter(true);
-				animation.setDuration(1);
-				mImageView.startAnimation(animation);
+//				mImageView.clearAnimation();
+//				Animation animation = null;
+//				// 恢复位置
+//				animation = new TranslateAnimation(endPosition, currentFragmentIndex * item_width, 0, 0);
+//				animation.setFillAfter(true);
+//				animation.setDuration(1);
+//				mImageView.startAnimation(animation);
 				mHorizontalScrollView.invalidate();
-				endPosition = currentFragmentIndex * item_width;
+//				endPosition = currentFragmentIndex * item_width;
 			}
 		}
 	}
@@ -224,37 +220,46 @@ public class MainActivity extends BaseFragmentActivity
 	@Override
 	public void onPageScrolled(int position, float positionOffset, int arg2) {
 		if(!isEnd){
-			if(currentFragmentIndex == position){
-				endPosition = item_width * currentFragmentIndex + 
-						(int)(item_width * positionOffset);
-			}
-			if(currentFragmentIndex == position+1){
-				endPosition = item_width * currentFragmentIndex - 
-						(int)(item_width * (1-positionOffset));
-			}
+//			if(currentFragmentIndex == position){
+//				endPosition = item_width * currentFragmentIndex + 
+//						(int)(item_width * positionOffset);
+//			}
+//			if(currentFragmentIndex == position+1){
+//				endPosition = item_width * currentFragmentIndex - 
+//						(int)(item_width * (1-positionOffset));
+//			}
 			
-			Animation mAnimation = new TranslateAnimation(beginPosition, endPosition, 0, 0);
-			mAnimation.setFillAfter(true);
-			mAnimation.setDuration(0);
-			mImageView.startAnimation(mAnimation);
+//			Animation mAnimation = new TranslateAnimation(beginPosition, endPosition, 0, 0);
+//			mAnimation.setFillAfter(true);
+//			mAnimation.setDuration(0);
+//			mImageView.startAnimation(mAnimation);
 			mHorizontalScrollView.invalidate();
-			beginPosition = endPosition;
+//			beginPosition = endPosition;
 		}
 	}
 
 	@Override
 	public void onPageSelected(int position) {
-		Animation animation = new TranslateAnimation(endPosition, position* item_width, 0, 0);
-		
-		beginPosition = position * item_width;
-		
+//		Animation animation = new TranslateAnimation(endPosition, position* item_width, 0, 0);
+//		
+//		beginPosition = position * item_width;
+		RelativeLayout rel = (RelativeLayout)mLinearLayout.getChildAt(currentFragmentIndex);
+		rel.getChildAt(1).setVisibility(View.INVISIBLE);
+		((TextView)rel.getChildAt(0)).setTextColor(getResources().getColor(R.color.title_color));
 		currentFragmentIndex = position;
-		if (animation != null) {
-			animation.setFillAfter(true);
-			animation.setDuration(0);
-			mImageView.startAnimation(animation);
-			mHorizontalScrollView.smoothScrollTo((currentFragmentIndex - 1) * item_width , 0);
+		RelativeLayout rel2 = (RelativeLayout)mLinearLayout.getChildAt(currentFragmentIndex);
+		rel2.getChildAt(1).setVisibility(View.VISIBLE);
+		((TextView)rel2.getChildAt(0)).setTextColor(getResources().getColor(R.color.text_color_green));
+//		if (animation != null) {
+//			animation.setFillAfter(true);
+//			animation.setDuration(0);
+//			mImageView.startAnimation(animation);
+		int scrollX = 0;
+		for(int i = 0 ;i < currentFragmentIndex;i++){
+			scrollX += mLinearLayout.getChildAt(i).getWidth();
 		}
+			mHorizontalScrollView.smoothScrollTo(scrollX, 0);
+//		}
 	}
 	
 
@@ -288,19 +293,34 @@ public class MainActivity extends BaseFragmentActivity
 		mHorizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv_view);
 		mLinearLayout = (LinearLayout) findViewById(R.id.hsv_content);
 		mLinearLayout.removeAllViews();
-		mImageView = (ImageView) findViewById(R.id.img1);
-		item_width = (int) ((mScreenWidth / 5.0 + 0.5f));
-		mImageView.getLayoutParams().width = item_width;
 		mUrlsList = getMenuList();
 		int length = mUrlsList.size();
 		for (int i = 0 ; i < length ; i++) {
 			RelativeLayout layout = new RelativeLayout(this);
+			ImageView mImageView = new ImageView(this);
 			TextView view = new TextView(this);
 			view.setText(mUrlsList.get(i).getMenu());
-			RelativeLayout.LayoutParams params =  new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			view.setTextSize(getResources().getDimension(R.dimen.title_size));
+			view.setGravity(Gravity.CENTER);
+			if(i==0){
+				view.setTextColor(getResources().getColor(R.color.text_color_green));
+			}else{
+				view.setTextColor(getResources().getColor(R.color.title_color));
+			}
+			int itemWidth = (int) (view.getPaint().measureText(mUrlsList.get(i).getMenu())+getResources().getDimension(R.dimen.title_add_width));
+			RelativeLayout.LayoutParams params =  new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
 			params.addRule(RelativeLayout.CENTER_IN_PARENT);
-			layout.addView(view, params);
-			mLinearLayout.addView(layout, (int)(mScreenWidth/5 + 0.5f), 50);
+			layout.addView(view,0, params);
+			mImageView.setBackgroundColor(getResources().getColor(R.color.text_color_green));
+			RelativeLayout.LayoutParams params2 =  new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, (int)getResources().getDimension(R.dimen.title_img_height));
+			params2.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+			layout.addView(mImageView,1,params2);
+			if(i==0){
+				mImageView.setVisibility(View.VISIBLE);
+			}else{
+				mImageView.setVisibility(View.INVISIBLE);
+			}
+			mLinearLayout.addView(layout, itemWidth, (int)getResources().getDimension(R.dimen.title_height));
 			layout.setOnClickListener(this);
 			layout.setTag(i);
 		}

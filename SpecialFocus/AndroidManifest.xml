@@ -104,6 +104,15 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait">
         </activity>
+        
+        <!-- 微信 -->
+        
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- 友盟分享end -->
         
         <meta-data android:value="55fdeda267e58eaa770002bd" android:name="UMENG_APPKEY"/>
@@ -113,3 +122,4 @@
     
 
 </manifest>
+
