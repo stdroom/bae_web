@@ -14366,6 +14366,7 @@ com.sepcialfocus.android.R$drawable: int umeng_socialize_ynote_gray
 com.sepcialfocus.android.R$drawable: int wechat_friends
 com.sepcialfocus.android.R$drawable: int weibo
 com.sepcialfocus.android.R$drawable: int weichat
+com.sepcialfocus.android.R$drawable: int yuanjiao_juxing_dialog
 com.sepcialfocus.android.R$id: int Accordion
 com.sepcialfocus.android.R$id: int Background2Foreground
 com.sepcialfocus.android.R$id: int CubeIn
@@ -14506,6 +14507,7 @@ com.sepcialfocus.android.R$id: int platform_btn2
 com.sepcialfocus.android.R$id: int platform_btn3
 com.sepcialfocus.android.R$id: int platform_btn4
 com.sepcialfocus.android.R$id: int platform_btn5
+com.sepcialfocus.android.R$id: int pop_title
 com.sepcialfocus.android.R$id: int progress_bar_parent
 com.sepcialfocus.android.R$id: int promptTV
 com.sepcialfocus.android.R$id: int pull_to_load_image
@@ -14550,6 +14552,9 @@ com.sepcialfocus.android.R$id: int title
 com.sepcialfocus.android.R$id: int toolbar_layout
 com.sepcialfocus.android.R$id: int top
 com.sepcialfocus.android.R$id: int tvProcess
+com.sepcialfocus.android.R$id: int tv_cancel
+com.sepcialfocus.android.R$id: int tv_commit
+com.sepcialfocus.android.R$id: int tv_pop_win_text
 com.sepcialfocus.android.R$id: int tv_title
 com.sepcialfocus.android.R$id: int umeng_socialize_action_comment_im
 com.sepcialfocus.android.R$id: int umeng_socialize_action_comment_tv
@@ -14690,6 +14695,7 @@ com.sepcialfocus.android.R$layout: int com_facebook_activity_layout
 com.sepcialfocus.android.R$layout: int com_facebook_login_fragment
 com.sepcialfocus.android.R$layout: int com_facebook_tooltip_bubble
 com.sepcialfocus.android.R$layout: int common_line_margintop_linear
+com.sepcialfocus.android.R$layout: int custom_dialog
 com.sepcialfocus.android.R$layout: int custom_fb_dev_reply
 com.sepcialfocus.android.R$layout: int custom_fb_user_reply
 com.sepcialfocus.android.R$layout: int detail_layout_bottom
@@ -15473,6 +15479,8 @@ com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx: void setPageMargi
 com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx: void setScrollingCacheEnabled(boolean)
 com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx$SavedState
 com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx$SavedState: android.os.Parcelable$Creator CREATOR
+com.sepcialfocus.android.wxapi.WXEntryActivity
+com.sepcialfocus.android.wxapi.WXEntryActivity: WXEntryActivity()
 com.squareup.picasso.Action
 com.squareup.picasso.Action: com.squareup.picasso.Picasso picasso
 com.squareup.picasso.Action: com.squareup.picasso.Request request

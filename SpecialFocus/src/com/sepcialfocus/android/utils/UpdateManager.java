@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,6 +52,7 @@ import com.sepcialfocus.android.services.UpgradeService;
 import com.sepcialfocus.android.volley.FastJSONRequest;
 import com.sepcialfocus.android.volley.FastResponse.Listener;
 import com.sepcialfocus.android.volley.VolleyManager;
+import com.sepcialfocus.android.widgets.CustomDialog;
 
 /**
  * 类名: UpdateManager <br/>
@@ -108,6 +110,8 @@ public class UpdateManager {
 	private String curVersionName = "";
 	private int curVersionCode;
 	private UpdateBean mUpdate;
+    
+	CustomDialog dialog = null;
     
     private Handler mHandler = new Handler(){
     	public void handleMessage(Message msg) {
@@ -257,13 +261,32 @@ public class UpdateManager {
 	 * 显示版本更新通知对话框
 	 */
 	private void showNoticeDialog(){
-		AlertDialog.Builder builder = new Builder(mContext);
-		builder.setTitle(getResString(R.string.version_dialog_title_str));
-		builder.setMessage("待测版本"+mUpdate.getVersionCode()+"\n\n"+mUpdate.getUpdateLog());
-		builder.setPositiveButton(getResString(R.string.version_dialog_sure_str), new OnClickListener() {			
+		dialog = new CustomDialog(mContext,R.style.custom_dialog);
+		View view = View.inflate(mContext, R.layout.custom_dialog, null);
+		dialog.setCanceledOnTouchOutside(false);
+
+		dialog.setView(view);
+		((TextView)view.findViewById(R.id.pop_title)).setText("温馨提示");
+		((TextView)view.findViewById(R.id.tv_pop_win_text)).setText(getResString(R.string.version_dialog_title_str));
+
+
+		TextView cancel = (TextView)view.findViewById(R.id.tv_cancel);
+		cancel.setText("取消");
+		cancel.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
+			public void onClick(View v) {
+				if(dialog != null && dialog.isShowing()){
+					dialog.cancel();
+				}
+			}
+		});
+
+		TextView commit = (TextView)view.findViewById(R.id.tv_commit);
+		commit.setText("更新");
+		commit.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.cancel();
 				Intent intent = new Intent(mContext,UpgradeService.class);
 				Bundle bundle = new Bundle();
 				bundle.putString("downloadurl", mUpdate.getDownloadUrl());
@@ -271,14 +294,9 @@ public class UpdateManager {
 				mContext.startService(intent);
 			}
 		});
-		builder.setNegativeButton(getResString(R.string.version_dialog_cancle_str), new OnClickListener() {			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();				
-			}
-		});
-		noticeDialog = builder.create();
-		noticeDialog.show();
+		dialog.show();
+		
+//		builder.setMessage("待测版本"+mUpdate.getVersionCode()+"\n\n"+mUpdate.getUpdateLog());
 	}
 	
 	

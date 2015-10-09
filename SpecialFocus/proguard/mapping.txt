@@ -16879,6 +16879,7 @@ com.sepcialfocus.android.R$drawable -> com.sepcialfocus.android.d$f:
     int wechat_friends -> wechat_friends
     int weibo -> weibo
     int weichat -> weichat
+    int yuanjiao_juxing_dialog -> yuanjiao_juxing_dialog
 com.sepcialfocus.android.R$id -> com.sepcialfocus.android.d$g:
     int Accordion -> Accordion
     int Background2Foreground -> Background2Foreground
@@ -17020,6 +17021,7 @@ com.sepcialfocus.android.R$id -> com.sepcialfocus.android.d$g:
     int platform_btn3 -> platform_btn3
     int platform_btn4 -> platform_btn4
     int platform_btn5 -> platform_btn5
+    int pop_title -> pop_title
     int progress_bar_parent -> progress_bar_parent
     int promptTV -> promptTV
     int pull_to_load_image -> pull_to_load_image
@@ -17064,6 +17066,9 @@ com.sepcialfocus.android.R$id -> com.sepcialfocus.android.d$g:
     int toolbar_layout -> toolbar_layout
     int top -> top
     int tvProcess -> tvProcess
+    int tv_cancel -> tv_cancel
+    int tv_commit -> tv_commit
+    int tv_pop_win_text -> tv_pop_win_text
     int tv_title -> tv_title
     int umeng_socialize_action_comment_im -> umeng_socialize_action_comment_im
     int umeng_socialize_action_comment_tv -> umeng_socialize_action_comment_tv
@@ -17205,6 +17210,7 @@ com.sepcialfocus.android.R$layout -> com.sepcialfocus.android.d$h:
     int com_facebook_login_fragment -> com_facebook_login_fragment
     int com_facebook_tooltip_bubble -> com_facebook_tooltip_bubble
     int common_line_margintop_linear -> common_line_margintop_linear
+    int custom_dialog -> custom_dialog
     int custom_fb_dev_reply -> custom_fb_dev_reply
     int custom_fb_user_reply -> custom_fb_user_reply
     int detail_layout_bottom -> detail_layout_bottom
@@ -18251,6 +18257,7 @@ com.sepcialfocus.android.ui.article.MainFragment -> com.sepcialfocus.android.ui.
     java.util.ArrayList rollList -> j
     boolean isRefresh -> x
     boolean isPullFlag -> y
+    android.os.Handler mHandler -> z
     111:136:void onCreate(android.os.Bundle) -> onCreate
     140:214:void initView() -> a
     220:226:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
@@ -18258,42 +18265,46 @@ com.sepcialfocus.android.ui.article.MainFragment -> com.sepcialfocus.android.ui.
     244:249:void onPause() -> onPause
     253:255:void onResume() -> onResume
     258:271:void getRollImages(java.util.ArrayList) -> a
-    374:375:void onDestroy() -> onDestroy
-    378:391:void initSwapLayout() -> c
-    395:397:void onRefresh() -> onRefresh
-    400:421:void parseRoolImg(org.jsoup.nodes.Document) -> a
-    425:434:void onSliderClick(com.sepcialfocus.android.widgets.viewimage.SliderTypes.BaseSliderView) -> a
-    105:105:boolean access$0(com.sepcialfocus.android.ui.article.MainFragment) -> a
-    399:399:void access$1(com.sepcialfocus.android.ui.article.MainFragment,org.jsoup.nodes.Document) -> a
-    104:104:boolean access$2(com.sepcialfocus.android.ui.article.MainFragment) -> b
-    90:90:java.util.ArrayList access$3(com.sepcialfocus.android.ui.article.MainFragment) -> c
-    101:101:com.mike.aframe.database.KJDB access$4(com.sepcialfocus.android.ui.article.MainFragment) -> d
-    92:92:com.sepcialfocus.android.widgets.swiptlistview.SwipeListView access$5(com.sepcialfocus.android.ui.article.MainFragment) -> e
-    91:91:android.support.v4.widget.SwipeRefreshLayout access$6(com.sepcialfocus.android.ui.article.MainFragment) -> f
-    104:104:void access$7(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> a
-    105:105:void access$8(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> b
-    1:1:void access$9(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> c
-    93:93:com.sepcialfocus.android.ui.adapter.ArticleListAdapter access$10(com.sepcialfocus.android.ui.article.MainFragment) -> g
-    96:96:android.app.Activity access$11(com.sepcialfocus.android.ui.article.MainFragment) -> h
-    97:97:java.lang.String access$12(com.sepcialfocus.android.ui.article.MainFragment) -> i
+    377:378:void onDestroy() -> onDestroy
+    381:394:void initSwapLayout() -> c
+    398:400:void onRefresh() -> onRefresh
+    403:424:void parseRoolImg(org.jsoup.nodes.Document) -> a
+    428:437:void onSliderClick(com.sepcialfocus.android.widgets.viewimage.SliderTypes.BaseSliderView) -> a
+    92:92:com.sepcialfocus.android.widgets.swiptlistview.SwipeListView access$0(com.sepcialfocus.android.ui.article.MainFragment) -> a
+    91:91:android.support.v4.widget.SwipeRefreshLayout access$1(com.sepcialfocus.android.ui.article.MainFragment) -> b
+    105:105:boolean access$2(com.sepcialfocus.android.ui.article.MainFragment) -> c
+    402:402:void access$3(com.sepcialfocus.android.ui.article.MainFragment,org.jsoup.nodes.Document) -> a
+    104:104:boolean access$4(com.sepcialfocus.android.ui.article.MainFragment) -> d
+    90:90:java.util.ArrayList access$5(com.sepcialfocus.android.ui.article.MainFragment) -> e
+    101:101:com.mike.aframe.database.KJDB access$6(com.sepcialfocus.android.ui.article.MainFragment) -> f
+    439:439:android.os.Handler access$7(com.sepcialfocus.android.ui.article.MainFragment) -> g
+    104:104:void access$8(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> a
+    105:105:void access$9(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> b
+    1:1:void access$10(com.sepcialfocus.android.ui.article.MainFragment,boolean) -> c
+    93:93:com.sepcialfocus.android.ui.adapter.ArticleListAdapter access$11(com.sepcialfocus.android.ui.article.MainFragment) -> h
+    96:96:android.app.Activity access$12(com.sepcialfocus.android.ui.article.MainFragment) -> i
+    97:97:java.lang.String access$13(com.sepcialfocus.android.ui.article.MainFragment) -> j
 com.sepcialfocus.android.ui.article.MainFragment$1 -> com.sepcialfocus.android.ui.article.p:
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> a
+    443:449:void handleMessage(android.os.Message) -> handleMessage
+com.sepcialfocus.android.ui.article.MainFragment$2 -> com.sepcialfocus.android.ui.article.q:
+    com.sepcialfocus.android.ui.article.MainFragment this$0 -> a
     156:199:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-    152:152:com.sepcialfocus.android.ui.article.MainFragment access$0(com.sepcialfocus.android.ui.article.MainFragment$1) -> a
-com.sepcialfocus.android.ui.article.MainFragment$1$1 -> com.sepcialfocus.android.ui.article.q:
-    com.sepcialfocus.android.ui.article.MainFragment$1 this$1 -> a
+    152:152:com.sepcialfocus.android.ui.article.MainFragment access$0(com.sepcialfocus.android.ui.article.MainFragment$2) -> a
+com.sepcialfocus.android.ui.article.MainFragment$2$1 -> com.sepcialfocus.android.ui.article.r:
+    com.sepcialfocus.android.ui.article.MainFragment$2 this$1 -> a
     int val$position -> b
     160:193:void run() -> run
-com.sepcialfocus.android.ui.article.MainFragment$2 -> com.sepcialfocus.android.ui.article.r:
+com.sepcialfocus.android.ui.article.MainFragment$3 -> com.sepcialfocus.android.ui.article.s:
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> a
     205:212:void onClick(android.view.View) -> onClick
 com.sepcialfocus.android.ui.article.MainFragment$Loadhtml -> com.sepcialfocus.android.ui.article.o$a:
     org.jsoup.nodes.Document doc -> a
     java.lang.String urls -> b
     com.sepcialfocus.android.ui.article.MainFragment this$0 -> c
-    285:335:java.lang.String doInBackground(java.lang.String[]) -> a
-    341:356:void onPostExecute(java.lang.String) -> a
-    361:367:void onPreExecute() -> onPreExecute
+    285:338:java.lang.String doInBackground(java.lang.String[]) -> a
+    344:359:void onPostExecute(java.lang.String) -> a
+    364:370:void onPreExecute() -> onPreExecute
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.sepcialfocus.android.ui.settting.DragSortMenuActivity -> com.sepcialfocus.android.ui.settting.DragSortMenuActivity:
@@ -18578,95 +18589,96 @@ com.sepcialfocus.android.utils.SettingsManager -> com.sepcialfocus.android.d.a:
     106:106:int getSwipeActionRight() -> j
     110:111:void setSwipeActionRight(int) -> c
 com.sepcialfocus.android.utils.UpdateManager -> com.sepcialfocus.android.d.b:
-    int DOWN_NOSDCARD -> a
-    int DOWN_UPDATE -> b
-    int DOWN_OVER -> c
-    int DIALOG_TYPE_LATEST -> d
-    int DIALOG_TYPE_FAIL -> e
-    com.sepcialfocus.android.utils.UpdateManager updateManager -> f
-    android.content.Context mContext -> g
-    android.app.Dialog noticeDialog -> h
-    android.app.Dialog downloadDialog -> i
-    android.app.Dialog latestOrFailDialog -> j
-    android.widget.ProgressBar mProgress -> k
-    android.widget.TextView mProgressText -> l
-    android.app.ProgressDialog mProDialog -> m
-    int progress -> n
-    java.lang.Thread downLoadThread -> o
-    boolean interceptFlag -> p
-    java.lang.String updateMsg -> q
-    java.lang.String apkUrl -> r
-    java.lang.String savePath -> s
-    java.lang.String apkFilePath -> t
-    java.lang.String tmpFilePath -> u
-    java.lang.String apkFileSize -> v
-    java.lang.String tmpFileSize -> w
-    java.lang.String curVersionName -> x
-    int curVersionCode -> y
-    com.sepcialfocus.android.bean.UpdateBean mUpdate -> z
-    android.os.Handler mHandler -> A
-    java.lang.Runnable mdownApkRunnable -> B
-    134:138:com.sepcialfocus.android.utils.UpdateManager getUpdateManager() -> a
-    147:220:void checkAppUpdate(android.content.Context,boolean) -> a
-    226:241:void showLatestOrFailDialog(int) -> a
-    248:254:void getCurrentVersion() -> b
-    260:282:void showNoticeDialog() -> c
-    372:374:void downloadApk() -> d
-    381:388:void installApk() -> e
-    391:395:java.lang.String getResString(int) -> b
-    82:82:android.widget.ProgressBar access$0(com.sepcialfocus.android.utils.UpdateManager) -> a
-    88:88:int access$1(com.sepcialfocus.android.utils.UpdateManager) -> b
-    84:84:android.widget.TextView access$2(com.sepcialfocus.android.utils.UpdateManager) -> c
-    106:106:java.lang.String access$3(com.sepcialfocus.android.utils.UpdateManager) -> d
-    104:104:java.lang.String access$4(com.sepcialfocus.android.utils.UpdateManager) -> e
-    78:78:android.app.Dialog access$5(com.sepcialfocus.android.utils.UpdateManager) -> f
-    380:380:void access$6(com.sepcialfocus.android.utils.UpdateManager) -> g
-    74:74:android.content.Context access$7(com.sepcialfocus.android.utils.UpdateManager) -> h
-    110:110:com.sepcialfocus.android.bean.UpdateBean access$8(com.sepcialfocus.android.utils.UpdateManager) -> i
-    98:98:void access$9(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> a
-    98:98:java.lang.String access$10(com.sepcialfocus.android.utils.UpdateManager) -> j
-    100:100:void access$11(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> b
-    102:102:void access$12(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> c
-    100:100:java.lang.String access$13(com.sepcialfocus.android.utils.UpdateManager) -> k
-    112:112:android.os.Handler access$14(com.sepcialfocus.android.utils.UpdateManager) -> l
-    102:102:java.lang.String access$15(com.sepcialfocus.android.utils.UpdateManager) -> m
-    96:96:java.lang.String access$16(com.sepcialfocus.android.utils.UpdateManager) -> n
-    104:104:void access$17(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> d
-    106:106:void access$18(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> e
-    88:88:void access$19(com.sepcialfocus.android.utils.UpdateManager,int) -> a
-    92:92:boolean access$20(com.sepcialfocus.android.utils.UpdateManager) -> o
-    86:86:android.app.ProgressDialog access$21(com.sepcialfocus.android.utils.UpdateManager) -> p
-    86:86:void access$22(com.sepcialfocus.android.utils.UpdateManager,android.app.ProgressDialog) -> a
-    110:110:void access$23(com.sepcialfocus.android.utils.UpdateManager,com.sepcialfocus.android.bean.UpdateBean) -> a
-    109:109:int access$24(com.sepcialfocus.android.utils.UpdateManager) -> q
-    96:96:void access$25(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> f
-    94:94:void access$26(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> g
-    259:259:void access$27(com.sepcialfocus.android.utils.UpdateManager) -> r
-    225:225:void access$28(com.sepcialfocus.android.utils.UpdateManager,int) -> b
+    int DOWN_NOSDCARD -> b
+    int DOWN_UPDATE -> c
+    int DOWN_OVER -> d
+    int DIALOG_TYPE_LATEST -> e
+    int DIALOG_TYPE_FAIL -> f
+    com.sepcialfocus.android.utils.UpdateManager updateManager -> g
+    android.content.Context mContext -> h
+    android.app.Dialog noticeDialog -> i
+    android.app.Dialog downloadDialog -> j
+    android.app.Dialog latestOrFailDialog -> k
+    android.widget.ProgressBar mProgress -> l
+    android.widget.TextView mProgressText -> m
+    android.app.ProgressDialog mProDialog -> n
+    int progress -> o
+    java.lang.Thread downLoadThread -> p
+    boolean interceptFlag -> q
+    java.lang.String updateMsg -> r
+    java.lang.String apkUrl -> s
+    java.lang.String savePath -> t
+    java.lang.String apkFilePath -> u
+    java.lang.String tmpFilePath -> v
+    java.lang.String apkFileSize -> w
+    java.lang.String tmpFileSize -> x
+    java.lang.String curVersionName -> y
+    int curVersionCode -> z
+    com.sepcialfocus.android.bean.UpdateBean mUpdate -> A
+    com.sepcialfocus.android.widgets.CustomDialog dialog -> a
+    android.os.Handler mHandler -> B
+    java.lang.Runnable mdownApkRunnable -> C
+    138:142:com.sepcialfocus.android.utils.UpdateManager getUpdateManager() -> a
+    151:224:void checkAppUpdate(android.content.Context,boolean) -> a
+    230:245:void showLatestOrFailDialog(int) -> a
+    252:258:void getCurrentVersion() -> b
+    264:300:void showNoticeDialog() -> c
+    390:392:void downloadApk() -> d
+    399:406:void installApk() -> e
+    409:413:java.lang.String getResString(int) -> b
+    84:84:android.widget.ProgressBar access$0(com.sepcialfocus.android.utils.UpdateManager) -> a
+    90:90:int access$1(com.sepcialfocus.android.utils.UpdateManager) -> b
+    86:86:android.widget.TextView access$2(com.sepcialfocus.android.utils.UpdateManager) -> c
+    108:108:java.lang.String access$3(com.sepcialfocus.android.utils.UpdateManager) -> d
+    106:106:java.lang.String access$4(com.sepcialfocus.android.utils.UpdateManager) -> e
+    80:80:android.app.Dialog access$5(com.sepcialfocus.android.utils.UpdateManager) -> f
+    398:398:void access$6(com.sepcialfocus.android.utils.UpdateManager) -> g
+    76:76:android.content.Context access$7(com.sepcialfocus.android.utils.UpdateManager) -> h
+    112:112:com.sepcialfocus.android.bean.UpdateBean access$8(com.sepcialfocus.android.utils.UpdateManager) -> i
+    100:100:void access$9(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> a
+    100:100:java.lang.String access$10(com.sepcialfocus.android.utils.UpdateManager) -> j
+    102:102:void access$11(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> b
+    104:104:void access$12(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> c
+    102:102:java.lang.String access$13(com.sepcialfocus.android.utils.UpdateManager) -> k
+    116:116:android.os.Handler access$14(com.sepcialfocus.android.utils.UpdateManager) -> l
+    104:104:java.lang.String access$15(com.sepcialfocus.android.utils.UpdateManager) -> m
+    98:98:java.lang.String access$16(com.sepcialfocus.android.utils.UpdateManager) -> n
+    106:106:void access$17(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> d
+    108:108:void access$18(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> e
+    90:90:void access$19(com.sepcialfocus.android.utils.UpdateManager,int) -> a
+    94:94:boolean access$20(com.sepcialfocus.android.utils.UpdateManager) -> o
+    88:88:android.app.ProgressDialog access$21(com.sepcialfocus.android.utils.UpdateManager) -> p
+    88:88:void access$22(com.sepcialfocus.android.utils.UpdateManager,android.app.ProgressDialog) -> a
+    112:112:void access$23(com.sepcialfocus.android.utils.UpdateManager,com.sepcialfocus.android.bean.UpdateBean) -> a
+    111:111:int access$24(com.sepcialfocus.android.utils.UpdateManager) -> q
+    98:98:void access$25(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> f
+    96:96:void access$26(com.sepcialfocus.android.utils.UpdateManager,java.lang.String) -> g
+    263:263:void access$27(com.sepcialfocus.android.utils.UpdateManager) -> r
+    229:229:void access$28(com.sepcialfocus.android.utils.UpdateManager,int) -> b
 com.sepcialfocus.android.utils.UpdateManager$1 -> com.sepcialfocus.android.d.c:
     com.sepcialfocus.android.utils.UpdateManager this$0 -> a
-    114:130:void handleMessage(android.os.Message) -> handleMessage
+    118:134:void handleMessage(android.os.Message) -> handleMessage
 com.sepcialfocus.android.utils.UpdateManager$2 -> com.sepcialfocus.android.d.d:
     com.sepcialfocus.android.utils.UpdateManager this$0 -> a
-    289:364:void run() -> run
+    307:382:void run() -> run
 com.sepcialfocus.android.utils.UpdateManager$3 -> com.sepcialfocus.android.d.e:
     com.sepcialfocus.android.utils.UpdateManager this$0 -> a
     boolean val$isShowMsg -> b
-    161:184:void handleMessage(android.os.Message) -> handleMessage
+    165:188:void handleMessage(android.os.Message) -> handleMessage
 com.sepcialfocus.android.utils.UpdateManager$4 -> com.sepcialfocus.android.d.f:
     com.sepcialfocus.android.utils.UpdateManager this$0 -> a
     android.os.Handler val$handler -> b
-    195:212:void onResponse(com.alibaba.fastjson.JSONObject,java.lang.String,java.lang.String,boolean) -> a
+    199:216:void onResponse(com.alibaba.fastjson.JSONObject,java.lang.String,java.lang.String,boolean) -> a
     1:1:void onResponse(java.lang.Object,java.lang.String,java.lang.String,boolean) -> a
 com.sepcialfocus.android.utils.UpdateManager$5 -> com.sepcialfocus.android.d.g:
     com.sepcialfocus.android.utils.UpdateManager this$0 -> a
-    216:217:void onErrorResponse(com.android.volley.VolleyError) -> a
+    220:221:void onErrorResponse(com.android.volley.VolleyError) -> a
 com.sepcialfocus.android.utils.UpdateManager$6 -> com.sepcialfocus.android.d.h:
     com.sepcialfocus.android.utils.UpdateManager this$0 -> a
-    266:272:void onClick(android.content.DialogInterface,int) -> onClick
+    278:281:void onClick(android.view.View) -> onClick
 com.sepcialfocus.android.utils.UpdateManager$7 -> com.sepcialfocus.android.d.i:
     com.sepcialfocus.android.utils.UpdateManager this$0 -> a
-    277:278:void onClick(android.content.DialogInterface,int) -> onClick
+    289:295:void onClick(android.view.View) -> onClick
 com.sepcialfocus.android.volley.FastFromServerParse -> com.sepcialfocus.android.e.a:
     9:9:com.alibaba.fastjson.JSONObject getState(com.alibaba.fastjson.JSONObject) -> a
     14:14:com.alibaba.fastjson.JSONObject getBody(com.alibaba.fastjson.JSONObject) -> b
@@ -18699,6 +18711,11 @@ com.sepcialfocus.android.widgets.ColumnHorizontalScrollView -> com.sepcialfocus.
     61:84:void onScrollChanged(int,int,int,int) -> onScrollChanged
     91:98:void setParam(android.app.Activity,int,android.view.View,android.widget.ImageView,android.widget.ImageView,android.view.View,android.view.View) -> a
     104:129:void shade_ShowOrHide() -> a
+com.sepcialfocus.android.widgets.CustomDialog -> com.sepcialfocus.android.widgets.b:
+    android.view.View view -> a
+    73:81:android.content.Context getParent(android.content.Context) -> a
+    90:91:void setView(android.view.View) -> a
+    95:100:void onCreate(android.os.Bundle) -> onCreate
 com.sepcialfocus.android.widgets.DragGrid -> com.sepcialfocus.android.widgets.DragGrid:
     int downX -> a
     int downY -> b
@@ -18757,11 +18774,11 @@ com.sepcialfocus.android.widgets.DragGrid -> com.sepcialfocus.android.widgets.Dr
     72:72:void access$14(com.sepcialfocus.android.widgets.DragGrid,boolean) -> a
     84:84:java.lang.String access$15(com.sepcialfocus.android.widgets.DragGrid) -> f
     48:48:int access$16(com.sepcialfocus.android.widgets.DragGrid) -> g
-com.sepcialfocus.android.widgets.DragGrid$1 -> com.sepcialfocus.android.widgets.b:
+com.sepcialfocus.android.widgets.DragGrid$1 -> com.sepcialfocus.android.widgets.c:
     com.sepcialfocus.android.widgets.DragGrid this$0 -> a
     android.view.MotionEvent val$ev -> b
     195:237:boolean onItemLongClick(android.widget.AdapterView,android.view.View,int,long) -> onItemLongClick
-com.sepcialfocus.android.widgets.DragGrid$2 -> com.sepcialfocus.android.widgets.c:
+com.sepcialfocus.android.widgets.DragGrid$2 -> com.sepcialfocus.android.widgets.d:
     com.sepcialfocus.android.widgets.DragGrid this$0 -> a
     385:386:void onAnimationStart(android.view.animation.Animation) -> onAnimationStart
     391:391:void onAnimationRepeat(android.view.animation.Animation) -> onAnimationRepeat
@@ -18795,7 +18812,7 @@ com.sepcialfocus.android.widgets.MyWebView -> com.sepcialfocus.android.widgets.M
     181:214:void setLagger(int) -> setLagger
 com.sepcialfocus.android.widgets.OtherGridView -> com.sepcialfocus.android.widgets.OtherGridView:
     15:18:void onMeasure(int,int) -> onMeasure
-com.sepcialfocus.android.widgets.SlidingMenu -> com.sepcialfocus.android.widgets.d:
+com.sepcialfocus.android.widgets.SlidingMenu -> com.sepcialfocus.android.widgets.e:
     int mScreenWidth -> c
     int mMenuRightPadding -> d
     int mMenuWidth -> e
@@ -18836,7 +18853,7 @@ com.sepcialfocus.android.widgets.SwitchButton -> com.sepcialfocus.android.widget
     182:183:void setOnChangeListener(com.sepcialfocus.android.widgets.SwitchButton$OnChangeListener) -> setOnChangeListener
     192:199:void onClick(android.view.View) -> onClick
     202:209:void setBoolean(boolean) -> setBoolean
-com.sepcialfocus.android.widgets.SwitchButton$1 -> com.sepcialfocus.android.widgets.e:
+com.sepcialfocus.android.widgets.SwitchButton$1 -> com.sepcialfocus.android.widgets.f:
     com.sepcialfocus.android.widgets.SwitchButton this$0 -> a
     86:86:boolean onTouch(android.view.View,android.view.MotionEvent) -> onTouch
 com.sepcialfocus.android.widgets.SwitchButton$OnChangeListener -> com.sepcialfocus.android.widgets.SwitchButton$a:
@@ -19847,6 +19864,10 @@ com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx$SimpleOnPageChange
 com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx$ViewPositionComparator -> com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx$j:
     2956:2961:int compare(android.view.View,android.view.View) -> a
     1:1:int compare(java.lang.Object,java.lang.Object) -> compare
+com.sepcialfocus.android.wxapi.WXEntryActivity -> com.sepcialfocus.android.wxapi.WXEntryActivity:
+    14:21:void onCreate(android.os.Bundle) -> onCreate
+    26:26:void onReq(com.tencent.mm.sdk.modelbase.BaseReq) -> onReq
+    30:85:void onResp(com.tencent.mm.sdk.modelbase.BaseResp) -> onResp
 com.sina.sso.RemoteSSO -> com.a.a.a:
     java.lang.String getPackageName() -> a
     java.lang.String getActivityName() -> b

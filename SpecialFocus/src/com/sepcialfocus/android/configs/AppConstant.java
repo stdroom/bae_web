@@ -76,11 +76,11 @@ public class AppConstant {
     /**
      * 微信登录ID
      */
-    public static final String WEIXIN_APP_ID = "wxd84d50394efbb6e6";
+    public static final String WEIXIN_APP_ID = "wxb300c4ed29347222";
     /**
      * 微信登录KEY
      */
-    public static final String WEIXIN_APP_SECRET = "ce4cb131e16b8e9b2a2515d8da424871";
+    public static final String WEIXIN_APP_SECRET = "e34fb6efaa490060754459b6f369503e";
     
     /**
      * 微信api 辅助类

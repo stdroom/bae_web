@@ -302,6 +302,10 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                     	 }
                 		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content,isRefresh));
                 	 }else{
+                		 if(URLs.HOST.equals(urls) && "".equals(nextUrl)){
+                    		 isPullRrefreshFlag = true;
+                    		 nextUrl = "index_1.html";
+                    	 }
                 		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content));
                 	 }
                  }else{
@@ -320,8 +324,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 	 }
                  }
             } catch (IOException e) {
-            	mArticle_listview.onBottomComplete();
-                mSwipeLayout.setRefreshing(false);
+            	mHandler.sendEmptyMessage(0x02);
                 isRefresh = false;
             	isPullFlag = false;
                 e.printStackTrace();
@@ -432,5 +435,19 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 		intent.putExtra("key", item);
 		startActivity(intent);
 	}
+	
+	private Handler mHandler = new Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what){
+			case 0x02:
+				mArticle_listview.onBottomComplete();
+                mSwipeLayout.setRefreshing(false);
+				break;
+			}
+		}
+		
+	};
 }
 
