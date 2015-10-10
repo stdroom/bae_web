@@ -98,6 +98,8 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private View view;
 	ReturnBean mReturnBean = null;
 	File mFile = null;
+	
+	 Document doc;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -144,7 +146,6 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 
 	class Loadhtml extends AsyncTask<String, String, String>
     {
-        Document doc;
         String urls = "";
         public Loadhtml(String urls){
         	this.urls = urls;
@@ -159,7 +160,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
                 CharSequence charSequence = null;
             	doc = Jsoup.connect(urls).timeout(5000).get();
                  Document content = Jsoup.parse(doc.toString());
-                 mArticleContentStr = parseArticleContent(content);
+                 mArticleContentStr = parseArticleContent(false,content);
                  mArticlePostmetaStr = parsePostMeta(content);
                  mHistoryBean = kjDb.findById(md5, HistroyItemBean.class);
                  
@@ -228,38 +229,42 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	/*
 	 * 解析内容
 	 */
-	private String parseArticleContent(Document content){
+	private String parseArticleContent(boolean isShare,Document content){
 		//　去掉广告
 		content.getElementById("hr336").remove();
 		// 批量处理img标签 链接地址、宽高设置
 		Elements pngs = content.select("img[src]");  
         for (Element element : pngs) {  
             String imgUrl = element.attr("src");
-            String imgWidth = element.attr("style").trim();
-            int width = Regexp.getStringWidth(imgWidth);
-            int height = Regexp.getStringHeight(imgWidth);
-            if(width > AppConstant.WEBVIEW_WIDTH && height > 0){
-            	height = height*AppConstant.WEBVIEW_WIDTH/width;
-            	width = AppConstant.WEBVIEW_WIDTH;
-            }
-            if(width>0 && height>0){
-            	element.attr("style", "width:"+width+"px; height:"+height+"px;");
-            }
             if (imgUrl.trim().startsWith("/")) {  
                 imgUrl =URLs.HOST + imgUrl;  
                 element.attr("src", imgUrl);
             }  
+            if(!isShare){
+            	String imgWidth = element.attr("style").trim();
+            	int width = Regexp.getStringWidth(imgWidth);
+            	int height = Regexp.getStringHeight(imgWidth);
+            	if(width > AppConstant.WEBVIEW_WIDTH && height > 0){
+            		height = height*AppConstant.WEBVIEW_WIDTH/width;
+            		width = AppConstant.WEBVIEW_WIDTH;
+            	}
+            	if(width>0 && height>0){
+            		element.attr("style", "width:"+width+"px; height:"+height+"px;");
+            	}
+            }
         }  
         
         Element article = content.getElementById("text");
+        Elements contents = null;
         if(article!=null){
         	article.append("<div style=\"height:"+DensityUtils.dip2px(this, 15)+"px\"></div>");
-	        return article.toString();
+        	return article.toString();
         }else{
-        	Elements contents = content.getElementsByClass("content");
+        	contents = content.getElementsByClass("content");
         	contents.append("<div style=\"height:"+DensityUtils.dip2px(this, 15)+"px\"></div>");
         	return contents.toString();
         }
+        
 	}
 
 	@Override
@@ -388,7 +393,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		try {
 			InputStream in = getResources().openRawResource(R.raw.footer);
 			Document document = Jsoup.parse(in, "utf-8", URLs.HOST); 
-			document.getElementById("title").append("<h1>"+mArticleBean.getTitle()+"<\\/h1>");
+			document.getElementById("title").append("<h1>"+mArticleBean.getTitle());
 			document.getElementById("span").append(mArticlePostmetaStr);
 			document.getElementById("article").append(mArticleContentStr);
 			File file = new File(AppConfig.getUploadHtmlPath());

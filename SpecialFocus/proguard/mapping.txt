@@ -18098,45 +18098,46 @@ com.sepcialfocus.android.ui.article.ArticleDbFragment$Loadhtml -> com.sepcialfoc
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.sepcialfocus.android.ui.article.ArticleDetailActivity -> com.sepcialfocus.android.ui.article.ArticleDetailActivity:
-    java.lang.String urls -> h
-    com.sepcialfocus.android.bean.ArticleItemBean mArticleBean -> i
-    android.widget.TextView mArticleTitleTv -> j
-    android.widget.TextView mArticlePostmetaTv -> k
-    android.widget.TextView mArticleContentTv -> l
-    java.lang.String mArticleContentStr -> m
-    java.lang.String mArticlePostmetaStr -> n
+    java.lang.String urls -> i
+    com.sepcialfocus.android.bean.ArticleItemBean mArticleBean -> j
+    android.widget.TextView mArticleTitleTv -> k
+    android.widget.TextView mArticlePostmetaTv -> l
+    android.widget.TextView mArticleContentTv -> m
+    java.lang.String mArticleContentStr -> n
+    java.lang.String mArticlePostmetaStr -> o
     android.widget.ImageView mBackImg -> c
-    android.widget.LinearLayout mContentLL -> o
-    com.sepcialfocus.android.widgets.MyWebView mWebView -> p
-    android.widget.ImageView mShareImg -> q
-    android.widget.ImageView mFavorImg -> r
-    java.lang.String md5 -> s
-    java.lang.Boolean favorFlag -> t
-    com.mike.aframe.database.KJDB kjDb -> u
+    android.widget.LinearLayout mContentLL -> p
+    com.sepcialfocus.android.widgets.MyWebView mWebView -> q
+    android.widget.ImageView mShareImg -> r
+    android.widget.ImageView mFavorImg -> s
+    java.lang.String md5 -> t
+    java.lang.Boolean favorFlag -> u
+    com.mike.aframe.database.KJDB kjDb -> v
     com.sepcialfocus.android.bean.HistroyItemBean mHistoryBean -> d
     com.sepcialfocus.android.share.CustomShareBoard mCustomShareBoard -> e
-    android.view.View view -> v
+    android.view.View view -> w
     com.upyun.bean.ReturnBean mReturnBean -> f
     java.io.File mFile -> g
-    android.os.Handler mHandler -> w
-    103:124:void onCreate(android.os.Bundle) -> onCreate
-    127:143:void initView() -> a
-    216:224:java.lang.String parsePostMeta(org.jsoup.nodes.Document) -> a
-    233:261:java.lang.String parseArticleContent(org.jsoup.nodes.Document) -> b
-    268:299:void onClick(android.view.View) -> onClick
-    322:326:void onPause() -> onPause
-    329:338:int getTextSize(android.webkit.WebSettings$TextSize) -> a
-    343:355:android.webkit.WebSettings$TextSize setTextSize(int) -> a
-    368:378:void openSharewindow(android.view.View,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
-    381:384:void setBackground(float) -> a
-    387:417:java.lang.String makeHtml(com.sepcialfocus.android.bean.ArticleItemBean) -> a
-    421:436:void uploadHtml(java.lang.String) -> a
+    org.jsoup.nodes.Document doc -> h
+    android.os.Handler mHandler -> x
+    105:126:void onCreate(android.os.Bundle) -> onCreate
+    129:145:void initView() -> a
+    217:225:java.lang.String parsePostMeta(org.jsoup.nodes.Document) -> a
+    234:265:java.lang.String parseArticleContent(boolean,org.jsoup.nodes.Document) -> a
+    273:304:void onClick(android.view.View) -> onClick
+    327:331:void onPause() -> onPause
+    334:343:int getTextSize(android.webkit.WebSettings$TextSize) -> a
+    348:360:android.webkit.WebSettings$TextSize setTextSize(int) -> a
+    373:383:void openSharewindow(android.view.View,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+    386:389:void setBackground(float) -> a
+    392:422:java.lang.String makeHtml(com.sepcialfocus.android.bean.ArticleItemBean) -> a
+    426:441:void uploadHtml(java.lang.String) -> a
     98:98:android.view.View access$0(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> a
     78:78:com.sepcialfocus.android.bean.ArticleItemBean access$1(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> b
-    366:366:void access$2(com.sepcialfocus.android.ui.article.ArticleDetailActivity,android.view.View,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
-    231:231:java.lang.String access$3(com.sepcialfocus.android.ui.article.ArticleDetailActivity,org.jsoup.nodes.Document) -> a
+    371:371:void access$2(com.sepcialfocus.android.ui.article.ArticleDetailActivity,android.view.View,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> a
+    232:232:java.lang.String access$3(com.sepcialfocus.android.ui.article.ArticleDetailActivity,boolean,org.jsoup.nodes.Document) -> a
     82:82:void access$4(com.sepcialfocus.android.ui.article.ArticleDetailActivity,java.lang.String) -> a
-    215:215:java.lang.String access$5(com.sepcialfocus.android.ui.article.ArticleDetailActivity,org.jsoup.nodes.Document) -> b
+    216:216:java.lang.String access$5(com.sepcialfocus.android.ui.article.ArticleDetailActivity,org.jsoup.nodes.Document) -> a
     83:83:void access$6(com.sepcialfocus.android.ui.article.ArticleDetailActivity,java.lang.String) -> b
     92:92:com.mike.aframe.database.KJDB access$7(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> c
     90:90:java.lang.String access$8(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> d
@@ -18148,89 +18149,98 @@ com.sepcialfocus.android.ui.article.ArticleDetailActivity -> com.sepcialfocus.an
     86:86:com.sepcialfocus.android.widgets.MyWebView access$14(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> i
     85:85:android.widget.LinearLayout access$15(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> j
     1:1:void access$16(com.sepcialfocus.android.ui.article.ArticleDetailActivity,boolean) -> a
-    380:380:void access$17(com.sepcialfocus.android.ui.article.ArticleDetailActivity,float) -> a
-    301:301:android.os.Handler access$18(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> k
+    385:385:void access$17(com.sepcialfocus.android.ui.article.ArticleDetailActivity,float) -> a
+    306:306:android.os.Handler access$18(com.sepcialfocus.android.ui.article.ArticleDetailActivity) -> k
 com.sepcialfocus.android.ui.article.ArticleDetailActivity$1 -> com.sepcialfocus.android.ui.article.d:
     com.sepcialfocus.android.ui.article.ArticleDetailActivity this$0 -> a
-    304:316:void handleMessage(android.os.Message) -> handleMessage
+    309:321:void handleMessage(android.os.Message) -> handleMessage
 com.sepcialfocus.android.ui.article.ArticleDetailActivity$2 -> com.sepcialfocus.android.ui.article.e:
     com.sepcialfocus.android.ui.article.ArticleDetailActivity this$0 -> a
-    284:285:void run() -> run
+    289:290:void run() -> run
 com.sepcialfocus.android.ui.article.ArticleDetailActivity$3 -> com.sepcialfocus.android.ui.article.f:
     com.sepcialfocus.android.ui.article.ArticleDetailActivity this$0 -> a
-    373:374:void onDismiss() -> onDismiss
+    378:379:void onDismiss() -> onDismiss
 com.sepcialfocus.android.ui.article.ArticleDetailActivity$4 -> com.sepcialfocus.android.ui.article.g:
     com.sepcialfocus.android.ui.article.ArticleDetailActivity this$0 -> a
-    424:424:void transferred(long,long) -> a
+    429:429:void transferred(long,long) -> a
 com.sepcialfocus.android.ui.article.ArticleDetailActivity$5 -> com.sepcialfocus.android.ui.article.h:
     com.sepcialfocus.android.ui.article.ArticleDetailActivity this$0 -> a
-    428:434:void result(boolean,java.lang.String,java.lang.String) -> a
+    433:439:void result(boolean,java.lang.String,java.lang.String) -> a
 com.sepcialfocus.android.ui.article.ArticleDetailActivity$Loadhtml -> com.sepcialfocus.android.ui.article.ArticleDetailActivity$a:
-    org.jsoup.nodes.Document doc -> a
-    java.lang.String urls -> b
-    com.sepcialfocus.android.ui.article.ArticleDetailActivity this$0 -> c
-    156:175:java.lang.String doInBackground(java.lang.String[]) -> a
-    181:205:void onPostExecute(java.lang.String) -> a
-    210:211:void onPreExecute() -> onPreExecute
+    java.lang.String urls -> a
+    com.sepcialfocus.android.ui.article.ArticleDetailActivity this$0 -> b
+    157:176:java.lang.String doInBackground(java.lang.String[]) -> a
+    182:206:void onPostExecute(java.lang.String) -> a
+    211:212:void onPreExecute() -> onPreExecute
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
-    145:145:com.sepcialfocus.android.ui.article.ArticleDetailActivity access$2(com.sepcialfocus.android.ui.article.ArticleDetailActivity$Loadhtml) -> a
+    147:147:com.sepcialfocus.android.ui.article.ArticleDetailActivity access$2(com.sepcialfocus.android.ui.article.ArticleDetailActivity$Loadhtml) -> a
 com.sepcialfocus.android.ui.article.ArticleDetailActivity$Loadhtml$1 -> com.sepcialfocus.android.ui.article.i:
     com.sepcialfocus.android.ui.article.ArticleDetailActivity$Loadhtml this$1 -> a
-    201:203:void run() -> run
+    202:204:void run() -> run
 com.sepcialfocus.android.ui.article.ArticleFragment -> com.sepcialfocus.android.ui.article.j:
-    android.support.v4.widget.SwipeRefreshLayout mSwipeLayout -> g
-    java.util.ArrayList mArticleList -> h
-    com.sepcialfocus.android.widgets.swiptlistview.SwipeListView mArticle_listview -> i
-    com.sepcialfocus.android.ui.adapter.ArticleListAdapter mArticleAdapter -> j
-    android.view.View mView -> k
-    android.content.Context mContext -> l
-    java.lang.String urls -> m
+    android.support.v4.widget.SwipeRefreshLayout mSwipeLayout -> i
+    java.util.ArrayList mArticleList -> j
+    com.sepcialfocus.android.widgets.swiptlistview.SwipeListView mArticle_listview -> k
+    com.sepcialfocus.android.ui.adapter.ArticleListAdapter mArticleAdapter -> l
+    android.view.View mView -> m
+    android.content.Context mContext -> n
+    java.lang.String urls -> o
     boolean isPullRrefreshFlag -> c
     boolean isRefresh -> d
     boolean isPullFlag -> e
     java.lang.String nextUrl -> f
-    com.mike.aframe.database.KJDB kjDb -> n
-    75:92:void onCreate(android.os.Bundle) -> onCreate
-    96:160:void initView() -> a
+    com.mike.aframe.database.KJDB kjDb -> p
+    com.sepcialfocus.android.ui.article.ArticleFragment$Loadhtml task -> g
+    com.sepcialfocus.android.ui.article.ArticleFragment$LoadNative nativeTask -> h
+    80:91:void onCreate(android.os.Bundle) -> onCreate
+    95:160:void initView() -> a
     165:170:android.view.View onCreateView(android.view.LayoutInflater,android.view.ViewGroup,android.os.Bundle) -> onCreateView
-    174:183:void notifyData(com.sepcialfocus.android.bean.NavBean) -> a
-    186:189:void initData() -> b
-    260:264:void onPause() -> onPause
-    268:269:void onDestroy() -> onDestroy
-    273:287:void readNativeData() -> c
-    291:293:void onRefresh() -> onRefresh
-    296:309:void initSwapLayout() -> d
-    54:54:java.util.ArrayList access$0(com.sepcialfocus.android.ui.article.ArticleFragment) -> a
-    68:68:com.mike.aframe.database.KJDB access$1(com.sepcialfocus.android.ui.article.ArticleFragment) -> b
-    55:55:com.sepcialfocus.android.widgets.swiptlistview.SwipeListView access$2(com.sepcialfocus.android.ui.article.ArticleFragment) -> c
-    53:53:android.support.v4.widget.SwipeRefreshLayout access$3(com.sepcialfocus.android.ui.article.ArticleFragment) -> d
-    1:1:void access$4(com.sepcialfocus.android.ui.article.ArticleFragment,boolean) -> a
-    56:56:com.sepcialfocus.android.ui.adapter.ArticleListAdapter access$5(com.sepcialfocus.android.ui.article.ArticleFragment) -> e
-    271:271:void access$6(com.sepcialfocus.android.ui.article.ArticleFragment) -> f
-    58:58:android.content.Context access$7(com.sepcialfocus.android.ui.article.ArticleFragment) -> g
-    59:59:java.lang.String access$8(com.sepcialfocus.android.ui.article.ArticleFragment) -> h
+    174:178:void initData() -> b
+    290:302:void onPause() -> onPause
+    306:309:void onDestroy() -> onDestroy
+    313:327:void readNativeData() -> c
+    331:334:void onRefresh() -> onRefresh
+    337:350:void initSwapLayout() -> d
+    311:311:void access$0(com.sepcialfocus.android.ui.article.ArticleFragment) -> a
+    56:56:com.sepcialfocus.android.ui.adapter.ArticleListAdapter access$1(com.sepcialfocus.android.ui.article.ArticleFragment) -> b
+    58:58:android.content.Context access$2(com.sepcialfocus.android.ui.article.ArticleFragment) -> c
+    54:54:java.util.ArrayList access$3(com.sepcialfocus.android.ui.article.ArticleFragment) -> d
+    56:56:void access$4(com.sepcialfocus.android.ui.article.ArticleFragment,com.sepcialfocus.android.ui.adapter.ArticleListAdapter) -> a
+    55:55:com.sepcialfocus.android.widgets.swiptlistview.SwipeListView access$5(com.sepcialfocus.android.ui.article.ArticleFragment) -> e
+    173:173:void access$6(com.sepcialfocus.android.ui.article.ArticleFragment) -> f
+    1:1:void access$7(com.sepcialfocus.android.ui.article.ArticleFragment,boolean) -> a
+    53:53:android.support.v4.widget.SwipeRefreshLayout access$8(com.sepcialfocus.android.ui.article.ArticleFragment) -> g
+    68:68:com.mike.aframe.database.KJDB access$9(com.sepcialfocus.android.ui.article.ArticleFragment) -> h
+    59:59:java.lang.String access$10(com.sepcialfocus.android.ui.article.ArticleFragment) -> i
 com.sepcialfocus.android.ui.article.ArticleFragment$1 -> com.sepcialfocus.android.ui.article.k:
     com.sepcialfocus.android.ui.article.ArticleFragment this$0 -> a
-    88:89:void run() -> run
-com.sepcialfocus.android.ui.article.ArticleFragment$2 -> com.sepcialfocus.android.ui.article.l:
-    com.sepcialfocus.android.ui.article.ArticleFragment this$0 -> a
-    104:145:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
-    100:100:com.sepcialfocus.android.ui.article.ArticleFragment access$0(com.sepcialfocus.android.ui.article.ArticleFragment$2) -> a
-com.sepcialfocus.android.ui.article.ArticleFragment$2$1 -> com.sepcialfocus.android.ui.article.m:
-    com.sepcialfocus.android.ui.article.ArticleFragment$2 this$1 -> a
+    103:144:void onItemClick(android.widget.AdapterView,android.view.View,int,long) -> onItemClick
+    99:99:com.sepcialfocus.android.ui.article.ArticleFragment access$0(com.sepcialfocus.android.ui.article.ArticleFragment$1) -> a
+com.sepcialfocus.android.ui.article.ArticleFragment$1$1 -> com.sepcialfocus.android.ui.article.l:
+    com.sepcialfocus.android.ui.article.ArticleFragment$1 this$1 -> a
     int val$position -> b
-    107:140:void run() -> run
+    106:139:void run() -> run
+com.sepcialfocus.android.ui.article.ArticleFragment$2 -> com.sepcialfocus.android.ui.article.m:
+    com.sepcialfocus.android.ui.article.ArticleFragment this$0 -> a
+    150:158:void onClick(android.view.View) -> onClick
 com.sepcialfocus.android.ui.article.ArticleFragment$3 -> com.sepcialfocus.android.ui.article.n:
     com.sepcialfocus.android.ui.article.ArticleFragment this$0 -> a
-    151:158:void onClick(android.view.View) -> onClick
-com.sepcialfocus.android.ui.article.ArticleFragment$Loadhtml -> com.sepcialfocus.android.ui.article.j$a:
+    297:300:void run() -> run
+com.sepcialfocus.android.ui.article.ArticleFragment$LoadNative -> com.sepcialfocus.android.ui.article.j$a:
+    com.sepcialfocus.android.ui.article.ArticleFragment this$0 -> a
+    185:186:java.lang.String doInBackground(java.lang.String[]) -> a
+    191:203:void onPostExecute(java.lang.String) -> a
+    208:215:void onPreExecute() -> onPreExecute
+    1:1:void onPostExecute(java.lang.Object) -> onPostExecute
+    1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
+com.sepcialfocus.android.ui.article.ArticleFragment$Loadhtml -> com.sepcialfocus.android.ui.article.j$b:
     org.jsoup.nodes.Document doc -> a
     java.lang.String urls -> b
     com.sepcialfocus.android.ui.article.ArticleFragment this$0 -> c
-    203:228:java.lang.String doInBackground(java.lang.String[]) -> a
-    234:243:void onPostExecute(java.lang.String) -> a
-    248:255:void onPreExecute() -> onPreExecute
+    231:256:java.lang.String doInBackground(java.lang.String[]) -> a
+    262:273:void onPostExecute(java.lang.String) -> a
+    278:285:void onPreExecute() -> onPreExecute
     1:1:void onPostExecute(java.lang.Object) -> onPostExecute
     1:1:java.lang.Object doInBackground(java.lang.Object[]) -> doInBackground
 com.sepcialfocus.android.ui.article.MainFragment -> com.sepcialfocus.android.ui.article.o:
@@ -19865,9 +19875,9 @@ com.sepcialfocus.android.widgets.viewimage.Tricks.ViewPagerEx$ViewPositionCompar
     2956:2961:int compare(android.view.View,android.view.View) -> a
     1:1:int compare(java.lang.Object,java.lang.Object) -> compare
 com.sepcialfocus.android.wxapi.WXEntryActivity -> com.sepcialfocus.android.wxapi.WXEntryActivity:
-    14:21:void onCreate(android.os.Bundle) -> onCreate
-    26:26:void onReq(com.tencent.mm.sdk.modelbase.BaseReq) -> onReq
-    30:85:void onResp(com.tencent.mm.sdk.modelbase.BaseResp) -> onResp
+    16:23:void onCreate(android.os.Bundle) -> onCreate
+    28:28:void onReq(com.tencent.mm.sdk.modelbase.BaseReq) -> onReq
+    32:88:void onResp(com.tencent.mm.sdk.modelbase.BaseResp) -> onResp
 com.sina.sso.RemoteSSO -> com.a.a.a:
     java.lang.String getPackageName() -> a
     java.lang.String getActivityName() -> b
