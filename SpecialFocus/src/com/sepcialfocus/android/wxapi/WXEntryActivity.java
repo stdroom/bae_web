@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.sepcialfocus.android.configs.AppConstant;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
@@ -14,12 +15,11 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		if (AppConstant.api!=null){
-//			AppConstant.api.handleIntent(getIntent(), this);
-//		} else {
-//			finish();
-//			Logger.d("WXEntryActivity", "微信登录失败");
-//		}
+		if (AppConstant.api!=null){
+			AppConstant.api.handleIntent(getIntent(), this);
+		} else {
+			finish();
+		}
 	}
 
 	@Override
@@ -30,10 +30,11 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler{
 	@Override
 	public void onResp(BaseResp baseresp) {
 		String result = "";
-		
+		finish();
 		switch (baseresp.errCode) {
 		case BaseResp.ErrCode.ERR_OK:
 			result = "success";
+			finish();
 			if (baseresp instanceof SendAuth.Resp){
 //				SendAuth.Resp resp = (SendAuth.Resp)baseresp;
 //				StringBuffer buffer = new StringBuffer();

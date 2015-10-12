@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
     <include 
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         layout="@layout/app_header"/>
      <RelativeLayout
         android:id="@+id/splashview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/header"
         android:background="#ffffff">
         <View
             android:id="@+id/cutline"
@@ -18,4 +22,10 @@
             android:background="@drawable/pic_line"/>
     </RelativeLayout>
 
-</LinearLayout>
+     <com.sepcialfocus.android.widgets.NoClickRelativeLayout 
+            android:id="@+id/myRelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/header">
+       </com.sepcialfocus.android.widgets.NoClickRelativeLayout>
+</RelativeLayout>

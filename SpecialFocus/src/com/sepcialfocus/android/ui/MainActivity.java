@@ -124,9 +124,9 @@ public class MainActivity extends BaseFragmentActivity
 	@Override
 	protected void onResume() {
 		super.onResume();
-		AppConfig.imgFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_IMG, AppConstant.FLAG_IMG, true);
-		AppConfig.windowFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_WINDOW, AppConstant.FLAG_WINDOW, true);
-		if(AppConfig.windowFlag){
+		AppConfig.imgFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_IMG, AppConstant.FLAG_IMG, false);
+		AppConfig.windowFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_WINDOW, AppConstant.FLAG_WINDOW, false);
+		if(!AppConfig.windowFlag){
 			mDragSoftImg.setVisibility(View.VISIBLE);
 		}else{
 			mDragSoftImg.setVisibility(View.GONE);
@@ -278,9 +278,13 @@ public class MainActivity extends BaseFragmentActivity
 			bean.setMd5(MD5Utils.md5(menuName[i]+menuUrl[i]));
 			bean.setMenu(menuName[i]);
 			bean.setMenuUrl(menuUrl[i]);
-			bean.setShow("1");
+			if(i<6){
+				bean.setShow("1");
+				list.add(bean);
+			}else{
+				bean.setShow("0");
+			}
 			bean.setCategory(1);
-			list.add(bean);
 			mKJDb.save(bean);
 		}
 		return (ArrayList<NavBean>)list;

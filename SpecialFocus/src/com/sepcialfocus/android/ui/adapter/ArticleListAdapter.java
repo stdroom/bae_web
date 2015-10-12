@@ -122,7 +122,7 @@ public class ArticleListAdapter extends BaseAdapter{
 				break;
 			}
 		}
-		if(AppConfig.imgFlag){
+		if(!AppConfig.imgFlag){
 			if(!"".equals(bean.getImgUrl()+"") && !(bean.getImgUrl()+"").contains("defaultpic.gif")){
 				kjBitMap.display(holder.mArticleImg,URLs.HOST+bean.getImgUrl(),
 						holder.mArticleImg.getWidth(),holder.mArticleImg.getHeight());

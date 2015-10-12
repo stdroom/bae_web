@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.mike.aframe.MKLog;
 import com.sepcialfocus.android.BaseFragmentActivity;
@@ -51,6 +52,13 @@ public class WelcomeActivity extends BaseFragmentActivity{
 		params.addRule(RelativeLayout.ABOVE, R.id.cutline);
 		splashLayout.addView(splash, params);
 //		MKLog.d("shit",getDeviceInfo(this));
+		findViewById(R.id.myRelativeLayout).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
 		SpotManager.getInstance(this).showSplashSpotAds(this, splashView,
 				new SpotDialogListener() {
 
@@ -82,7 +90,6 @@ public class WelcomeActivity extends BaseFragmentActivity{
 						MKLog.i("YoumiAdDemo", "插屏点击");
 					}
 				});
-
 	}
 	
 

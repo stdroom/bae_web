@@ -19,6 +19,14 @@
             android:background="@drawable/pic_line"/>
     </RelativeLayout>
 
+    <com.sepcialfocus.android.widgets.NoClickRelativeLayout
+        android:id="@+id/myRelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/splashview"
+        android:background="@color/transparent">
+        
+    </com.sepcialfocus.android.widgets.NoClickRelativeLayout>
     <RelativeLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

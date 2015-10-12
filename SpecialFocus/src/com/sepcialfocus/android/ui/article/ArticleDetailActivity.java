@@ -23,6 +23,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,6 +86,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private LinearLayout mContentLL;
 	private MyWebView mWebView;
 	
+	private ImageView mLoadImg;
 	private ImageView mShareImg;
 	private ImageView mFavorImg;
 	private String md5="";
@@ -98,7 +100,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private View view;
 	ReturnBean mReturnBean = null;
 	File mFile = null;
-	
+	AnimationDrawable animationDrawable = null;
 	 Document doc;
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -130,6 +132,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		mBackImg = (ImageView)findViewById(R.id.bottom_back);
 		mBackImg.setOnClickListener(this);
 		mShareImg = (ImageView)findViewById(R.id.bottom_share);
+		mLoadImg = (ImageView)findViewById(R.id.loading_bar);
 		mShareImg.setOnClickListener(this);
 		mFavorImg = (ImageView)findViewById(R.id.bottom_favor);
 		mFavorImg.setOnClickListener(this);
@@ -293,6 +296,13 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			break;
 		case R.id.bottom_share:
 			view = arg0;
+			mLoadImg.setVisibility(View.VISIBLE);
+//			animationDrawable = (AnimationDrawable)mLoadImg.getBackground();
+//			if(animationDrawable!=null&&animationDrawable.isRunning()){
+//				animationDrawable.stop();
+//			}
+//			startAnimationDrawable();
+			mShareImg.setVisibility(View.INVISIBLE);
 			String path = makeHtml(mArticleBean);
 			if(!"".equals(path)){
 				uploadHtml(path);
@@ -308,6 +318,9 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		public void handleMessage(Message msg) {
 			switch(msg.what){
 			case 0x01:
+//				stopAnimationDrawable();
+				mLoadImg.setVisibility(View.GONE);
+				mShareImg.setVisibility(View.VISIBLE);
 				if(view!=null && mReturnBean!=null && mArticleBean!=null){
 //					Toast.makeText(ArticleDetailActivity.this, "200", Toast.LENGTH_SHORT).show();
 					openSharewindow(view,mArticleBean.getSummary(),
@@ -440,5 +453,24 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		}).execute();
 	}
 	
+	/**
+	 * 停止播放动画
+	 */
+	private void stopAnimationDrawable(){
+		if (animationDrawable!=null){
+			animationDrawable.setOneShot(true);
+		}
+	}
+	
+	/**
+	 * 播放动画
+	 */
+	private void startAnimationDrawable(){
+		if (animationDrawable!=null){
+			animationDrawable.setOneShot(false);
+			animationDrawable.stop();
+			animationDrawable.start();
+		}
+	}
 }
 
