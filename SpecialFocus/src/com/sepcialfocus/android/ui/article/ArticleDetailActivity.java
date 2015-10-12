@@ -23,6 +23,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -85,6 +86,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private LinearLayout mContentLL;
 	private MyWebView mWebView;
 	
+	private ImageView mLoadImg;
 	private ImageView mShareImg;
 	private ImageView mFavorImg;
 	private String md5="";
@@ -98,6 +100,8 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	private View view;
 	ReturnBean mReturnBean = null;
 	File mFile = null;
+	AnimationDrawable animationDrawable = null;
+	 Document doc;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -128,6 +132,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		mBackImg = (ImageView)findViewById(R.id.bottom_back);
 		mBackImg.setOnClickListener(this);
 		mShareImg = (ImageView)findViewById(R.id.bottom_share);
+		mLoadImg = (ImageView)findViewById(R.id.loading_bar);
 		mShareImg.setOnClickListener(this);
 		mFavorImg = (ImageView)findViewById(R.id.bottom_favor);
 		mFavorImg.setOnClickListener(this);
@@ -144,7 +149,6 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 
 	class Loadhtml extends AsyncTask<String, String, String>
     {
-        Document doc;
         String urls = "";
         public Loadhtml(String urls){
         	this.urls = urls;
@@ -159,7 +163,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
                 CharSequence charSequence = null;
             	doc = Jsoup.connect(urls).timeout(5000).get();
                  Document content = Jsoup.parse(doc.toString());
-                 mArticleContentStr = parseArticleContent(content);
+                 mArticleContentStr = parseArticleContent(false,content);
                  mArticlePostmetaStr = parsePostMeta(content);
                  mHistoryBean = kjDb.findById(md5, HistroyItemBean.class);
                  
@@ -228,38 +232,42 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	/*
 	 * 解析内容
 	 */
-	private String parseArticleContent(Document content){
+	private String parseArticleContent(boolean isShare,Document content){
 		//　去掉广告
 		content.getElementById("hr336").remove();
 		// 批量处理img标签 链接地址、宽高设置
 		Elements pngs = content.select("img[src]");  
         for (Element element : pngs) {  
             String imgUrl = element.attr("src");
-            String imgWidth = element.attr("style").trim();
-            int width = Regexp.getStringWidth(imgWidth);
-            int height = Regexp.getStringHeight(imgWidth);
-            if(width > AppConstant.WEBVIEW_WIDTH && height > 0){
-            	height = height*AppConstant.WEBVIEW_WIDTH/width;
-            	width = AppConstant.WEBVIEW_WIDTH;
-            }
-            if(width>0 && height>0){
-            	element.attr("style", "width:"+width+"px; height:"+height+"px;");
-            }
             if (imgUrl.trim().startsWith("/")) {  
                 imgUrl =URLs.HOST + imgUrl;  
                 element.attr("src", imgUrl);
             }  
+            if(!isShare){
+            	String imgWidth = element.attr("style").trim();
+            	int width = Regexp.getStringWidth(imgWidth);
+            	int height = Regexp.getStringHeight(imgWidth);
+            	if(width > AppConstant.WEBVIEW_WIDTH && height > 0){
+            		height = height*AppConstant.WEBVIEW_WIDTH/width;
+            		width = AppConstant.WEBVIEW_WIDTH;
+            	}
+            	if(width>0 && height>0){
+            		element.attr("style", "width:"+width+"px; height:"+height+"px;");
+            	}
+            }
         }  
         
         Element article = content.getElementById("text");
+        Elements contents = null;
         if(article!=null){
         	article.append("<div style=\"height:"+DensityUtils.dip2px(this, 15)+"px\"></div>");
-	        return article.toString();
+        	return article.toString();
         }else{
-        	Elements contents = content.getElementsByClass("content");
+        	contents = content.getElementsByClass("content");
         	contents.append("<div style=\"height:"+DensityUtils.dip2px(this, 15)+"px\"></div>");
         	return contents.toString();
         }
+        
 	}
 
 	@Override
@@ -288,6 +296,13 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 			break;
 		case R.id.bottom_share:
 			view = arg0;
+			mLoadImg.setVisibility(View.VISIBLE);
+//			animationDrawable = (AnimationDrawable)mLoadImg.getBackground();
+//			if(animationDrawable!=null&&animationDrawable.isRunning()){
+//				animationDrawable.stop();
+//			}
+//			startAnimationDrawable();
+			mShareImg.setVisibility(View.INVISIBLE);
 			String path = makeHtml(mArticleBean);
 			if(!"".equals(path)){
 				uploadHtml(path);
@@ -303,6 +318,9 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		public void handleMessage(Message msg) {
 			switch(msg.what){
 			case 0x01:
+//				stopAnimationDrawable();
+				mLoadImg.setVisibility(View.GONE);
+				mShareImg.setVisibility(View.VISIBLE);
 				if(view!=null && mReturnBean!=null && mArticleBean!=null){
 //					Toast.makeText(ArticleDetailActivity.this, "200", Toast.LENGTH_SHORT).show();
 					openSharewindow(view,mArticleBean.getSummary(),
@@ -388,7 +406,7 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		try {
 			InputStream in = getResources().openRawResource(R.raw.footer);
 			Document document = Jsoup.parse(in, "utf-8", URLs.HOST); 
-			document.getElementById("title").append("<h1>"+mArticleBean.getTitle()+"<\\/h1>");
+			document.getElementById("title").append("<h1>"+mArticleBean.getTitle());
 			document.getElementById("span").append(mArticlePostmetaStr);
 			document.getElementById("article").append(mArticleContentStr);
 			File file = new File(AppConfig.getUploadHtmlPath());
@@ -435,5 +453,24 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		}).execute();
 	}
 	
+	/**
+	 * 停止播放动画
+	 */
+	private void stopAnimationDrawable(){
+		if (animationDrawable!=null){
+			animationDrawable.setOneShot(true);
+		}
+	}
+	
+	/**
+	 * 播放动画
+	 */
+	private void startAnimationDrawable(){
+		if (animationDrawable!=null){
+			animationDrawable.setOneShot(false);
+			animationDrawable.stop();
+			animationDrawable.start();
+		}
+	}
 }
 

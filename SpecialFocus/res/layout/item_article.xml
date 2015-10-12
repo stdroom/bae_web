@@ -36,7 +36,7 @@
 	        android:id="@+id/article_from1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#ff00ff"
+	        android:textColor="#f54343"
 	        android:textSize="10sp"
 	        android:text="读者文摘"/>
 	    <TextView
@@ -44,7 +44,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="3dp"
-	        android:textColor="#ff00ff"
+	        android:textColor="#f54343"
 	        android:textSize="10sp"
 	        android:text="读者文摘"/>
 
@@ -53,7 +53,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="3dp"
-	        android:textColor="#ff00ff"
+	        android:textColor="#f54343"
 	        android:textSize="10sp"
 	        android:text="读者文摘"/>
     </LinearLayout>

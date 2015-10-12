@@ -1,7 +1,6 @@
 
 package com.sepcialfocus.android.ui.article;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jsoup.Jsoup;
@@ -67,6 +66,11 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	String nextUrl;
 	private KJDB kjDb = null;
 	
+	
+	Loadhtml task = null;
+	
+	LoadNative nativeTask = null;
+	
 	public ArticleFragment(){
 	}
 	
@@ -81,14 +85,8 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
                 this.urls = args.getString("key");
             }
         }
-        new Handler().post(new Runnable() {
-			
-			@Override
-			public void run() {
-				readNativeData();
-			}
-		});
-        
+        nativeTask = new LoadNative();
+		nativeTask.execute("");
 	}
 	
 	@Override
@@ -150,7 +148,8 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			public void onClick(View v) {
 				if(!isPullFlag && isPullRrefreshFlag && !isRefresh){
 					isPullFlag = true;
-					new Loadhtml(urls+nextUrl).execute("","","");
+					task = new Loadhtml(urls+nextUrl);
+					task.execute("","","");
 				} else {
 					isPullFlag = false;
 					mArticle_listview.onBottomComplete();
@@ -164,31 +163,59 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			ViewGroup container,  Bundle savedInstanceState) {
 		mView = LayoutInflater.from(mContext).inflate(R.layout.fragment_articles, null);
 		initView();
-		mArticleAdapter = new ArticleListAdapter(mContext, mArticleList);
-		mArticle_listview.setAdapter(mArticleAdapter);
-		initData();
-		return mView;
-	}
-	
-	public void notifyData(NavBean bean){
-		if(bean!=null){
-			this.urls = bean.getMenuUrl();
-			readNativeData();
-			if(mArticle_listview== null){
-				return;
-			}
-			mArticleAdapter = new ArticleListAdapter(mContext, mArticleList);
+		if(mArticleAdapter!=null){
 			mArticle_listview.setAdapter(mArticleAdapter);
 		}
+		return mView;
 	}
 	
 	private void initData(){
 		if(null==mArticleList || mArticleList.size()==0){
-			new Loadhtml(urls).execute("","","");
+			task  = new Loadhtml(urls);
+			task.execute("","","");
 		}
 	}
 
+	
+	class LoadNative extends AsyncTask<String,String,String>{
 
+		@Override
+		protected String doInBackground(String... params) {
+			readNativeData();
+			return null;
+		}
+		
+		@Override
+        protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			if(mArticleAdapter == null){
+				mArticleAdapter = new ArticleListAdapter(mContext, mArticleList);
+				if(mArticle_listview!=null){
+					mArticle_listview.setAdapter(mArticleAdapter);
+				}
+			}
+			if(mArticleList == null || mArticleList.size() == 0){
+				initData();
+			}else{
+				mArticleAdapter.notifyDataSetChanged();
+			}
+		}
+		
+		@Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            if(mArticleList!=null 
+            		&& mArticleList.size()==0){
+            	setLoadingVisible(true);
+            	mSwipeLayout.setVisibility(View.GONE);
+            }
+            
+        }
+	}
+
+	
+	
 	class Loadhtml extends AsyncTask<String, String, String>
     {
         Document doc;
@@ -235,7 +262,9 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 //            Log.d("doc", doc.toString().trim());
             setLoadingVisible(false);
             mSwipeLayout.setVisibility(View.VISIBLE);
-            mArticleAdapter.notifyDataSetChanged();
+            if(mArticleAdapter!=null){
+            	mArticleAdapter.notifyDataSetChanged();
+            }
             mArticle_listview.onBottomComplete();
         	isRefresh = false;
         	isPullFlag = false;
@@ -258,14 +287,24 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 
 	public void onPause(){
 		super.onPause();
-		BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
-		PreferenceHelper.write(mContext, 
-				AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
+		if (task != null && task.getStatus() != AsyncTask.Status.FINISHED)
+            task.cancel(true);
+		new Handler().post(new Runnable() {
+			
+			@Override
+			public void run() {
+				BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
+				PreferenceHelper.write(mContext, 
+						AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
+			}
+		});
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		if (nativeTask != null && nativeTask.getStatus() != AsyncTask.Status.FINISHED)
+			nativeTask.cancel(true);
 	}
 
 	private void readNativeData(){
@@ -289,7 +328,8 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	@Override
 	public void onRefresh() {
 		isRefresh = true;
-		new Loadhtml(urls).execute("","","");
+		task = new Loadhtml(urls);
+		task.execute("","","");
 	}
 	
 	private void initSwapLayout(){

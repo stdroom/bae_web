@@ -116,7 +116,7 @@
         <!-- 友盟分享end -->
         
         <meta-data android:value="55fdeda267e58eaa770002bd" android:name="UMENG_APPKEY"/>
-		<meta-data android:value="本机打包" android:name="UMENG_CHANNEL"/>
+		<meta-data android:value="蒲公英" android:name="UMENG_CHANNEL"/>
     </application>
     
     

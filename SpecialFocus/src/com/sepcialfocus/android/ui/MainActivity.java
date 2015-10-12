@@ -278,9 +278,13 @@ public class MainActivity extends BaseFragmentActivity
 			bean.setMd5(MD5Utils.md5(menuName[i]+menuUrl[i]));
 			bean.setMenu(menuName[i]);
 			bean.setMenuUrl(menuUrl[i]);
-			bean.setShow("1");
+			if(i<6){
+				bean.setShow("1");
+				list.add(bean);
+			}else{
+				bean.setShow("0");
+			}
 			bean.setCategory(1);
-			list.add(bean);
 			mKJDb.save(bean);
 		}
 		return (ArrayList<NavBean>)list;
