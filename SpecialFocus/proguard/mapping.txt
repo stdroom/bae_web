@@ -16949,7 +16949,6 @@ com.sepcialfocus.android.R$id -> com.sepcialfocus.android.d$g:
     int content_ll -> content_ll
     int content_text_size_rg -> content_text_size_rg
     int custom_indicator -> custom_indicator
-    int cutline -> cutline
     int daimajia_slider_image -> daimajia_slider_image
     int daimajia_slider_viewpager -> daimajia_slider_viewpager
     int default_bottom_left_indicator -> default_bottom_left_indicator
@@ -17947,17 +17946,15 @@ com.sepcialfocus.android.ui.WelcomeActivity -> com.sepcialfocus.android.ui.Welco
     net.youmi.android.spot.SplashView splashView -> c
     android.view.View splash -> d
     android.widget.RelativeLayout splashLayout -> e
-    34:93:void onCreate(android.os.Bundle) -> onCreate
-    98:123:java.lang.String getDeviceInfo(android.content.Context) -> a
+    java.lang.String platform -> f
+    38:114:void onCreate(android.os.Bundle) -> onCreate
+    119:144:java.lang.String getDeviceInfo(android.content.Context) -> a
 com.sepcialfocus.android.ui.WelcomeActivity$1 -> com.sepcialfocus.android.ui.d:
     com.sepcialfocus.android.ui.WelcomeActivity this$0 -> a
-    60:60:void onClick(android.view.View) -> onClick
-com.sepcialfocus.android.ui.WelcomeActivity$2 -> com.sepcialfocus.android.ui.e:
-    com.sepcialfocus.android.ui.WelcomeActivity this$0 -> a
-    67:72:void onShowSuccess() -> onShowSuccess
-    76:79:void onShowFailed() -> onShowFailed
-    83:84:void onSpotClosed() -> onSpotClosed
-    88:91:void onSpotClick() -> onSpotClick
+    87:92:void onShowSuccess() -> onShowSuccess
+    96:99:void onShowFailed() -> onShowFailed
+    103:104:void onSpotClosed() -> onSpotClosed
+    108:111:void onSpotClick() -> onSpotClick
 com.sepcialfocus.android.ui.adapter.ArticleFragmentPagerAdapter -> com.sepcialfocus.android.ui.a.a:
     java.util.ArrayList fragments -> a
     android.support.v4.app.FragmentManager fm -> b
@@ -18501,14 +18498,15 @@ com.sepcialfocus.android.ui.settting.ReviewAdActivity -> com.sepcialfocus.androi
     android.widget.RelativeLayout splashLayout -> e
     android.widget.ImageView mBackImg -> f
     android.widget.TextView mTitleTv -> g
-    52:113:void onCreate(android.os.Bundle) -> onCreate
-    116:121:void onClick(android.view.View) -> onClick
+    java.lang.String platform -> h
+    58:138:void onCreate(android.os.Bundle) -> onCreate
+    141:146:void onClick(android.view.View) -> onClick
 com.sepcialfocus.android.ui.settting.ReviewAdActivity$1 -> com.sepcialfocus.android.ui.settting.i:
     com.sepcialfocus.android.ui.settting.ReviewAdActivity this$0 -> a
-    87:92:void onShowSuccess() -> onShowSuccess
-    96:99:void onShowFailed() -> onShowFailed
-    103:104:void onSpotClosed() -> onSpotClosed
-    108:111:void onSpotClick() -> onSpotClick
+    111:116:void onShowSuccess() -> onShowSuccess
+    120:123:void onShowFailed() -> onShowFailed
+    127:128:void onSpotClosed() -> onSpotClosed
+    132:135:void onSpotClick() -> onSpotClick
 com.sepcialfocus.android.ui.settting.SettingActivity -> com.sepcialfocus.android.ui.settting.SettingActivity:
     android.widget.ImageView mBackImg -> c
     android.widget.TextView mTitleTv -> d
