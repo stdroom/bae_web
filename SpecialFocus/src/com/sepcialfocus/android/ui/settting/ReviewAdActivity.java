@@ -19,12 +19,16 @@ import net.youmi.android.spot.SplashView;
 import net.youmi.android.spot.SpotDialogListener;
 import net.youmi.android.spot.SpotManager;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mike.aframe.MKLog;
 import com.sepcialfocus.android.BaseFragmentActivity;
@@ -32,6 +36,7 @@ import com.sepcialfocus.android.R;
 import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.ui.MainActivity;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.onlineconfig.OnlineConfigAgent;
 
 /**
  * 类名: ReviewAdActivity <br/>
@@ -47,6 +52,7 @@ public class ReviewAdActivity extends BaseFragmentActivity implements View.OnCli
 	RelativeLayout splashLayout;
 	ImageView  mBackImg;
 	TextView mTitleTv;
+	String platform;
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -76,40 +82,59 @@ public class ReviewAdActivity extends BaseFragmentActivity implements View.OnCli
 		splashLayout = ((RelativeLayout) findViewById(R.id.splashview));
 		splashLayout.setVisibility(View.GONE);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
-		params.addRule(RelativeLayout.ABOVE, R.id.cutline);
+		try{
+			ApplicationInfo info;
+			info = getPackageManager().getApplicationInfo(getPackageName(),
+					PackageManager.GET_META_DATA);
+			platform = info.metaData.getString("UMENG_CHANNEL");
+			
+			if(!"yes".equals(
+					OnlineConfigAgent.getInstance().getConfigParams(this,
+							"ad_"+platform))){
+				splash.setVisibility(View.GONE);
+			}else{
+				splash.setVisibility(View.VISIBLE);
+			}
+		}catch(Exception e){
+			splash.setVisibility(View.VISIBLE);
+		}
 		splashLayout.addView(splash, params);
 //		MKLog.d("shit",getDeviceInfo(this));
-		SpotManager.getInstance(this).showSplashSpotAds(this, splashView,
-				new SpotDialogListener() {
-
-					@Override
-					public void onShowSuccess() {
-						splashLayout.setVisibility(View.VISIBLE);
-						splashLayout.startAnimation(AnimationUtils.loadAnimation(ReviewAdActivity.this, R.anim.pic_enter_anim_alpha));
-						MKLog.d("youmisdk", "展示成功");
-						MobclickAgent.onEvent(ReviewAdActivity.this,"welcome_ad", 
-								new HashMap<String,String>().put("首页广告","展示成功"));
-					}
-
-					@Override
-					public void onShowFailed() {
-						MKLog.d("youmisdk", "展示失败");
-						MobclickAgent.onEvent(ReviewAdActivity.this,"welcome_ad", 
-								new HashMap<String,String>().put("首页广告","展示失败"));
-					}
-
-					@Override
-					public void onSpotClosed() {
-						MKLog.d("youmisdk", "展示关闭");
-					}
-
-					@Override
-					public void onSpotClick() {
-						MobclickAgent.onEvent(ReviewAdActivity.this,"welcome_ad", 
-								new HashMap<String,String>().put("首页广告","点击"));
-						MKLog.i("YoumiAdDemo", "插屏点击");
-					}
-				});
+		if("yes".equals(
+				OnlineConfigAgent.getInstance().getConfigParams(this,
+						"ad_"+platform))){
+			SpotManager.getInstance(this).showSplashSpotAds(this, splashView,
+					new SpotDialogListener() {
+				
+				@Override
+				public void onShowSuccess() {
+					splashLayout.setVisibility(View.VISIBLE);
+					splashLayout.startAnimation(AnimationUtils.loadAnimation(ReviewAdActivity.this, R.anim.pic_enter_anim_alpha));
+					MKLog.d("youmisdk", "展示成功");
+					MobclickAgent.onEvent(ReviewAdActivity.this,"welcome_ad", 
+							new HashMap<String,String>().put("首页广告","展示成功"));
+				}
+				
+				@Override
+				public void onShowFailed() {
+					MKLog.d("youmisdk", "展示失败");
+					MobclickAgent.onEvent(ReviewAdActivity.this,"welcome_ad", 
+							new HashMap<String,String>().put("首页广告","展示失败"));
+				}
+				
+				@Override
+				public void onSpotClosed() {
+					MKLog.d("youmisdk", "展示关闭");
+				}
+				
+				@Override
+				public void onSpotClick() {
+					MobclickAgent.onEvent(ReviewAdActivity.this,"welcome_ad", 
+							new HashMap<String,String>().put("首页广告","点击"));
+					MKLog.i("YoumiAdDemo", "插屏点击");
+				}
+			});
+		}
 	}
 	@Override
 	public void onClick(View v) {

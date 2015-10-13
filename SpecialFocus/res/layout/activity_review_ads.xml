@@ -14,12 +14,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/header"
         android:background="#ffffff">
-        <View
-            android:id="@+id/cutline"
-            android:layout_width="match_parent"
-            android:layout_height="3dip"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/pic_line"/>
     </RelativeLayout>
 
      <com.sepcialfocus.android.widgets.NoClickRelativeLayout 

@@ -14435,7 +14435,6 @@ com.sepcialfocus.android.R$id: int contentLayout
 com.sepcialfocus.android.R$id: int content_ll
 com.sepcialfocus.android.R$id: int content_text_size_rg
 com.sepcialfocus.android.R$id: int custom_indicator
-com.sepcialfocus.android.R$id: int cutline
 com.sepcialfocus.android.R$id: int daimajia_slider_image
 com.sepcialfocus.android.R$id: int daimajia_slider_viewpager
 com.sepcialfocus.android.R$id: int default_bottom_left_indicator
