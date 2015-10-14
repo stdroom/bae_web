@@ -71,6 +71,8 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	
 	LoadNative nativeTask = null;
 	
+	private boolean isNeedWrite = false;
+	
 	public ArticleFragment(){
 	}
 	
@@ -85,8 +87,6 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
                 this.urls = args.getString("key");
             }
         }
-        nativeTask = new LoadNative();
-		nativeTask.execute("");
 	}
 	
 	@Override
@@ -163,6 +163,8 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			ViewGroup container,  Bundle savedInstanceState) {
 		mView = LayoutInflater.from(mContext).inflate(R.layout.fragment_articles, null);
 		initView();
+		nativeTask = new LoadNative();
+		nativeTask.execute("");
 		if(mArticleAdapter!=null){
 			mArticle_listview.setAdapter(mArticleAdapter);
 		}
@@ -236,13 +238,21 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
                 	 if(mArticleList.size() == 0){
                 		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content,isRefresh));
                 	 }else{
-                		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content));
+                		 ArrayList<ArticleItemBean> list = ArticleItemListParse.getArticleItemList(kjDb, content);
+                		 if(list!= null && list.size()>0){
+                			 isNeedWrite = true;
+                		 }
+                		 mArticleList.addAll(0, list);
                 	 }
                  }else{
                 	 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
                 	 isPullRrefreshFlag = info.getHasNextPage();
                 	 nextUrl = info.getNextPageUrl();
-                	 mArticleList.addAll(ArticleItemListParse.getArticleItemList(kjDb, content));
+                	 ArrayList<ArticleItemBean> list = ArticleItemListParse.getArticleItemList(kjDb, content);
+                	 if(list!= null && list.size()>0){
+            			 isNeedWrite = true;
+            		 }
+            		 mArticleList.addAll(0, list);
                  }
                 
             } catch (Exception e) {
@@ -289,15 +299,18 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 		super.onPause();
 		if (task != null && task.getStatus() != AsyncTask.Status.FINISHED)
             task.cancel(true);
-		new Handler().post(new Runnable() {
-			
-			@Override
-			public void run() {
-				BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
-				PreferenceHelper.write(mContext, 
-						AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
-			}
-		});
+		
+		if(isNeedWrite){
+			new Handler().post(new Runnable() {
+				
+				@Override
+				public void run() {
+					BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
+					PreferenceHelper.write(mContext, 
+							AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
+				}
+			});
+		}
 	}
 
 	@Override
