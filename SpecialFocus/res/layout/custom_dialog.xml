@@ -17,18 +17,28 @@
         android:textColor="#424242"
         android:textSize="17sp" />
 
-    <TextView
-        android:id="@+id/tv_pop_win_text"
+
+    <RelativeLayout 
+        android:id="@+id/ad_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="退出页面将不保存录音，是否确定退出?"
-        android:textColor="#7D7D7D"
-        android:textSize="12.5sp" />
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+        <TextView
+	        android:id="@+id/tv_pop_win_text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:layout_marginLeft="10dp"
+	        android:layout_marginRight="10dp"
+	        android:layout_marginTop="10dp"
+	        android:gravity="center"
+	        android:text="退出页面将不保存录音，是否确定退出?"
+	        android:textColor="#7D7D7D"
+	        android:textSize="12.5sp"
+	        android:visibility="visible"/>
+    </RelativeLayout>
+    
 
     <View
         android:layout_width="fill_parent"

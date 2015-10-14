@@ -12,6 +12,7 @@
 
 package com.sepcialfocus.android.ui.settting;
 
+import net.youmi.android.AdManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;

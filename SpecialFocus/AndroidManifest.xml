@@ -27,13 +27,13 @@
         <activity
             android:name="com.sepcialfocus.android.ui.MainActivity"
             android:launchMode="singleTask">
-        </activity>
-        <activity
-            android:name="com.sepcialfocus.android.ui.WelcomeActivity">
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sepcialfocus.android.ui.WelcomeActivity">
         </activity>
         <activity
             android:name="com.sepcialfocus.android.ui.article.ArticleDetailActivity"

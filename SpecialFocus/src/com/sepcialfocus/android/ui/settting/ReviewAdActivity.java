@@ -82,27 +82,8 @@ public class ReviewAdActivity extends BaseFragmentActivity implements View.OnCli
 		splashLayout = ((RelativeLayout) findViewById(R.id.splashview));
 		splashLayout.setVisibility(View.GONE);
 		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
-		try{
-			ApplicationInfo info;
-			info = getPackageManager().getApplicationInfo(getPackageName(),
-					PackageManager.GET_META_DATA);
-			platform = info.metaData.getString("UMENG_CHANNEL");
-			
-			if(!"yes".equals(
-					OnlineConfigAgent.getInstance().getConfigParams(this,
-							"ad_"+platform))){
-				splash.setVisibility(View.GONE);
-			}else{
-				splash.setVisibility(View.VISIBLE);
-			}
-		}catch(Exception e){
-			splash.setVisibility(View.VISIBLE);
-		}
 		splashLayout.addView(splash, params);
 //		MKLog.d("shit",getDeviceInfo(this));
-		if("yes".equals(
-				OnlineConfigAgent.getInstance().getConfigParams(this,
-						"ad_"+platform))){
 			SpotManager.getInstance(this).showSplashSpotAds(this, splashView,
 					new SpotDialogListener() {
 				
@@ -134,7 +115,6 @@ public class ReviewAdActivity extends BaseFragmentActivity implements View.OnCli
 					MKLog.i("YoumiAdDemo", "插屏点击");
 				}
 			});
-		}
 	}
 	@Override
 	public void onClick(View v) {
