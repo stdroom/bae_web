@@ -57,7 +57,7 @@
 		    android:name="com.sepcialfocus.android.services.UpgradeService"
 		    android:exported="false" >
 		</service>
-        <!-- 有米ad start -->
+        <!-- 有米ad start
         <activity
 		    android:name="net.youmi.android.AdBrowser"
 		    android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -74,7 +74,7 @@
 		        <data android:scheme="package" />
 		    </intent-filter>
 		</receiver>
-        <!-- 有米ad end -->
+      有米ad end -->
         
         <!-- 友盟分享 start-->
         <activity

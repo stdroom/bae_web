@@ -15,7 +15,6 @@ package com.sepcialfocus.android.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.youmi.android.spot.SpotManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -99,13 +98,6 @@ public class MainActivity extends BaseFragmentActivity
 		setContentView(R.layout.activity_main);
 		// 友盟发送策略
 		MobclickAgent.updateOnlineConfig(this);
-		SpotManager.getInstance(this).loadSpotAds();
-		// 插屏出现动画效果，0:ANIM_NONE为无动画，1:ANIM_SIMPLE为简单动画效果，2:ANIM_ADVANCE为高级动画效果
-		SpotManager.getInstance(this).setAnimationType(
-				SpotManager.ANIM_ADVANCE);
-		// 设置插屏动画的横竖屏展示方式，如果设置了横屏，则在有广告资源的情况下会是优先使用横屏图。
-		SpotManager.getInstance(this).setSpotOrientation(
-				SpotManager.ORIENTATION_PORTRAIT);
 		mFragmentList = new ArrayList<Fragment>();
 		mKJDb = KJDB.create(this);
 		initView();
