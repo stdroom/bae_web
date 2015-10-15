@@ -12,7 +12,6 @@
 
 package com.sepcialfocus.android.ui.settting;
 
-import net.youmi.android.AdManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -86,7 +85,7 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 //		mAboutUsRl = (RelativeLayout)findViewById(R.id.mine_about_us_rl);
 		mSettingRl = (RelativeLayout)findViewById(R.id.mine_setting_rl);
 		mReviewAdRl = (RelativeLayout)findViewById(R.id.mine_review_ad_rl);
-		
+		mReviewAdRl.setVisibility(View.GONE);
 		mHistoryRl.setOnClickListener(this);
 		mAddColumnRl.setOnClickListener(this);
 		mFavorRl.setOnClickListener(this);

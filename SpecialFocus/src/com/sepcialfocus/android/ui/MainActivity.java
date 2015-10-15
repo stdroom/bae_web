@@ -15,10 +15,6 @@ package com.sepcialfocus.android.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.youmi.android.AdManager;
-import net.youmi.android.spot.SplashView;
-import net.youmi.android.spot.SpotDialogListener;
-import net.youmi.android.spot.SpotManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -103,16 +99,9 @@ public class MainActivity extends BaseFragmentActivity
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
-		AdManager.getInstance(this).init(AppConstant.YOUMI_APPID, AppConstant.YOUMI_APPSECRET, false);
+//		AdManager.getInstance(this).init(AppConstant.YOUMI_APPID, AppConstant.YOUMI_APPSECRET, false);
 		// 友盟发送策略
 		MobclickAgent.updateOnlineConfig(this);
-		SpotManager.getInstance(this).loadSpotAds();
-		// 插屏出现动画效果，0:ANIM_NONE为无动画，1:ANIM_SIMPLE为简单动画效果，2:ANIM_ADVANCE为高级动画效果
-		SpotManager.getInstance(this).setAnimationType(
-				SpotManager.ANIM_ADVANCE);
-		// 设置插屏动画的横竖屏展示方式，如果设置了横屏，则在有广告资源的情况下会是优先使用横屏图。
-		SpotManager.getInstance(this).setSpotOrientation(
-				SpotManager.ORIENTATION_PORTRAIT);
 		mFragmentList = new ArrayList<Fragment>();
 		mKJDb = KJDB.create(this);
 		initView();
@@ -354,22 +343,11 @@ public class MainActivity extends BaseFragmentActivity
 		/** 一个鄙人感觉不错的退出体验*/
 		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){   
 	        if((System.currentTimeMillis()-exitTime) > 2000){  
-	        	if(SpotManager.getInstance(this).disMiss()){
-	        		SpotManager.getInstance(this).showSpotAds(this);
-	        	}else{
-	        		SpotManager.getInstance(this).disMiss();
-	        	}
-	        	
-	            Toast.makeText(this, 
-	            		getResources().getString(R.string.common_back_str),
-	            		Toast.LENGTH_SHORT)
-	            		.show();                                
 	            exitTime = System.currentTimeMillis();   
 	        } else {
 	            finish();
 	            System.exit(0);
 	        }
-//			showNoticeDialog();
 	        return true;   
 	    }
 		return super.onKeyDown(keyCode, event);
@@ -478,39 +456,39 @@ public class MainActivity extends BaseFragmentActivity
 		((TextView)view.findViewById(R.id.pop_title)).setText("是否退出");
 		((TextView)view.findViewById(R.id.tv_pop_win_text)).setVisibility(View.GONE);
 
-		SplashView splashView = new SplashView(this, null);
-		// 设置是否显示倒数
-		splashView.setShowReciprocal(false);
-		// 隐藏关闭按钮
-		splashView.hideCloseBtn(false);
-
-//		Intent intent = new Intent(this, MineActivity.class);
-//		splashView.setIntent(intent);
-		splashView.setIsJumpTargetWhenFail(false);
-
-		View splash;
-		splash = splashView.getSplashView();
-		RelativeLayout splashLayout = ((RelativeLayout) view.findViewById(R.id.ad_ll));
-		splashLayout.setVisibility(View.GONE);
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
-		splashLayout.addView(splash, params);
-		SpotManager.getInstance(this).showSplashSpotAds(this, splashView,new SpotDialogListener() {
-			
-			@Override
-			public void onSpotClosed() {
-			}
-			
-			@Override
-			public void onSpotClick() {
-			}
-			
-			@Override
-			public void onShowSuccess() {
-			}
-			@Override
-			public void onShowFailed() {
-			}
-		});
+//		SplashView splashView = new SplashView(this, null);
+//		// 设置是否显示倒数
+//		splashView.setShowReciprocal(false);
+//		// 隐藏关闭按钮
+//		splashView.hideCloseBtn(false);
+//
+////		Intent intent = new Intent(this, MineActivity.class);
+////		splashView.setIntent(intent);
+//		splashView.setIsJumpTargetWhenFail(false);
+//
+//		View splash;
+//		splash = splashView.getSplashView();
+//		RelativeLayout splashLayout = ((RelativeLayout) view.findViewById(R.id.ad_ll));
+//		splashLayout.setVisibility(View.GONE);
+//		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(-1, -1);
+//		splashLayout.addView(splash, params);
+//		SpotManager.getInstance(this).showSplashSpotAds(this, splashView,new SpotDialogListener() {
+//			
+//			@Override
+//			public void onSpotClosed() {
+//			}
+//			
+//			@Override
+//			public void onSpotClick() {
+//			}
+//			
+//			@Override
+//			public void onShowSuccess() {
+//			}
+//			@Override
+//			public void onShowFailed() {
+//			}
+//		});
 		TextView cancel = (TextView)view.findViewById(R.id.tv_cancel);
 		cancel.setText("取消");
 		cancel.setOnClickListener(new View.OnClickListener() {

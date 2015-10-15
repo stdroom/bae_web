@@ -89,8 +89,8 @@ public class SettingActivity extends BaseFragmentActivity implements View.OnClic
 		
 		mFontSizeRl = (RelativeLayout)findViewById(R.id.mine_font_size_rl);
 		mFontSizeRl.setOnClickListener(this);
-		mLocalDownloadRl = (RelativeLayout)findViewById(R.id.setting_load_recomm_rl);
-		mLocalDownloadRl.setOnClickListener(this);
+//		mLocalDownloadRl = (RelativeLayout)findViewById(R.id.setting_load_recomm_rl);
+//		mLocalDownloadRl.setOnClickListener(this);
 		mCheckVersionRl = (RelativeLayout)findViewById(R.id.setting_check_version_rl);
 		mCheckVersionRl.setOnClickListener(this);
 	}
@@ -108,11 +108,11 @@ public class SettingActivity extends BaseFragmentActivity implements View.OnClic
 		case R.id.setting_check_version_rl:
 			UpdateManager.getUpdateManager().checkAppUpdate(this, true);
 			break;
-		case R.id.setting_load_recomm_rl:
-			intent = new Intent(SettingActivity.this,ReviewAdActivity.class);
-			intent.putExtra("title", getResources().getString(R.string.setting_load_recommon_str));
-			startActivity(intent);
-			break;
+//		case R.id.setting_load_recomm_rl:
+//			intent = new Intent(SettingActivity.this,ReviewAdActivity.class);
+//			intent.putExtra("title", getResources().getString(R.string.setting_load_recommon_str));
+//			startActivity(intent);
+//			break;
 		}
 	}
 

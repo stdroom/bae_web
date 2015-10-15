@@ -105,8 +105,8 @@
 			        android:layout_alignParentRight="true"
 			        android:src="@drawable/right_jump"/>
 			</RelativeLayout> 
-			<include layout="@layout/mine_line_margin_linear"/>
-			<!-- 
+			<!--<include layout="@layout/mine_line_margin_linear"/>
+			 
 			<RelativeLayout 
 			    android:id="@+id/mine_msg_rl"
 			    android:layout_width="match_parent"
@@ -129,7 +129,7 @@
 			        android:focusable="false"
 			        android:background="@drawable/right_jump"/>
 			</RelativeLayout> 
-			 -->
+			
 			<RelativeLayout 
 			    android:id="@+id/setting_load_recomm_rl"
 			    android:layout_width="match_parent"
@@ -151,7 +151,7 @@
 			        android:focusable="false"
 			        android:layout_alignParentRight="true"
 			        android:src="@drawable/right_jump"/>
-			</RelativeLayout> 
+			</RelativeLayout>  -->
 			<include layout="@layout/mine_line_linear"/>
 		</LinearLayout>
 	</ScrollView>
