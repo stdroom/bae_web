@@ -344,6 +344,7 @@ public class MainActivity extends BaseFragmentActivity
 		if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){   
 	        if((System.currentTimeMillis()-exitTime) > 2000){  
 	            exitTime = System.currentTimeMillis();   
+	            Toast.makeText(MainActivity.this, "再按一次退出悦读圈", Toast.LENGTH_SHORT).show();
 	        } else {
 	            finish();
 	            System.exit(0);
