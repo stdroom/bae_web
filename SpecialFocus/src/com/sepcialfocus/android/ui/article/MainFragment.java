@@ -56,6 +56,8 @@ import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.configs.URLs;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemListParse;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemPagesParse;
+import com.sepcialfocus.android.services.NotificationService;
+import com.sepcialfocus.android.services.UpgradeService;
 import com.sepcialfocus.android.ui.adapter.ArticleListAdapter;
 import com.sepcialfocus.android.ui.article.ArticleFragment.Loadhtml;
 import com.sepcialfocus.android.utils.SettingsManager;
@@ -133,6 +135,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         	e.printStackTrace();
         	mArticleList = new ArrayList<ArticleItemBean>();
         }
+        
 	}
 	
 	@Override
@@ -449,5 +452,10 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 		}
 		
 	};
+	@Override
+	protected void lazyLoad() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

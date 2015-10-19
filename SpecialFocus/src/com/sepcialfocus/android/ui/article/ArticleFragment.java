@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.mike.aframe.MKLog;
 import com.mike.aframe.database.KJDB;
 import com.mike.aframe.utils.DensityUtils;
 import com.mike.aframe.utils.MD5Utils;
@@ -62,7 +63,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	// 下拉刷新
 	boolean isRefresh = false;
 	boolean isPullFlag = false;
-	
+	boolean isPrepared = false;
 	String nextUrl;
 	private KJDB kjDb = null;
 	
@@ -79,6 +80,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MKLog.d("state", "onCreate:"+this.urls);
 		this.mContext = getActivity();
 		kjDb = KJDB.create(mContext);
 		Bundle args = getArguments();
@@ -161,18 +163,26 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			ViewGroup container,  Bundle savedInstanceState) {
+		MKLog.d("state", "onCreateView:"+this.urls);
 		mView = LayoutInflater.from(mContext).inflate(R.layout.fragment_articles, null);
 		initView();
-		nativeTask = new LoadNative();
-		nativeTask.execute("");
-		if(mArticleAdapter!=null){
+		if(this.urls.contains("/1/")){
+			MKLog.d("","");
+		}
+		isPrepared = true;
+		if(mArticleAdapter!=null && mArticleAdapter.getCount()>0){
 			mArticle_listview.setAdapter(mArticleAdapter);
+			isPrepared = false;
+		}else{
+			lazyLoad();
 		}
 		return mView;
 	}
 	
 	private void initData(){
 		if(null==mArticleList || mArticleList.size()==0){
+			MKLog.d("urls","开始读服务端-》"+this.urls);
+			isRefresh = true;
 			task  = new Loadhtml(urls);
 			task.execute("","","");
 		}
@@ -199,6 +209,9 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			if(mArticleList == null || mArticleList.size() == 0){
 				initData();
 			}else{
+				MKLog.d("urls","读本地成功-》"+urls);
+				setLoadingVisible(false);
+				mSwipeLayout.setVisibility(View.VISIBLE);
 				mArticleAdapter.notifyDataSetChanged();
 			}
 		}
@@ -207,16 +220,16 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
         protected void onPreExecute() {
             // TODO Auto-generated method stub
             super.onPreExecute();
-            if(mArticleList!=null 
-            		&& mArticleList.size()==0){
-            	setLoadingVisible(true);
-            	mSwipeLayout.setVisibility(View.GONE);
-            }
+        	setLoadingVisible(true);
+        	mSwipeLayout.setVisibility(View.GONE);
             
         }
 	}
 
-	
+	public void onResume(){
+		super.onResume();
+		MKLog.d("state", "onResume:"+this.urls);
+	}
 	
 	class Loadhtml extends AsyncTask<String, String, String>
     {
@@ -242,6 +255,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
                 		 if(list!= null && list.size()>0){
                 			 isNeedWrite = true;
                 		 }
+                		 MKLog.d("urls", "刷新-》"+urls+"-----list.size:"+list.size());
                 		 mArticleList.addAll(0, list);
                 	 }
                  }else{
@@ -252,6 +266,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
                 	 if(list!= null && list.size()>0){
             			 isNeedWrite = true;
             		 }
+                	 MKLog.d("urls", "非刷新-》"+urls+"-----list.size:"+list.size());
             		 mArticleList.addAll(0, list);
                  }
                 
@@ -297,9 +312,14 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 
 	public void onPause(){
 		super.onPause();
+		MKLog.d("state", "onPause:"+this.urls);
+		if (nativeTask != null && nativeTask.getStatus() != AsyncTask.Status.FINISHED)
+			nativeTask.cancel(true);
 		if (task != null && task.getStatus() != AsyncTask.Status.FINISHED)
             task.cancel(true);
 		
+		mView = null;
+		mSwipeLayout = null;
 		if(isNeedWrite){
 			new Handler().post(new Runnable() {
 				
@@ -316,6 +336,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		MKLog.d("state", "onDestory:"+this.urls);
 		if (nativeTask != null && nativeTask.getStatus() != AsyncTask.Status.FINISHED)
 			nativeTask.cancel(true);
 	}
@@ -359,6 +380,19 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	                settings.getSwipeOffsetRight()));
 		 mArticle_listview.setAnimationTime(settings.getSwipeAnimationTime());
 		 mArticle_listview.setSwipeOpenOnLongPress(settings.isSwipeOpenOnLongPress());
+	}
+
+	@Override
+	protected void lazyLoad() {
+		if(mArticleAdapter!=null && mArticleAdapter.getCount()>0){
+			mArticle_listview.setAdapter(mArticleAdapter);
+			return;
+		}
+	   if(!isPrepared || !isVisible) {  
+            return;  
+        }  
+		nativeTask = new LoadNative();
+		nativeTask.execute("");
 	}
 
 }

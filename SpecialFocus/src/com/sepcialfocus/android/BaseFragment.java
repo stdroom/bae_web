@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 public abstract class BaseFragment extends Fragment{
 	protected RelativeLayout mLoadingLayout;
 	protected RelativeLayout mNoNetLayout;
+	protected boolean isVisible;  
 	
 	/**
 	 * 
@@ -40,6 +41,30 @@ public abstract class BaseFragment extends Fragment{
 	 * @since 1.0
 	 */
 	protected abstract void initView();
+	
+    /** 
+     * 在这里实现Fragment数据的缓加载. 
+     * @param isVisibleToUser 
+     */  
+    @Override  
+    public void setUserVisibleHint(boolean isVisibleToUser) {  
+        super.setUserVisibleHint(isVisibleToUser);  
+        if(getUserVisibleHint()) {  
+            isVisible = true;  
+            onVisible();  
+        } else {  
+            isVisible = false;  
+            onInvisible();  
+        }  
+    }  
+  
+    protected void onVisible(){  
+        lazyLoad();  
+    }  
+  
+    protected abstract void lazyLoad();  
+  
+    protected void onInvisible(){}  
 	
 	/**
 	 * 

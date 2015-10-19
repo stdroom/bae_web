@@ -241,5 +241,11 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
 		 mArticle_listview.setSwipeOpenOnLongPress(settings.isSwipeOpenOnLongPress());
 	}
 
+	@Override
+	protected void lazyLoad() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
 

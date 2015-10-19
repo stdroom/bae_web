@@ -31,6 +31,9 @@ public class AppConstant {
 	/** 无悬浮窗�?�? */
 	public static final String FLAG_WINDOW = "no_window";
 	
+	/** 文章推送 */
+	public static final String FLAG_NOTIFICATION = "notify_artile";
+	
 
 	public static final int WEBVIEW_WIDTH = 320;
 	public static final int JUMP_CODE = 0x02;
