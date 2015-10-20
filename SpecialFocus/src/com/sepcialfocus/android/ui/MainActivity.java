@@ -37,6 +37,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import net.youmi.android.AdManager;
+import net.youmi.android.spot.SpotManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -102,6 +104,11 @@ public class MainActivity extends BaseFragmentActivity
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
 //		AdManager.getInstance(this).init(AppConstant.YOUMI_APPID, AppConstant.YOUMI_APPSECRET, false);
+		SpotManager.getInstance(this).loadSpotAds();
+		SpotManager.getInstance(this).setAnimationType(
+				SpotManager.ANIM_ADVANCE);
+		SpotManager.getInstance(this).setSpotOrientation(
+				SpotManager.ORIENTATION_PORTRAIT);
 		// 友盟发送策略
 		MobclickAgent.updateOnlineConfig(this);
 		mFragmentList = new ArrayList<Fragment>();

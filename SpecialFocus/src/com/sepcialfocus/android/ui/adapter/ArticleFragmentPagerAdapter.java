@@ -86,9 +86,11 @@ public class ArticleFragmentPagerAdapter extends FragmentPagerAdapter {
             if(fs!=null){
             	for (Fragment f : fs) {
             		ft.remove(f);
+            		f = null;
             	}
             	ft.commit();
             	ft = null;
+            	fs = null;
             	fm.executePendingTransactions();
             }
         }

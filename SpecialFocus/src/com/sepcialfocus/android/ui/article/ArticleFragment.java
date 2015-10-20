@@ -97,6 +97,16 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 		mArticle_listview = (SwipeListView)mView.findViewById(R.id.article_listview);
 		initSwapLayout();
 		mLoadingLayout = (RelativeLayout)mView.findViewById(R.id.layout_loading_bar);
+		mNoNetLayout = (RelativeLayout)mView.findViewById(R.id.layout_refresh_onclick);
+		mNoNetLayout.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				isRefresh = true;
+				task = new Loadhtml(urls);
+				task.execute("","","");
+			}
+		});
 		mArticle_listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
@@ -133,7 +143,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 							historyBean.setUrl(bean.getUrl());
 							historyBean.setSummary(bean.getSummary());
 							kjDb.save(historyBean);
-						}else{
+						}else{ 
 //							Toast.makeText(mContext, "已经读过，不用继续保存",Toast.LENGTH_SHORT).show();
 						}
 						mArticleAdapter.notifyDataSetChanged();
@@ -173,8 +183,6 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 		if(mArticleAdapter!=null && mArticleAdapter.getCount()>0){
 			mArticle_listview.setAdapter(mArticleAdapter);
 			isPrepared = false;
-		}else{
-			lazyLoad();
 		}
 		return mView;
 	}
@@ -294,6 +302,15 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
         	isRefresh = false;
         	isPullFlag = false;
             mSwipeLayout.setRefreshing(false);
+            
+            if(mArticleList==null 
+            		|| mArticleList.size()==0){
+            	setLoadingVisible(false);
+            	mSwipeLayout.setVisibility(View.GONE);
+            	setNoNetVisible(true);
+            }else{
+            	setNoNetVisible(false);
+            }
         }
 
         @Override
@@ -305,7 +322,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
             	setLoadingVisible(true);
             	mSwipeLayout.setVisibility(View.GONE);
             }
-            
+            setNoNetVisible(false);
         }
         
     }
