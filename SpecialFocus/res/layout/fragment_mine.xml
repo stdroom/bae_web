@@ -212,6 +212,7 @@
 			        android:focusable="false"
 			        android:background="@drawable/right_jump"/>
 			</RelativeLayout> 
+			<include layout="@layout/mine_line_margin_linear"/>
 			<RelativeLayout 
 			    android:id="@+id/mine_setting_rl"
 			    android:layout_width="match_parent"

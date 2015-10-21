@@ -47,7 +47,6 @@ import com.sepcialfocus.android.parse.specialfocus.ArticleItemListParse;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemPagesParse;
 import com.sepcialfocus.android.ui.adapter.ArticleListAdapter;
 import com.sepcialfocus.android.ui.adapter.HistoryListAdapter;
-import com.sepcialfocus.android.ui.article.ArticleFragment.Loadhtml;
 import com.sepcialfocus.android.utils.SettingsManager;
 import com.sepcialfocus.android.widgets.swiptlistview.SwipeListView;
 
@@ -239,12 +238,6 @@ public class ArticleDbFragment extends BaseFragment implements SwipeRefreshLayou
 	                settings.getSwipeOffsetRight()));
 		 mArticle_listview.setAnimationTime(settings.getSwipeAnimationTime());
 		 mArticle_listview.setSwipeOpenOnLongPress(settings.isSwipeOpenOnLongPress());
-	}
-
-	@Override
-	protected void lazyLoad() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

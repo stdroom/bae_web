@@ -16,6 +16,7 @@ import java.util.Map;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.sepcialfocus.android.configs.AppConstant;
 import com.upyun.block.api.listener.CompleteListener;
 import com.upyun.block.api.listener.ProgressListener;
 import com.upyun.block.api.main.UploaderManager;
@@ -31,9 +32,9 @@ import com.upyun.block.api.utils.UpYunUtils;
  */
 public class UploadTask extends AsyncTask<Void, Void, String> {
 	// 空间名
-	private static final String bucket = "enjoyread"; 
+	private static final String bucket = AppConstant.bucket; 
 	// 表单密钥
-	private static final String formApiSecret = "P5OE1Ib+oibYE1vS27xd4n2ipIs=";
+	private static final String formApiSecret = AppConstant.formApiSecret;
 	File localFile;
 	ProgressListener progressListener;
 	CompleteListener completeListener;

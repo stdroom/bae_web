@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,7 @@ import com.sepcialfocus.android.bean.ArticleItemBean;
 import com.sepcialfocus.android.bean.HistroyItemBean;
 import com.sepcialfocus.android.bean.NavBean;
 import com.sepcialfocus.android.bean.PagesInfo;
+import com.sepcialfocus.android.common.ExcutorServiceUtils;
 import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemListParse;
 import com.sepcialfocus.android.parse.specialfocus.ArticleItemPagesParse;
@@ -68,10 +70,6 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	private KJDB kjDb = null;
 	
 	
-	Loadhtml task = null;
-	
-	LoadNative nativeTask = null;
-	
 	private boolean isNeedWrite = false;
 	
 	public ArticleFragment(){
@@ -103,8 +101,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			@Override
 			public void onClick(View v) {
 				isRefresh = true;
-				task = new Loadhtml(urls);
-				task.execute("","","");
+				myHandler.sendEmptyMessage(0x112);
 			}
 		});
 		mArticle_listview.setOnItemClickListener(new OnItemClickListener() {
@@ -160,11 +157,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			public void onClick(View v) {
 				if(!isPullFlag && isPullRrefreshFlag && !isRefresh){
 					isPullFlag = true;
-					task = new Loadhtml(urls+nextUrl);
-					task.execute("","","");
-				} else {
-					isPullFlag = false;
-					mArticle_listview.onBottomComplete();
+					Loadhtml(urls+nextUrl);
 				}
 			}
 		});
@@ -180,173 +173,132 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 			MKLog.d("","");
 		}
 		isPrepared = true;
-		if(mArticleAdapter!=null && mArticleAdapter.getCount()>0){
-			mArticle_listview.setAdapter(mArticleAdapter);
-			isPrepared = false;
-		}
+		isRefresh = false;
+    	isPullFlag = false;
 		return mView;
 	}
 	
-	private void initData(){
-		if(null==mArticleList || mArticleList.size()==0){
-			MKLog.d("urls","开始读服务端-》"+this.urls);
-			isRefresh = true;
-			task  = new Loadhtml(urls);
-			task.execute("","","");
-		}
-	}
 
 	
-	class LoadNative extends AsyncTask<String,String,String>{
-
-		@Override
-		protected String doInBackground(String... params) {
-			readNativeData();
-			return null;
-		}
-		
-		@Override
-        protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			if(mArticleAdapter == null){
-				mArticleAdapter = new ArticleListAdapter(mContext, mArticleList);
-				if(mArticle_listview!=null){
-					mArticle_listview.setAdapter(mArticleAdapter);
-				}
-			}
-			if(mArticleList == null || mArticleList.size() == 0){
-				initData();
-			}else{
-				MKLog.d("urls","读本地成功-》"+urls);
-				setLoadingVisible(false);
-				mSwipeLayout.setVisibility(View.VISIBLE);
-				mArticleAdapter.notifyDataSetChanged();
+	
+	private void initData(){
+		if(isPrepared){
+			if(null==mArticleList || mArticleList.size()==0){
+				MKLog.d("urls","开始读服务端-》"+this.urls);
+				isRefresh = true;
+				Loadhtml(urls);
 			}
 		}
-		
-		@Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            super.onPreExecute();
-        	setLoadingVisible(true);
-        	mSwipeLayout.setVisibility(View.GONE);
-            
-        }
 	}
 
+	private void readNative(){
+		setLoadingVisible(true);
+    	mSwipeLayout.setVisibility(View.GONE);
+		ExcutorServiceUtils.getInstance().getThreadPool().submit(
+				new Runnable(){
+
+					@Override
+					public void run() {
+						readNativeData();
+						if(isPrepared){
+							myHandler.sendEmptyMessage(0x110);
+						}
+					}
+					
+		});
+	}
+	
 	public void onResume(){
 		super.onResume();
 		MKLog.d("state", "onResume:"+this.urls);
+		if(mArticleAdapter!=null && mArticleAdapter.getCount()>0){
+			mArticle_listview.setAdapter(mArticleAdapter);
+			isPrepared = true;
+		}else{
+			lazyLoad();
+		}
 	}
 	
-	class Loadhtml extends AsyncTask<String, String, String>
+	private void Loadhtml(final String urls)
     {
-        Document doc;
-        String urls = "";
-        public Loadhtml(String urls){
-        	this.urls = urls;
-        }
-        @Override
-        protected String doInBackground(String... params) {
-            // TODO Auto-generated method stub
-            try {
-                if("".equals(urls)){
-                	return null;
-                }
-            	doc = Jsoup.connect(urls).timeout(5000).get();
-                 Document content = Jsoup.parse(doc.toString());
-                 if(isRefresh){
-                	 if(mArticleList.size() == 0){
-                		 mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content,isRefresh));
-                	 }else{
-                		 ArrayList<ArticleItemBean> list = ArticleItemListParse.getArticleItemList(kjDb, content);
-                		 if(list!= null && list.size()>0){
-                			 isNeedWrite = true;
-                		 }
-                		 MKLog.d("urls", "刷新-》"+urls+"-----list.size:"+list.size());
-                		 mArticleList.addAll(0, list);
-                	 }
-                 }else{
-                	 PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
-                	 isPullRrefreshFlag = info.getHasNextPage();
-                	 nextUrl = info.getNextPageUrl();
-                	 ArrayList<ArticleItemBean> list = ArticleItemListParse.getArticleItemList(kjDb, content);
-                	 if(list!= null && list.size()>0){
-            			 isNeedWrite = true;
-            		 }
-                	 MKLog.d("urls", "非刷新-》"+urls+"-----list.size:"+list.size());
-            		 mArticleList.addAll(0, list);
-                 }
-                
-            } catch (Exception e) {
-                mArticle_listview.onBottomComplete();
-                mSwipeLayout.setRefreshing(false);
-                isRefresh = false;
-            	isPullFlag = false;
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            // TODO Auto-generated method stub
-            super.onPostExecute(result);
-//            Log.d("doc", doc.toString().trim());
-            setLoadingVisible(false);
-            mSwipeLayout.setVisibility(View.VISIBLE);
-            if(mArticleAdapter!=null){
-            	mArticleAdapter.notifyDataSetChanged();
-            }
-            mArticle_listview.onBottomComplete();
-        	isRefresh = false;
-        	isPullFlag = false;
-            mSwipeLayout.setRefreshing(false);
-            
-            if(mArticleList==null 
-            		|| mArticleList.size()==0){
-            	setLoadingVisible(false);
-            	mSwipeLayout.setVisibility(View.GONE);
-            	setNoNetVisible(true);
-            }else{
-            	setNoNetVisible(false);
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            // TODO Auto-generated method stub
-            super.onPreExecute();
-            if(mArticleList!=null 
-            		&& mArticleList.size()==0){
-            	setLoadingVisible(true);
-            	mSwipeLayout.setVisibility(View.GONE);
-            }
-            setNoNetVisible(false);
-        }
-        
+		ExcutorServiceUtils.getInstance().getThreadPool().submit(
+				new Runnable(){
+					@Override
+					public void run() {
+						try {
+							 Document doc;
+			                if(!"".equals(urls)){
+				                	doc = Jsoup.connect(urls).timeout(5000).get();
+				                	if(!isPrepared){
+				                		return;
+				                	}
+				                	Document content = Jsoup.parse(doc.toString());
+				                	if(!isPrepared){
+				                		return;
+				                	}
+				                	if(isRefresh){
+				                		if(mArticleList.size() == 0){
+				                			mArticleList.addAll(0, ArticleItemListParse.getArticleItemList(kjDb, content,isRefresh));
+				                			PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
+				                			nextUrl = info.getNextPageUrl();
+					                		isPullRrefreshFlag = info.getHasNextPage();
+					                		if(mArticleList!= null && mArticleList.size()>0){
+					                			isNeedWrite = true;
+					                		}
+				                		}else{
+				                			ArrayList<ArticleItemBean> list = ArticleItemListParse.getArticleItemList(kjDb, content);
+				                			if(list!= null && list.size()>0){
+				                				isNeedWrite = true;
+				                			}
+				                			MKLog.d("urls", "刷新-》"+urls+"-----list.size:"+list.size());
+				                			mArticleList.addAll(0, list);
+				                		}
+				                	}else{
+				                		PagesInfo info = ArticleItemPagesParse.getPagesInfo(urls, content);
+				                		isPullRrefreshFlag = info.getHasNextPage();
+				                		nextUrl = info.getNextPageUrl();
+				                		ArrayList<ArticleItemBean> list = ArticleItemListParse.getArticleItemList(kjDb, content);
+				                		if(list!= null && list.size()>0){
+				                			isNeedWrite = true;
+				                		}
+				                		MKLog.d("urls", "非刷新-》"+urls+"-----list.size:"+list.size());
+				                		mArticleList.addAll(0, list);
+				                	}
+				                }
+			                } catch (Exception e) {
+			                	mArticle_listview.onBottomComplete();
+			                	mSwipeLayout.setRefreshing(false);
+			                	isRefresh = false;
+			                	isPullFlag = false;
+			                	e.printStackTrace();
+			                }
+						if(isPrepared){
+							myHandler.sendEmptyMessage(0x111);
+						}
+						}
+					
+				});
     }
 
 	public void onPause(){
 		super.onPause();
 		MKLog.d("state", "onPause:"+this.urls);
-		if (nativeTask != null && nativeTask.getStatus() != AsyncTask.Status.FINISHED)
-			nativeTask.cancel(true);
-		if (task != null && task.getStatus() != AsyncTask.Status.FINISHED)
-            task.cancel(true);
 		
-		mView = null;
-		mSwipeLayout = null;
-		if(isNeedWrite){
-			new Handler().post(new Runnable() {
+		isPrepared = false;
+		
+		if(isNeedWrite && mArticleList!=null && mArticleList.size()>0){
+			ExcutorServiceUtils.getInstance().getThreadPool().submit((new Runnable() {
 				
 				@Override
 				public void run() {
+					
 					BaseApplication.globalContext.saveObject(mArticleList, MD5Utils.md5(urls));
 					PreferenceHelper.write(mContext, 
 							AppConstant.URL_NEXT_PAGE_FILE, MD5Utils.md5(urls),nextUrl);
+					isNeedWrite = false;
+					myHandler.sendEmptyMessage(0x113);
 				}
-			});
+			}));
 		}
 	}
 
@@ -354,8 +306,6 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	public void onDestroy() {
 		super.onDestroy();
 		MKLog.d("state", "onDestory:"+this.urls);
-		if (nativeTask != null && nativeTask.getStatus() != AsyncTask.Status.FINISHED)
-			nativeTask.cancel(true);
 	}
 
 	private void readNativeData(){
@@ -379,8 +329,7 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 	@Override
 	public void onRefresh() {
 		isRefresh = true;
-		task = new Loadhtml(urls);
-		task.execute("","","");
+		Loadhtml(urls);
 	}
 	
 	private void initSwapLayout(){
@@ -399,18 +348,75 @@ public class ArticleFragment extends BaseFragment implements SwipeRefreshLayout.
 		 mArticle_listview.setSwipeOpenOnLongPress(settings.isSwipeOpenOnLongPress());
 	}
 
-	@Override
 	protected void lazyLoad() {
 		if(mArticleAdapter!=null && mArticleAdapter.getCount()>0){
 			mArticle_listview.setAdapter(mArticleAdapter);
 			return;
 		}
-	   if(!isPrepared || !isVisible) {  
+	   if(!isPrepared) {  
             return;  
         }  
-		nativeTask = new LoadNative();
-		nativeTask.execute("");
+		readNative();
 	}
+	
+	private Handler myHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			switch(msg.what){
+			case 0x110:	// 读取本地完毕
+				if(mArticleAdapter == null){
+					mArticleAdapter = new ArticleListAdapter(mContext, mArticleList);
+					if(mArticle_listview!=null){
+						mArticle_listview.setAdapter(mArticleAdapter);
+					}
+				}
+				if(isPrepared){
+					myHandler.sendEmptyMessage(0x112);
+				}
+				break;
+			case 0x111:	// 服务端下载完毕
+				setLoadingVisible(false);
+	            mSwipeLayout.setVisibility(View.VISIBLE);
+	            if(mArticleAdapter!=null){
+	            	mArticleAdapter.notifyDataSetChanged();
+	            }
+	            mArticle_listview.onBottomComplete();
+	        	isRefresh = false;
+	        	isPullFlag = false;
+	            mSwipeLayout.setRefreshing(false);
+	            
+	            if(mArticleList==null 
+	            		|| mArticleList.size()==0){
+	            	setLoadingVisible(false);
+	            	mSwipeLayout.setVisibility(View.GONE);
+	            	setNoNetVisible(true);
+	            }else{
+	            	setNoNetVisible(false);
+	            }
+				break;
+			case 0x112:	// 度服务端之前
+				if(mArticleList!=null 
+		        		&& mArticleList.size()==0){
+		        	setLoadingVisible(true);
+		        	mSwipeLayout.setVisibility(View.GONE);
+		        }
+		        setNoNetVisible(false);
+		        if(mArticleList == null || mArticleList.size() == 0){
+					initData();
+				}else{
+					MKLog.d("urls","读本地成功-》"+urls);
+					setLoadingVisible(false);
+					mSwipeLayout.setVisibility(View.VISIBLE);
+					mArticleAdapter.notifyDataSetChanged();
+				}
+				break;
+			case 0x113:
+				Toast.makeText(getActivity(), "写入成功", Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+		
+	};
 
 }
 

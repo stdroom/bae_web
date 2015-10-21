@@ -13,8 +13,13 @@
 package com.sepcialfocus.android.configs;
 public class AppConstant {
 	
-	public static final String UPYUN = "http://enjoyread.b0.upaiyun.com";
-	public static final String SHARE_ICON = "http://enjoyread.b0.upaiyun.com/test/img/enjoyread.png";
+	public static final String UPYUN = "http://xmpigai.b0.upaiyun.com";
+	public static final String SHARE_ICON = "http://xmpigai.b0.upaiyun.com/test/img/enjoyread.png";
+	
+	// 空间名
+	public static final String bucket = "xmpigai"; 
+	// 表单密钥
+	public static final String formApiSecret = "/LfWYSGfXOD1md3eIcXB9pHUBPE=";
 	
 	public static final String SHARE_HTML = "footer.mp3";
 	

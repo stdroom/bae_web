@@ -30,7 +30,6 @@ import android.widget.RelativeLayout;
 public abstract class BaseFragment extends Fragment{
 	protected RelativeLayout mLoadingLayout;
 	protected RelativeLayout mNoNetLayout;
-	protected boolean isVisible;  
 	
 	/**
 	 * 
@@ -49,20 +48,20 @@ public abstract class BaseFragment extends Fragment{
     @Override  
     public void setUserVisibleHint(boolean isVisibleToUser) {  
         super.setUserVisibleHint(isVisibleToUser);  
-        if(getUserVisibleHint()) {  
-            isVisible = true;  
-            onVisible();  
-        } else {  
-            isVisible = false;  
-            onInvisible();  
-        }  
+//        if(getUserVisibleHint()) {  
+//            isVisible = true;  
+//            onVisible();  
+//        } else {  
+//            isVisible = false;  
+//            onInvisible();  
+//        }  
     }  
   
-    protected void onVisible(){  
-        lazyLoad();  
-    }  
-  
-    protected abstract void lazyLoad();  
+//    protected void onVisible(){  
+//        lazyLoad();  
+//    }  
+//  
+//    protected abstract void lazyLoad();  
   
     protected void onInvisible(){}  
 	
