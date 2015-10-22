@@ -13,8 +13,12 @@
 package com.sepcialfocus.android.ui;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,6 +37,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import net.youmi.android.AdManager;
+import net.youmi.android.spot.SpotManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,16 +52,14 @@ import com.sepcialfocus.android.bean.NavBean;
 import com.sepcialfocus.android.configs.AppConfig;
 import com.sepcialfocus.android.configs.AppConstant;
 import com.sepcialfocus.android.configs.URLs;
-import com.sepcialfocus.android.services.UpgradeService;
+import com.sepcialfocus.android.receiver.CheckUpdateReceiver;
 import com.sepcialfocus.android.ui.adapter.ArticleFragmentPagerAdapter;
-import com.sepcialfocus.android.ui.adapter.MainPagerAdapter;
 import com.sepcialfocus.android.ui.article.ArticleFragment;
 import com.sepcialfocus.android.ui.article.MainFragment;
 import com.sepcialfocus.android.ui.settting.DragSortMenuActivity;
 import com.sepcialfocus.android.ui.settting.MineActivity;
 import com.sepcialfocus.android.utils.UpdateManager;
 import com.sepcialfocus.android.widgets.CustomDialog;
-import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.onlineconfig.OnlineConfigAgent;
 
@@ -100,6 +104,11 @@ public class MainActivity extends BaseFragmentActivity
 		super.onCreate(arg0);
 		setContentView(R.layout.activity_main);
 //		AdManager.getInstance(this).init(AppConstant.YOUMI_APPID, AppConstant.YOUMI_APPSECRET, false);
+		SpotManager.getInstance(this).loadSpotAds();
+		SpotManager.getInstance(this).setAnimationType(
+				SpotManager.ANIM_ADVANCE);
+		SpotManager.getInstance(this).setSpotOrientation(
+				SpotManager.ORIENTATION_PORTRAIT);
 		// 友盟发送策略
 		MobclickAgent.updateOnlineConfig(this);
 		mFragmentList = new ArrayList<Fragment>();
@@ -122,6 +131,11 @@ public class MainActivity extends BaseFragmentActivity
 		super.onResume();
 		AppConfig.imgFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_IMG, AppConstant.FLAG_IMG, false);
 		AppConfig.windowFlag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_WINDOW, AppConstant.FLAG_WINDOW, false);
+		boolean flag = PreferenceHelper.readBoolean(this, AppConstant.FLAG_NOTIFICATION, AppConstant.FLAG_NOTIFICATION, false);
+		if(!flag){
+			PreferenceHelper.write(this, AppConstant.FLAG_NOTIFICATION, AppConstant.FLAG_NOTIFICATION,true);
+			setAlarm();
+		}
 		if(!AppConfig.windowFlag){
 			mDragSoftImg.setVisibility(View.VISIBLE);
 		}else{
@@ -517,5 +531,35 @@ public class MainActivity extends BaseFragmentActivity
 		
 //		builder.setMessage("待测版本"+mUpdate.getVersionCode()+"\n\n"+mUpdate.getUpdateLog());
 	}
+	
+	private void setAlarm(){
+		  Intent intent=new Intent(this,CheckUpdateReceiver.class);
+		  //create the Intent between activity and broadcast
+		  
+		  this.alarm=(AlarmManager)super.getSystemService(Context.ALARM_SERVICE);
+		   //get the alarm service
+		  this.calendar.set(Calendar.HOUR_OF_DAY,HourOfDay);
+		  //set the hour of the calendar to the value that we want 
+		  this.calendar.set(Calendar.MINUTE, 0);
+		  //set the minute of the calendar to 0
+		  this.calendar.set(Calendar.SECOND, 0);
+		  //set the minute of the calendar to 0
+		  this.calendar.set(Calendar.MILLISECOND,0);
+		  //set the millsecond of the calendar to 0
+		 
+		 
+		  intent.setAction("com.sepcialfocus.android.check.article");//define the action of intent
+		  PendingIntent sender=PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		  //define the PendingIntent
+		  this.alarm.setRepeating(AlarmManager.RTC_WAKEUP, this.calendar.getTimeInMillis()+1000*60*60*7,
+		  this.TIME_INTERVAL,sender);//set the properties of alarm
+		                                      //send broatcast at the same time
+	}
+	
+	private final int HourOfDay=8;//定时更新的小时
+    
+    private final int TIME_INTERVAL=1000*60*60*8;//set the interval of the alarm repeating
+	private AlarmManager alarm=null;
+	private Calendar calendar=Calendar.getInstance();//Calendar是一类可以将时间转化成绝对时间
 }
 

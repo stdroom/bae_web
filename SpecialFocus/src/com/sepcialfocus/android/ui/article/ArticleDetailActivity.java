@@ -38,6 +38,7 @@ import android.webkit.WebView;
 import android.webkit.WebSettings.TextSize;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.PopupWindow.OnDismissListener;
@@ -137,6 +138,17 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 		mFavorImg = (ImageView)findViewById(R.id.bottom_favor);
 		mFavorImg.setOnClickListener(this);
 		mFavorImg.setEnabled(false);
+		mNoNetLayout = (RelativeLayout)findViewById(R.id.layout_refresh_onclick);
+		mNoNetLayout.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				setNoNetVisible(false);
+				setLoadingVisible(true);
+				mContentLL.setVisibility(View.GONE);
+				new Loadhtml(urls).execute("","","");
+			}
+		});
 		mContentLL = (LinearLayout)findViewById(R.id.content_ll);
 		mArticleTitleTv = (TextView)findViewById(R.id.article_title);
 		mArticlePostmetaTv = (TextView)findViewById(R.id.article_postmeta);
@@ -194,18 +206,24 @@ public class ArticleDetailActivity extends BaseFragmentActivity
             }
             mArticleContentTv.setText(result);
 //            mArticlePostmetaTv.setText(Html.fromHtml(mArticlePostmetaStr));
-            mWebView.getSettings().setJavaScriptEnabled(false);  
-            mWebView.getSettings().setLoadWithOverviewMode(true);
-            mWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-            mWebView.setBackgroundColor(0);
-            mWebView.loadData(mArticleContentStr, "text/html; charset=UTF-8", "utf-8");
-            new Handler().postDelayed(new Runnable() {
-				@Override
-				public void run() {
-					mContentLL.setVisibility(View.VISIBLE);
-					setLoadingVisible(false);
-				}
-			}, 200);
+            if(!"".equals(mArticleContentStr)){
+            	mWebView.getSettings().setJavaScriptEnabled(false);  
+            	mWebView.getSettings().setLoadWithOverviewMode(true);
+            	mWebView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+            	mWebView.setBackgroundColor(0);
+            	mWebView.loadData(mArticleContentStr, "text/html; charset=UTF-8", "utf-8");
+            	new Handler().postDelayed(new Runnable() {
+            		@Override
+            		public void run() {
+            			mContentLL.setVisibility(View.VISIBLE);
+            			setLoadingVisible(false);
+            		}
+            	}, 200);
+            }else{
+            	setLoadingVisible(false);
+        		mContentLL.setVisibility(View.GONE);
+        		setNoNetVisible(true);
+            }
         }
 
         @Override

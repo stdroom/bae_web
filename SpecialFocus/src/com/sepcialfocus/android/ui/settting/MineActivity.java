@@ -13,6 +13,7 @@
 package com.sepcialfocus.android.ui.settting;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.PopupWindow.OnDismissListener;
 
 import com.sepcialfocus.android.BaseFragmentActivity;
@@ -85,7 +87,6 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 //		mAboutUsRl = (RelativeLayout)findViewById(R.id.mine_about_us_rl);
 		mSettingRl = (RelativeLayout)findViewById(R.id.mine_setting_rl);
 		mReviewAdRl = (RelativeLayout)findViewById(R.id.mine_review_ad_rl);
-		mReviewAdRl.setVisibility(View.GONE);
 		mHistoryRl.setOnClickListener(this);
 		mAddColumnRl.setOnClickListener(this);
 		mFavorRl.setOnClickListener(this);
@@ -122,8 +123,17 @@ public class MineActivity extends BaseFragmentActivity implements View.OnClickLi
 			startActivity(intent);
 			break;
 		case R.id.mine_review_ad_rl: // 回看动画
-			intent = new Intent(MineActivity.this,ReviewAdActivity.class);
-			startActivity(intent);
+//			intent = new Intent(MineActivity.this,ReviewAdActivity.class);
+//			startActivity(intent);
+			try{
+				Uri uri = Uri.parse("market://details?id="+getPackageName());  
+				Intent intent = new Intent(Intent.ACTION_VIEW,uri);  
+				intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);  
+				startActivity(intent);  
+			}catch(Exception e){
+				e.printStackTrace();
+				 Toast.makeText(MineActivity.this, "Couldn't launch the market !", Toast.LENGTH_SHORT).show();
+			}
 			break;
 		case R.id.mine_share_rl:
 			if(mCustomShareBoard == null || !mCustomShareBoard.isShowing()){

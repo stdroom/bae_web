@@ -27,13 +27,13 @@
         <activity
             android:name="com.sepcialfocus.android.ui.MainActivity"
             android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name="com.sepcialfocus.android.ui.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.sepcialfocus.android.ui.WelcomeActivity">
         </activity>
         <activity
             android:name="com.sepcialfocus.android.ui.article.ArticleDetailActivity"
@@ -57,7 +57,24 @@
 		    android:name="com.sepcialfocus.android.services.UpgradeService"
 		    android:exported="false" >
 		</service>
-        <!-- 有米ad start
+		<service
+		    android:name="com.sepcialfocus.android.services.NotificationService"
+		    android:exported="false" >
+		</service>
+		<receiver
+		    android:name="com.sepcialfocus.android.receiver.ArticleReceiver">
+            <intent-filter >
+                <action android:name="com.sepcialfocus.android.receive"/>
+            </intent-filter>
+		</receiver>
+		<receiver
+		    android:name="com.sepcialfocus.android.receiver.CheckUpdateReceiver">
+            <intent-filter >
+                <action android:name="com.sepcialfocus.android.check.article"/>
+            </intent-filter>
+		</receiver>
+		    
+        <!-- 有米ad start-->
         <activity
 		    android:name="net.youmi.android.AdBrowser"
 		    android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -74,7 +91,7 @@
 		        <data android:scheme="package" />
 		    </intent-filter>
 		</receiver>
-      有米ad end -->
+      <!-- 有米ad end -->
         
         <!-- 友盟分享 start-->
         <activity

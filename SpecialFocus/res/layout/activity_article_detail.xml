@@ -58,5 +58,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
+		android:id="@+id/bottom_rl"
         layout="@layout/detail_layout_bottom"/>
+    <include 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/app_bg_color"
+        android:layout_above="@id/bottom_rl"
+        layout="@layout/layout_refresh_loading_data"/>
 </RelativeLayout>

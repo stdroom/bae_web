@@ -14329,7 +14329,9 @@ com.sepcialfocus.android.R$id: int text_smaller_rb
 com.sepcialfocus.android.R$id: int text_smallest_rb
 com.sepcialfocus.android.R$id: int title
 com.sepcialfocus.android.R$id: int toolbar_layout
+com.sepcialfocus.android.R$id: int tvContent
 com.sepcialfocus.android.R$id: int tvProcess
+com.sepcialfocus.android.R$id: int tvTitle
 com.sepcialfocus.android.R$id: int tv_cancel
 com.sepcialfocus.android.R$id: int tv_commit
 com.sepcialfocus.android.R$id: int tv_pop_win_text
@@ -14467,6 +14469,7 @@ com.sepcialfocus.android.R$layout: int activity_main_text_size
 com.sepcialfocus.android.R$layout: int activity_review_ads
 com.sepcialfocus.android.R$layout: int activity_setting
 com.sepcialfocus.android.R$layout: int app_header
+com.sepcialfocus.android.R$layout: int article_notificate
 com.sepcialfocus.android.R$layout: int channel_item
 com.sepcialfocus.android.R$layout: int common_line_margintop_linear
 com.sepcialfocus.android.R$layout: int custom_dialog
@@ -15041,6 +15044,12 @@ com.sepcialfocus.android.library.R$drawable: int weichat
 com.sepcialfocus.android.library.R$string: int action_settings
 com.sepcialfocus.android.library.R$string: int app_name
 com.sepcialfocus.android.library.R$string: int hello_world
+com.sepcialfocus.android.receiver.ArticleReceiver
+com.sepcialfocus.android.receiver.ArticleReceiver: ArticleReceiver()
+com.sepcialfocus.android.receiver.CheckUpdateReceiver
+com.sepcialfocus.android.receiver.CheckUpdateReceiver: CheckUpdateReceiver()
+com.sepcialfocus.android.services.NotificationService
+com.sepcialfocus.android.services.NotificationService: NotificationService()
 com.sepcialfocus.android.services.UpgradeService
 com.sepcialfocus.android.services.UpgradeService: UpgradeService()
 com.sepcialfocus.android.ui.MainActivity
