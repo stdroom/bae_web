@@ -252,7 +252,9 @@ public class ArticleDetailActivity extends BaseFragmentActivity
 	 */
 	private String parseArticleContent(boolean isShare,Document content){
 		//　去掉广告
-		content.getElementById("hr336").remove();
+		if(content.getElementById("hr336")!=null){
+			content.getElementById("hr336").remove();
+		}
 		// 批量处理img标签 链接地址、宽高设置
 		Elements pngs = content.select("img[src]");  
         for (Element element : pngs) {  
